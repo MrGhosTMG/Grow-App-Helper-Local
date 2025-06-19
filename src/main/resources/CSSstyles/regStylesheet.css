@@ -1,0 +1,45 @@
+
+.main_reg_container {
+    -fx-background-color: #52ba25;
+    
+}
+
+.main_reg_container .FontAwesomeIconView {
+        -fx-fill:#c22525;
+    }
+
+    .main_reg_container_r .FontAwesomeIconView  {
+        -fx-fill:#3eff03;
+    }
+
+Text {
+    -fx-fill: #e0e40f;
+    -fx-font-size : 1.3em;
+    
+}
+
+.main_reg_container_field {
+    -fx-background-color: #52ba25;
+
+}
+
+.main_reg_container_r {
+    -fx-background-color: #65c70a;
+}
+
+.input_field {
+    -fx-background-color: #0d2e99;
+    -fx-font-size:1.2em;
+    -fx-pref-height: 35;
+    -fx-text-fill: #f30a0a;
+}
+
+Button{
+-fx-background-color:#e0e40f;
+-fx-text-fill: #143ab8;
+-fx-cursor: hand;
+}
+
+Label {
+   -fx-font-size:1.2em; 
+}

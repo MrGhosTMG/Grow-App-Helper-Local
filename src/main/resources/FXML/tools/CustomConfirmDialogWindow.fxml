@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.Color?>
+
+<BorderPane fx:id="parent_bord_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="150.0" prefWidth="250.0" styleClass="border_pane"
+            stylesheets="@../../CSSstyles/CustomConfirmDialogWindow.css" xmlns="http://javafx.com/javafx/23.0.1"
+            fx:controller="org.jdta.growapp.Utils.ConfirmDialogController"
+            xmlns:fx="http://javafx.com/fxml/1">
+   <bottom>
+      <HBox fx:id="btn_box" prefHeight="65.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <Button fx:id="ok_btn" mnemonicParsing="false" prefHeight="35.0" prefWidth="105.0" styleClass="ok_button"
+                 stylesheets="@../../CSSstyles/CustomConfirmDialogWindow.css" text="Just Do it">
+            <HBox.margin>
+               <Insets left="10.0" top="15.0"/>
+            </HBox.margin>
+            <cursor>
+               <Cursor fx:constant="OPEN_HAND"/>
+            </cursor>
+            <graphic>
+               <FontAwesomeIconView glyphName="CHECK" styleClass="FontAwesomeIconView"/>
+            </graphic>
+         </Button>
+         <Button fx:id="cancel_btn" layoutX="43.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0"
+                 prefWidth="105.0" styleClass="cancel_button" text="I'm Thinking">
+            <HBox.margin>
+               <Insets left="18.0" top="15.0"/>
+            </HBox.margin>
+            <cursor>
+               <Cursor fx:constant="CLOSED_HAND"/>
+            </cursor>
+            <graphic>
+               <FontAwesomeIconView glyphName="UNDO" rotate="-164.7"/>
+            </graphic>
+         </Button>
+      </HBox>
+   </bottom>
+   <top>
+      <Label fx:id="alert_lbl" prefHeight="30.0" prefWidth="194.0" text="Time for 420 ? Are you sure?" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets left="6.0" />
+         </padding>
+         <BorderPane.margin>
+            <Insets left="10.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+   <center>
+      <ImageView fx:id="icon_view" fitHeight="52.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true"
+                 BorderPane.alignment="CENTER">
+         <effect>
+            <Lighting bumpInput="$null" diffuseConstant="2.0" specularConstant="1.01" specularExponent="1.15"
+                      surfaceScale="0.0">
+               <light>
+                  <Light.Distant>
+                     <color>
+                        <Color red="0.6431372761726379" green="0.9882352948188782" blue="0.0117647061124444"/>
+                     </color>
+                  </Light.Distant>
+               </light>
+            </Lighting>
+         </effect>
+         <BorderPane.margin>
+            <Insets top="14.0"/>
+         </BorderPane.margin>
+         <Image url="@../../Images/cannabis.png"/>
+      </ImageView>
+   </center>
+</BorderPane>

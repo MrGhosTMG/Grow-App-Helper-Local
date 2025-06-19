@@ -1,0 +1,74 @@
+package org.jdta.growapp.Controllers;
+
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import org.jdta.growapp.Models.Model;
+import org.jdta.growapp.Utils.DialogUtils;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class CycleLoadController  implements Initializable {
+
+
+    public Label cycle_name_lbl;
+    public Button apply_btn;
+    public Button train_btn;
+    public Button moist_btn;
+    public Button stage_btn;
+    public Button light_btn;
+    public Button edit_btn;
+    public Button del_btn;
+    public Button info_btn;
+    public Button alarm_btn;
+    public Button notes_btn;
+    public Button nutr_btn;
+    public Button galery_btn;
+    public Button log_out_btn;
+    public Slider slider;
+    public Button hist_btn;
+    public Button shop_btn;
+    public Button add_new_cycle_btn;
+    public Button exit_btn;
+    public ComboBox select_cycle_combo_box;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+       // Model.getInstance().getView().
+        add_new_cycle_btn.setOnAction(actionEvent -> onNewCycle());
+        exit_btn.setOnAction(actionEvent -> onExit());
+        log_out_btn.setOnAction(actionEvent -> onLogin());
+    }
+
+
+    // On actions section
+
+    private void onNewCycle() {
+        Stage stage = (Stage) exit_btn.getScene().getWindow();
+        Model.getInstance().getView().showCycleCreateWindow();
+        Model.getInstance().getView().closeStage(stage);
+    }
+
+    private void onLogin() {
+        DialogUtils.confirm("Logout from application?", () -> {
+            Stage stage = (Stage) log_out_btn.getScene().getWindow();
+            Model.getInstance().getView().showLoginWindow();
+            stage.close();
+        });
+
+//        Stage stage = (Stage) exit_btn.getScene().getWindow();
+//        Model.getInstance().getView().showLoginWindow();
+//        Model.getInstance().getView().closeStage(stage);
+    }
+
+    private void onExit() {
+        DialogUtils.confirm("Do you really want to exit?", () -> {
+            Stage stage = (Stage) exit_btn.getScene().getWindow();
+            stage.close();
+        });
+
+//        Stage stage = (Stage) exit_btn.getScene().getWindow();
+//        Model.getInstance().getView().closeStage(stage);
+    }
+}

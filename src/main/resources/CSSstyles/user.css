@@ -1,0 +1,23 @@
+
+.user_container {
+    -fx-background-color: #52ba25;
+}
+
+Button{
+-fx-background-color:#e0e40f;
+-fx-text-fill: #143ab8;
+-fx-cursor: hand;
+}
+
+.label {
+    -fx-text-fill: #e0e40f;
+    -fx-font-size : 1.1em;
+    
+}
+
+textarea {
+    -fx-alignment: top-left;
+    -fx-text-fill:#bf07f7 ;
+    
+    
+}

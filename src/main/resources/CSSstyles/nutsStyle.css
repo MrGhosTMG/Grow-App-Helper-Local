@@ -1,0 +1,45 @@
+
+.nuts_container {
+-fx-background-color: #c225a8;
+}
+
+Button {
+-fx-background-color:#e0e40f;
+-fx-text-fill: #143ab8;
+-fx-cursor: hand;
+}
+.alt_FontAwesomeIconView {
+    -fx-fill:#fc6603;
+}
+.FontAwesomeIconView {
+    -fx-fill:#6125c2;
+}
+.input_field {
+    -fx-background-color: #0d2e99;
+    -fx-font-size:1.1em;
+    -fx-pref-height: 30;
+    -fx-text-fill: #f30a0a;
+
+    -fx-cursor: hand;
+}
+
+.Label {
+   -fx-background-color: #fc6603;
+}
+ .separator {
+    -fx-background-color: #0fe62c;
+    -fx-padding: 0;
+}
+
+.readonly-area {
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #333333;
+    -fx-control-inner-background: #f9f9f9;
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 10;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-padding: 10;
+}

@@ -1,0 +1,35 @@
+.border_pane {
+    -fx-alignment: center;
+    -fx-background-color: #a4fc03;
+    -fx-border-color: #fcad03;
+}
+
+.label {
+    -fx-alignment:center-left;
+    -fx-text-fill:#0345fc ;
+    -fx-background-color: #0bfc03;
+    -fx-font-size: 1.2em;
+    
+}
+
+.FontAwesomeIconView {
+    -fx-fill: #036ffc;
+}
+FontAwesomeIconView {
+    -fx-fill: #e703fc;
+}
+
+.ok_button {
+    -fx-background-color: #0bfc03;
+    -fx-border-color: #fcad03;
+}
+
+.cancel_button {
+    -fx-background-color: #ebfc03;
+    -fx-border-color: #fcad03;
+}
+Button:hover {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: rgb(247, 103, 7);
+    -fx-cursor: HAND;
+}

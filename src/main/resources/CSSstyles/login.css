@@ -1,0 +1,32 @@
+.login_container {
+-fx-background-color: #52ba25;
+}
+
+
+.login_container Text {
+    -fx-fill: #e0e40f;
+    -fx-font-size : 1.3em;
+}
+
+.login_container FontAwesomeIconView {
+    -fx-fill:#6125c2;
+}
+
+.label {
+    -fx-background-color: #b84514;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size : 1.2em;
+}
+
+Button{
+-fx-background-color:#e0e40f;
+-fx-text-fill: #143ab8;
+-fx-cursor: hand;
+}
+
+.inpit_field {
+    -fx-background-color: #0d2e99;
+    -fx-font-size:1.2em;
+    -fx-pref-height: 35;
+    -fx-text-fill: #f30a0a;
+}

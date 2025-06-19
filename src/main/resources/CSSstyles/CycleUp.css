@@ -1,0 +1,73 @@
+
+.cycle_border_pane {
+-fx-background-color: #52ba25;
+    
+}
+
+.slider {
+    -fx-pref-height: 30px;
+}
+
+.slider .track {
+    -fx-background-color: #ff9900;
+    -fx-background-radius: 5px;
+    -fx-pref-height: 6px;
+}
+
+.slider .filled-track {
+    -fx-background-color: #4CAF50; /* Green */
+    -fx-background-radius: 5px;
+}
+
+.slider .thumb {
+    -fx-background-color: #4CAF50;
+    -fx-background-radius: 50%;
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);
+}
+
+.slider .thumb:hover {
+    -fx-background-color: #388E3C; /* Darker green on hover */
+}
+
+.cycle_sides {
+-fx-background-color: #65c70a;
+}
+
+Button {
+-fx-background-color:#e0e40f;
+-fx-text-fill: #143ab8;
+-fx-cursor: hand;
+}
+
+.label {
+    -fx-text-fill: #a00cf7;
+    -fx-font-size:1.1em;
+}
+
+.input_field {
+    -fx-background-color: #1b44ca;
+    -fx-font-size:1.1em;
+    -fx-pref-height: 25;
+    -fx-text-fill: #f30a0a;
+}
+.alt_FontAwesomeIconView {
+    -fx-fill:#fc6603;
+}
+
+.extra_FontAwesomeIconView {
+    -fx-fill:#fc0b03;
+}
+
+.FontAwesomeIconView {
+    -fx-fill:#1c03fc;
+}
+
+FontAwesomeIconView {
+    -fx-fill:#083f0d;
+}
+
+Text {
+    -fx-fill:#6125c2;
+}

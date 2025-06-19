@@ -1,0 +1,38 @@
+
+.cycle_main {
+-fx-background-color: #52ba25;
+}
+
+.cycle_left {
+-fx-background-color: #65c70a;
+}
+
+.cycle_right {
+-fx-background-color: #65c70a;
+}
+
+
+
+.label {
+    -fx-text-fill: #a00cf7;
+    -fx-font-size:1.2em;
+}
+
+Button {
+-fx-background-color:#e0e40f;
+-fx-text-fill: #143ab8;
+-fx-cursor: hand;
+}
+
+.input_field {
+    -fx-background-color: #0d2e99;
+    -fx-font-size:1.1em;
+    -fx-pref-height: 30;
+    -fx-text-fill: #f30a0a;
+}
+.alt_FontAwesomeIconView {
+    -fx-fill:#fc6603;
+}
+.FontAwesomeIconView {
+    -fx-fill:#6125c2;
+}
