@@ -119,13 +119,10 @@ public class UserController implements Initializable {
             stage.close();
         });
 
-//        Stage stage = (Stage) exit_btn.getScene().getWindow();
-//        Model.getInstance().getView().showLoginWindow();
-//        Model.getInstance().getView().closeStage(stage);
+
     }
     private void onExit() {
-//            Stage stage = (Stage) exit_btn.getScene().getWindow();
-//            Model.getInstance().getView().closeStage(stage);
+
         DialogUtils.confirm("Do you really want to exit?", () -> {
             Stage stage = (Stage) exit_btn.getScene().getWindow();
             stage.close();

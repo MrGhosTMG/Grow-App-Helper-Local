@@ -1,55 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 
-<ScrollPane fx:id="scrl_pane" prefHeight="322.0" prefWidth="310.0" styleClass="photo_container" stylesheets="@../../CSSstyles/photo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.PhotoController">
-     <GridPane fx:id="grid_pane" prefHeight="634.0" prefWidth="310.0" styleClass="photo_container">
-         <columnConstraints>
-             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-         <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-         <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-             <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-             <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <ImageView fx:id="img_0_0" fitHeight="135.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-             <Image url="@../../Images/img.jpg" />
-         </ImageView>
-         <ImageView fx:id="img_0_1" fitHeight="135.0" fitWidth="155.0" layoutX="10.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-             <Image url="@../../Images/img.jpg" />
-         </ImageView>
-         <ImageView fx:id="img_1_0" fitHeight="135.0" fitWidth="155.0" layoutX="10.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
-             <Image url="@../../Images/img.jpg" />
-         </ImageView>
-         <ImageView fx:id="img_1_1" fitHeight="135.0" fitWidth="155.0" layoutX="10.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
-             <Image url="@../../Images/img.jpg" />
-         </ImageView>
-      <ImageView fx:id="img_0_01" fitHeight="135.0" fitWidth="155.0" layoutX="10.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../Images/img.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="img_0_011" fitHeight="135.0" fitWidth="155.0" layoutX="165.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
-         <image>
-            <Image url="@../../Images/img.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="img_0_0111" fitHeight="135.0" fitWidth="155.0" layoutX="10.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
-         <image>
-            <Image url="@../../Images/img.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="img_0_01111" fitHeight="135.0" fitWidth="155.0" layoutX="10.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <image>
-            <Image url="@../../Images/img.jpg" />
-         </image>
-      </ImageView>
-     </GridPane>
- </ScrollPane>
+<ScrollPane fx:id="scrl_pane" prefHeight="322.0" prefWidth="310.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.jdta.growapp.Controllers.PhotoController">
+
+    <content>
+        <StackPane>
+            <GridPane fx:id="grid_pane" hgap="10" vgap="10" />
+            <ProgressIndicator fx:id="loader_spinner"
+                               visible="false"
+                               maxWidth="50"
+                               maxHeight="50"
+                               StackPane.alignment="CENTER">
+                <StackPane.margin>
+                    <Insets top="10"/>
+                </StackPane.margin>
+            </ProgressIndicator>
+        </StackPane>
+    </content>
+
+</ScrollPane>

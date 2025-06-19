@@ -6,11 +6,7 @@ module org.jdta.growapp {
     requires org.xerial.sqlitejdbc;
 
     requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
-    requires net.synedra.validatorfx;
-    requires org.kordamp.ikonli.javafx;
-    requires org.kordamp.bootstrapfx.core;
-    requires eu.hansolo.tilesfx;
+
 
     opens org.jdta.growapp to javafx.fxml;
     exports org.jdta.growapp;

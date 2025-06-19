@@ -29,3 +29,12 @@ e
 5src/main/java/org/jdta/growapp/Utils/DialogUtils.java,d\d\ddd2418b27b4058844918616013db1fd7de8aae9
 q
 Asrc/main/java/org/jdta/growapp/Utils/ConfirmDialogController.java,3\1\316438c9d26311f49d1497153ad59a7b48ea88cc
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+b
+2src/main/java/org/jdta/growapp/Utils/DTOUtils.java,7\6\76f4dce94e909563bfe46098eec7b145df46fa22
+b
+2src/main/java/org/jdta/growapp/Utils/DtoUtils.java,2\a\2a0d6dcdea647123c52fa341360acb05fde925b1

@@ -24,7 +24,7 @@ public class CycleLoadController  implements Initializable {
     public Button alarm_btn;
     public Button notes_btn;
     public Button nutr_btn;
-    public Button galery_btn;
+    public Button gallery_btn;
     public Button log_out_btn;
     public Slider slider;
     public Button hist_btn;
