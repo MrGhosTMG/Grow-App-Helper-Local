@@ -27,8 +27,6 @@ s
 Csrc/main/java/org/jdta/growapp/Controllers/NutrientsController.java,b\f\bf73f5b68dcc754a62256bdab5ac450cc332ea98
 e
 5src/main/java/org/jdta/growapp/Utils/DialogUtils.java,d\d\ddd2418b27b4058844918616013db1fd7de8aae9
-q
-Asrc/main/java/org/jdta/growapp/Utils/ConfirmDialogController.java,3\1\316438c9d26311f49d1497153ad59a7b48ea88cc
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
@@ -42,3 +40,9 @@ b
 Wsrc/main/java/org/jdta/growapp/Controllers/ToolsControlls/LightTimeStageController.java,f\6\f65d1491c064776f9bf4a18222d913bd71c8ea36
 c
 3src/main/java/org/jdta/growapp/Utils/FXMLUtils.java,d\7\d74049d3f91f78c2f396f2811f434198f562e977
+_
+/src/main/java/org/jdta/growapp/DTO/UserDTO.java,b\4\b4ce125ea7a0afcb16481265244dc87686f0e5e2
+`
+0src/main/java/org/jdta/growapp/DTO/CycleDTO.java,8\2\82e7fb51025cfdc5c9b1abe784a79e5fdfddc2ae
+†
+Vsrc/main/java/org/jdta/growapp/Controllers/ToolsControlls/ConfirmDialogController.java,7\8\785d5799a9fb6e7d0da78ed01c4afd798518f556

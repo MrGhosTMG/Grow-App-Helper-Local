@@ -17,6 +17,7 @@ Button:hover {
 }
 
 .TextField {
+    -fx-cursor: HAND;
     -fx-background-color: #18fc03bb;
 }
 

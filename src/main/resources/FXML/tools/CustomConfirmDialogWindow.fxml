@@ -16,7 +16,7 @@
 <BorderPane fx:id="parent_bord_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="150.0" prefWidth="250.0" styleClass="border_pane"
             stylesheets="@../../CSSstyles/CustomConfirmDialogWindow.css" xmlns="http://javafx.com/javafx/23.0.1"
-            fx:controller="org.jdta.growapp.Utils.ConfirmDialogController"
+            fx:controller="org.jdta.growapp.Controllers.ToolsControlls.ConfirmDialogController"
             xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <HBox fx:id="btn_box" prefHeight="65.0" prefWidth="200.0" BorderPane.alignment="CENTER">
