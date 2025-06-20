@@ -7,6 +7,8 @@
 <?import javafx.scene.layout.StackPane?>
 
 <ScrollPane fx:id="scrl_pane" prefHeight="322.0" prefWidth="310.0"
+            fitToWidth="true"
+            fitToHeight="true"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.jdta.growapp.Controllers.PhotoController">
@@ -25,5 +27,4 @@
             </ProgressIndicator>
         </StackPane>
     </content>
-
 </ScrollPane>

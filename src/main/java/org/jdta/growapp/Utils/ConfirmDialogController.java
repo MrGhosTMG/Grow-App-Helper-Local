@@ -22,6 +22,7 @@ public class ConfirmDialogController implements Initializable {
     public Label alert_lbl;
     public ImageView icon_view;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

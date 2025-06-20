@@ -2,24 +2,22 @@ package org.jdta.growapp.Utils;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.function.Consumer;
 
 public class DialogUtils {
 
     public static void confirm(String message, Runnable onConfirm) {
+
         try {
             FXMLLoader loader = new FXMLLoader(DialogUtils.class.getResource("/FXML/tools/CustomConfirmDialogWindow.fxml"));
             BorderPane root = loader.load();
 
             ConfirmDialogController controller = loader.getController();
-            //controller.alert_lbl.setText(message);
+            controller.alert_lbl.setText(message);
 
 
 

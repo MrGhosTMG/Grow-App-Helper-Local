@@ -3,8 +3,10 @@ package org.jdta.growapp.Controllers;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.jdta.growapp.Controllers.ToolsControlls.LightTimeStageController;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.DialogUtils;
+import org.jdta.growapp.Utils.FXMLUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,10 +44,33 @@ public class CycleCreateController implements Initializable {
         log_out_btn.setOnAction(actionEvent -> onLogin());
         back_btn.setOnAction(actionEvent -> onUser());
         save_btn.setOnAction(actionEvent -> onSelectedCycle());
+        light_stage_btn.setOnAction(actionEvent -> onSetLight());
     }
 
 
+
     //on actions section
+
+
+    private void onSetLight() {
+        FXMLUtils.openModalWithCallback(
+                "/FXML/tools/cycleCreateTools/LightTimeStage.fxml",
+                "Set Light Time",
+                (LightTimeStageController controller) -> {
+                    // Передаём данные в контроллер, например, установить день/ночь
+                    controller.setDayNightTimes("24", "0");
+                    controller.setDayNightTimes("20", "4");
+                    controller.setDayNightTimes("18", "6");
+                    controller.setDayNightTimes("12", "12");
+
+                    // Подписываемся на кнопку — можно в контроллере вызвать `onComplete`, `onApply` и т.д.
+                    controller.setOnSave(() -> {
+                        System.out.println("Выбранный режим: " + controller.getSelectedHours());
+                    });
+                }
+        );
+    }
+
 
     private void onUser() {
         Stage stage = (Stage) back_btn.getScene().getWindow();
@@ -60,18 +85,12 @@ public class CycleCreateController implements Initializable {
             stage.close();
         });
 
-//        Stage stage = (Stage) exit_btn.getScene().getWindow();
-//        Model.getInstance().getView().showLoginWindow();
-//        Model.getInstance().getView().closeStage(stage);
     }
     private void onExit() {
         DialogUtils.confirm("Do you really want to exit?", () -> {
             Stage stage = (Stage) exit_btn.getScene().getWindow();
             stage.close();
         });
-
-//        Stage stage = (Stage) exit_btn.getScene().getWindow();
-//        Model.getInstance().getView().closeStage(stage);
     }
 
     private void onSelectedCycle() {
