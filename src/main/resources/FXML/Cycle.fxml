@@ -172,7 +172,7 @@
    </left>
    <bottom>
       <VBox prefHeight="100.0" styleClass="cycle_sides" stylesheets="@../CSSstyles/CycleUp.css" BorderPane.alignment="CENTER">
-         <Slider fx:id="slider" majorTickUnit="23.0" minorTickCount="1" prefHeight="18.0" prefWidth="412.0" showTickMarks="true" snapToTicks="true">
+         <Slider fx:id="slider" majorTickUnit="23.0" minorTickCount="1" prefHeight="18.0" prefWidth="412.0" showTickMarks="true" snapToTicks="true" styleClass="cycle_border_pane">
             <VBox.margin>
                <Insets left="4.0" right="4.0" top="4.0" />
             </VBox.margin>
@@ -180,12 +180,15 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </Slider>
-         <ImageView fitHeight="50.0" fitWidth="420.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="slider_image" fitHeight="50.0" fitWidth="420.0" pickOnBounds="true" preserveRatio="true">
             <VBox.margin>
                <Insets bottom="2.0" />
             </VBox.margin>
+            <image>
+               <Image url="@../Images/imageForSlideBar.jpg" />
+            </image>
          </ImageView>
-         <ButtonBar buttonMinWidth="85.0" prefHeight="40.0" prefWidth="180.0">
+         <ButtonBar buttonMinWidth="85.0" prefHeight="40.0" prefWidth="180.0" styleClass="cycle_sides">
             <buttons>
                <Button fx:id="add_new_cycle_btn" layoutX="355.0" layoutY="18.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Add cycle">
                   <graphic>

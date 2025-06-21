@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.jdta.growapp.Controllers.ToolsControlls.LightTimeStageController;
 import org.jdta.growapp.Models.Model;
@@ -41,6 +42,7 @@ public class CycleLoadController  implements Initializable {
     public Button add_new_cycle_btn;
     public Button exit_btn;
     public ComboBox select_cycle_combo_box;
+    public ImageView slider_image;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
