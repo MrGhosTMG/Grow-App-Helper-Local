@@ -69,7 +69,7 @@ public class UserController implements Initializable {
 
 
     // On actions section
-    private void onNutrients() {
+    protected void onNutrients() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/userBoard/Nutrients.fxml"));
         try {
             down_border_pane_top.getChildren().setAll((Node) loader.load());
