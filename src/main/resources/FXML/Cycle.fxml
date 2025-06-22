@@ -8,6 +8,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -69,35 +71,43 @@
             </VBox.margin>
          </Button>
          <Button fx:id="stage_btn" layoutX="10.0" layoutY="45.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="85.0" text="Stage">
-            <graphic>
-               <FontAwesomeIconView glyphName="CODE" />
-            </graphic>
             <VBox.margin>
                <Insets left="8.0" top="10.0" />
             </VBox.margin>
+            <graphic>
+               <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../Images/a.png" />
+                  </image>
+               </ImageView>
+            </graphic>
          </Button>
          <Button fx:id="light_btn" mnemonicParsing="false" prefHeight="45.0" prefWidth="85.0" text="Light ">
             <VBox.margin>
                <Insets left="8.0" top="10.0" />
             </VBox.margin>
             <graphic>
-               <FontAwesomeIconView glyphName="TAG" />
+               <ImageView fitHeight="19.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../Images/small/ic_action_sun.png" />
+                  </image>
+               </ImageView>
             </graphic>
+         </Button>
+         <Button fx:id="hist_btn" mnemonicParsing="false" prefHeight="45.0" prefWidth="85.0" text=" Cycle History" wrapText="true">
+            <graphic>
+               <FontAwesomeIconView glyphName="BOOK" styleClass="extra_FontAwesomeIconView" />
+            </graphic>
+            <VBox.margin>
+               <Insets left="8.0" top="10.0" />
+            </VBox.margin>
          </Button>
          <Button fx:id="edit_btn" layoutX="24.0" layoutY="125.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="85.0" text="Edit">
             <VBox.margin>
-               <Insets left="8.0" top="40.0" />
+               <Insets left="8.0" top="10.0" />
             </VBox.margin>
             <graphic>
                <FontAwesomeIconView glyphName="EDIT" styleClass="alt_FontAwesomeIconView" />
-            </graphic>
-         </Button>
-         <Button fx:id="del_btn" layoutX="10.0" layoutY="150.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="65.0" text="Delete">
-            <VBox.margin>
-               <Insets left="18.0" top="4.0" />
-            </VBox.margin>
-            <graphic>
-               <FontAwesomeIconView glyphName="REMOVE" styleClass="extra_FontAwesomeIconView" />
             </graphic>
          </Button>
       </VBox>
@@ -138,7 +148,11 @@
                <Insets left="6.0" top="10.0" />
             </VBox.margin>
             <graphic>
-               <FontAwesomeIconView glyphName="LIST" styleClass="FontAwesomeIconView" />
+               <ImageView fitHeight="21.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../Images/small/ic_action_shop.png" />
+                  </image>
+               </ImageView>
             </graphic>
          </Button>
          <Button fx:id="gallery_btn" layoutX="16.0" layoutY="196.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="85.0" text="Galery">
@@ -149,19 +163,16 @@
                <Insets left="6.0" top="10.0" />
             </VBox.margin>
          </Button>
-         <Button fx:id="log_out_btn" layoutX="16.0" layoutY="257.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="85.0" text="Logout">
-            <graphic>
-               <FontAwesomeIconView glyphName="EXTERNAL_LINK" styleClass="alt_FontAwesomeIconView" />
-            </graphic>
+         <Button fx:id="shop_btn" disable="true" mnemonicParsing="false" prefHeight="45.0" prefWidth="85.0" text="SHOP WEB">
             <VBox.margin>
-               <Insets left="6.0" top="30.0" />
+               <Insets left="6.0" top="10.0" />
             </VBox.margin>
          </Button>
       </VBox>
    </left>
    <bottom>
       <VBox prefHeight="100.0" styleClass="cycle_sides" stylesheets="@../CSSstyles/CycleUp.css" BorderPane.alignment="CENTER">
-         <Slider fx:id="slider" majorTickUnit="35.0" minorTickCount="1" prefHeight="45.0" showTickMarks="true" snapToTicks="true">
+         <Slider fx:id="slider" majorTickUnit="23.0" minorTickCount="1" prefHeight="18.0" prefWidth="412.0" showTickMarks="true" snapToTicks="true" styleClass="cycle_border_pane">
             <VBox.margin>
                <Insets left="4.0" right="4.0" top="4.0" />
             </VBox.margin>
@@ -169,30 +180,42 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </Slider>
-         <ButtonBar prefHeight="40.0" prefWidth="180.0">
+         <ImageView fx:id="slider_image" fitHeight="50.0" fitWidth="420.0" pickOnBounds="true" preserveRatio="true">
+            <VBox.margin>
+               <Insets bottom="2.0" />
+            </VBox.margin>
+            <image>
+               <Image url="@../Images/imageForSlideBar.jpg" />
+            </image>
+         </ImageView>
+         <ButtonBar prefHeight="40.0" prefWidth="180.0" styleClass="cycle_sides">
             <buttons>
-               <Button fx:id="hist_btn" mnemonicParsing="false" text="History">
-                  <graphic>
-                     <FontAwesomeIconView glyphName="BOOK" styleClass="extra_FontAwesomeIconView" />
-                  </graphic>
-               </Button>
-               <Button fx:id="shop_btn" disable="true" layoutX="355.0" layoutY="18.0" mnemonicParsing="false" text="SHOP WEB" />
-               <Button fx:id="add_new_cycle_btn" layoutX="355.0" layoutY="18.0" mnemonicParsing="false" text="Add cycle">
+               <Button fx:id="add_new_cycle_btn" layoutX="355.0" layoutY="18.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Add cycle">
                   <graphic>
                      <FontAwesomeIconView glyphName="PLUS" />
                   </graphic>
                </Button>
-               <Button fx:id="exit_btn" layoutX="304.0" layoutY="18.0" mnemonicParsing="false" text="Exit">
+               <Button fx:id="del_btn" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Delete">
+                  <graphic>
+                     <FontAwesomeIconView glyphName="REMOVE" styleClass="extra_FontAwesomeIconView" />
+                  </graphic>
+               </Button>
+               <Button fx:id="log_out_btn" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Logout">
+                  <graphic>
+                     <FontAwesomeIconView glyphName="EXTERNAL_LINK" styleClass="alt_FontAwesomeIconView" />
+                  </graphic>
+               </Button>
+               <Button fx:id="exit_btn" layoutX="304.0" layoutY="18.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Exit">
                   <graphic>
                      <FontAwesomeIconView glyphName="CLOSE" styleClass="extra_FontAwesomeIconView" />
                   </graphic>
                </Button>
             </buttons>
             <VBox.margin>
-               <Insets right="10.0" />
+               <Insets bottom="5.0" />
             </VBox.margin>
             <padding>
-               <Insets right="35.0" />
+               <Insets right="25.0" />
             </padding>
          </ButtonBar>
       </VBox>

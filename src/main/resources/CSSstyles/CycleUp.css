@@ -1,6 +1,6 @@
 
 .cycle_border_pane {
--fx-background-color: #52ba25;
+-fx-background-color: #65c70a;
     
 }
 
@@ -32,7 +32,7 @@
 }
 
 .cycle_sides {
--fx-background-color: #65c70a;
+-fx-background-color: #4CAF50;
 }
 
 Button {
@@ -70,4 +70,6 @@ FontAwesomeIconView {
 
 Text {
     -fx-fill:#6125c2;
+    
 }
+
