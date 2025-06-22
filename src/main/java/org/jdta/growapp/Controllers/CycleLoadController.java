@@ -1,21 +1,17 @@
 package org.jdta.growapp.Controllers;
 
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.jdta.growapp.Controllers.ToolsControlls.LightTimeStageController;
+import org.jdta.growapp.Controllers.ToolsControlls.NutrientsController;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.DialogUtils;
 import org.jdta.growapp.Utils.FXMLUtils;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class CycleLoadController  implements Initializable {
 
@@ -61,7 +57,7 @@ public class CycleLoadController  implements Initializable {
 
     private void onSetLight() {
         FXMLUtils.openModalWithCallback(
-                "/FXML/tools/cycleCreateTools/LightTimeStage.fxml",
+                "/FXML/tools/LightTimeStage.fxml",
                 "Set Light Time",
                 (LightTimeStageController controller) -> {
                     // Передаём данные в контроллер, например, установить день/ночь
@@ -81,13 +77,9 @@ public class CycleLoadController  implements Initializable {
     private void onNutrients() {
         FXMLUtils.openModalWithCallback("/FXML/userBoard/Nutrients.fxml", "Nutrients",
                 (NutrientsController controller) -> {
-            controller.setOnSave(() -> {
-                System.out.println("pressed button  save_to_list_btn nutrients");
-            });
-            controller.setOnSet(() -> {
-                System.out.println("pressed button add_nut_in_cycle_btn nutrients");
-            });
-                });
+            controller.setOnSaveNutr(() -> {System.out.println("Save button clicked from CycleLoadController!");});
+            controller.setOnAddNutr(() -> {System.out.println("Add button clicked from CycleLoadController!");});
+        });
     }
 
     private void onNewCycle() {

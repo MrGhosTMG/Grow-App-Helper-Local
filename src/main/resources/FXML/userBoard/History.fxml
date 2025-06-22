@@ -4,7 +4,7 @@
 <?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="hist_parent" prefHeight="322.0" prefWidth="310.0" styleClass="history_container" stylesheets="@../../CSSstyles/history.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.HistoryController">
+<AnchorPane fx:id="hist_parent" prefHeight="322.0" prefWidth="310.0" styleClass="history_container" stylesheets="@../../CSSstyles/history.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.HistoryController">
    <ListView fx:id="hist_list_view" prefHeight="307.0" prefWidth="295.0" styleClass="history_container" />
    <ScrollBar fx:id="h_scroll" layoutY="307.0" prefHeight="14.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="305.0" />
    <ScrollBar fx:id="v_scrl" layoutX="295.0" layoutY="1.0" orientation="VERTICAL" prefHeight="322.0" prefWidth="14.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />

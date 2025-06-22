@@ -188,7 +188,7 @@
                <Image url="@../Images/imageForSlideBar.jpg" />
             </image>
          </ImageView>
-         <ButtonBar buttonMinWidth="85.0" prefHeight="40.0" prefWidth="180.0" styleClass="cycle_sides">
+         <ButtonBar prefHeight="40.0" prefWidth="180.0" styleClass="cycle_sides">
             <buttons>
                <Button fx:id="add_new_cycle_btn" layoutX="355.0" layoutY="18.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Add cycle">
                   <graphic>

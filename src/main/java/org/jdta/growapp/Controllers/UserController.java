@@ -8,8 +8,10 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.jdta.growapp.Controllers.ToolsControlls.NutrientsController;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.DialogUtils;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -52,14 +54,15 @@ public class UserController implements Initializable {
     }
 
 
-
-
     public void addListeners() {
         Model.getInstance().getView().getUserSelectedButton().addListener((observableValue, oldVal, newVal) -> {
             switch (newVal) {
-                case "Photo" -> Model.getInstance().getView().getPhotoView();// .showPhotoFieldInPane(down_border_pane_top);
-                case "History" -> Model.getInstance().getView().getHistoryView();// .showPhotoFieldInPane(down_border_pane_top);
-                case "Nutrients" -> Model.getInstance().getView().getNutrientsView();// .showPhotoFieldInPane(down_border_pane_top);
+                case "Photo" ->
+                        Model.getInstance().getView().getPhotoView();// .showPhotoFieldInPane(down_border_pane_top);
+                case "History" ->
+                        Model.getInstance().getView().getHistoryView();
+                case "Nutrients" ->
+                        Model.getInstance().getView().getNutrientsView();
                 default -> {
                     Model.getInstance().getView().getUserView();
                 }
@@ -70,11 +73,23 @@ public class UserController implements Initializable {
 
     // On actions section
     protected void onNutrients() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/userBoard/Nutrients.fxml"));
         try {
-            down_border_pane_top.getChildren().setAll((Node) loader.load());
-        } catch (IOException e) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e); //Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/userBoard/Nutrients.fxml"));
+            Node root = loader.load();
+
+            //Get controller
+            NutrientsController controller = loader.getController();
+
+            //set callBacks
+            controller.setOnSaveNutr(() -> {
+                System.out.println("Save button clicked from UserController!");
+            });
+            controller.setOnAddNutr(() -> {
+                System.out.println("Add button clicked from UserController!");
+            });
+            down_border_pane_top.getChildren().setAll(root);
+        } catch (Exception e) {
+            e.printStackTrace(); //Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -121,6 +136,7 @@ public class UserController implements Initializable {
 
 
     }
+
     private void onExit() {
 
         DialogUtils.confirm("Do you really want to exit?", () -> {

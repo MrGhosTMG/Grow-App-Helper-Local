@@ -1,9 +1,9 @@
-package org.jdta.growapp.Controllers;
+package org.jdta.growapp.Controllers.ToolsControlls;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import org.jdta.growapp.Controllers.ToolsControlls.LightTimeStageController;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.DialogUtils;
 import org.jdta.growapp.Utils.FXMLUtils;
@@ -28,15 +28,18 @@ public class CycleCreateController implements Initializable {
     public CheckBox check_pot_3;
     public CheckBox check_pot_4;
     public TextField text_pot_fld;
-    public Button start_date_btn;
-    public Button set_eta_date_btn;
     public Button soil_info_btn;
     public Button stage_btn;
     public Button add_img_btn;
-    public ListView list_view_scrn;
     public Button save_btn;
     public SplitMenuButton split_menu_typeSort_btn;
     public Button light_stage_btn;
+    public TextField start_date_fld;
+    public TextField eta_date_fld;
+    public Button set_date_btn;
+    public TableView formed_info_table_view;
+    public Label cycle_reg_lbl;
+    public ImageView img_reg;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -54,7 +57,7 @@ public class CycleCreateController implements Initializable {
 
     private void onSetLight() {
         FXMLUtils.openModalWithCallback(
-                "/FXML/tools/cycleCreateTools/LightTimeStage.fxml",
+                "/FXML/tools/LightTimeStage.fxml",
                 "Set Light Time",
                 (LightTimeStageController controller) -> {
                     // Передаём данные в контроллер, например, установить день/ночь

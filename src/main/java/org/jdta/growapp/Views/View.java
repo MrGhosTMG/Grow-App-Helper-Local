@@ -43,7 +43,7 @@ public class View {
     // FXML read section
     public AnchorPane getLightStageView() {
         if (lightStageView == null) {
-            lightStageView = FXMLUtils.loadFXML("/FXML/tools/cycleCreateTools/LightTimeStage.fxml");
+            lightStageView = FXMLUtils.loadFXML("/FXML/tools/LightTimeStage.fxml");
         }
         return lightStageView;
     }
@@ -101,14 +101,14 @@ public class View {
 
     public AnchorPane getCycleCreateView() {
         if (cycleCreateView == null) {
-            FXMLUtils.loadFXML("/FXML/tools/CycleCreate.fxml");
+            FXMLUtils.loadFXML("/FXML/tools/cycleCreateTools/CycleCreate.fxml");
         }
         return cycleCreateView;
     }
 
     //show window section
     public void showLightStageWindow() {
-        FXMLUtils.openModalWindow("/FXML/tools/cycleCreateTools/LightTimeStage.fxml", "Set Light Time");
+        FXMLUtils.openModalWindow("/FXML/tools/LightTimeStage.fxml", "Set Light Time");
     }
 
     public void showPhotoFieldInPane(AnchorPane parentPane) {
@@ -132,7 +132,7 @@ public class View {
     }
 
     public void showCycleCreateWindow() {
-        FXMLUtils.openModalWindow("/FXML/tools/CycleCreate.fxml", "CycleCreate");
+        FXMLUtils.openModalWindow("/FXML/tools/cycleCreateTools/CycleCreate.fxml", "CycleCreate");
     }
 
     public void showRegWindow() {

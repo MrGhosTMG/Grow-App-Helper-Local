@@ -1,14 +1,14 @@
-package org.jdta.growapp.Controllers;
+package org.jdta.growapp.Controllers.ToolsControlls;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class NutrientsController implements Initializable {
+
 
     private Runnable onSaveCallback;
     private Runnable onAddCallback;
@@ -25,29 +25,32 @@ public class NutrientsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Подгрузка данных
-        save_to_list_btn.setOnAction(actionEvent -> onSetClicked());
+        save_to_list_btn.setOnAction(actionEvent -> onSaveClicked());
         add_nut_in_cycle_btn.setOnAction(actionEvent -> onAddClicked());
     }
 
-    public void setOnSave(Runnable callback) {
+    public void setOnSaveNutr(Runnable callback) {
         this.onSaveCallback = callback;
     }
 
-    public void setOnSet(Runnable callback) {
+    public void setOnAddNutr(Runnable callback) {
         this.onAddCallback = callback;
     }
 
-    private void onSetClicked() {
+    // check actions
+    private void onSaveClicked() {
         if (onSaveCallback != null) {
             onSaveCallback.run();
+            System.out.println("SAVE new Nutrient button Action");
         }
-        ((Stage) save_to_list_btn.getScene().getWindow()).close();
+        //((Stage) save_to_list_btn.getScene().getWindow()).close();
     }
 
     private void onAddClicked() {
         if (onAddCallback != null) {
             onAddCallback.run();
+            System.out.println("Add to  button action");
         }
-        ((Stage) add_nut_in_cycle_btn.getScene().getWindow()).close();
+        //((Stage) add_nut_in_cycle_btn.getScene().getWindow()).close();
     }
 }

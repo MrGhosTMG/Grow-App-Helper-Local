@@ -3,10 +3,17 @@
 -fx-background-color: #c225a8;
 }
 
+.Button:hover {
+-fx-background-color:#0c90dd;
+-fx-text-fill: #e70edc;
+-fx-cursor: hand;
+}
+
 Button {
 -fx-background-color:#e0e40f;
 -fx-text-fill: #143ab8;
 -fx-cursor: hand;
+
 }
 .alt_FontAwesomeIconView {
     -fx-fill:#fc6603;

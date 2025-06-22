@@ -11,7 +11,7 @@
             fitToHeight="true"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.jdta.growapp.Controllers.PhotoController">
+            fx:controller="org.jdta.growapp.Controllers.ToolsControlls.PhotoController">
 
     <content>
         <StackPane>

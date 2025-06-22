@@ -21,6 +21,7 @@ public class LightTimeStageController implements Initializable {
     public RadioButton select_3;
     public RadioButton select_4;
     public TextArea text_info_area;
+    public Label error_lbl;
 
     private Runnable onSaveCallback;
 
@@ -55,6 +56,11 @@ public class LightTimeStageController implements Initializable {
                 }
             }
         });
+    }
+
+    public String setErrorMessage(String msg) {
+        error_lbl.setText(msg);
+        return msg;
     }
 
     private void setupRadioButtons(ToggleGroup group) {
@@ -139,12 +145,35 @@ public class LightTimeStageController implements Initializable {
         });
     }
 
+    // check actions
     private void onSetClicked() {
+        String day = day_input_fld.getText().trim();
+        String night = night_input_fld.getText().trim();
+
+        if (day.isEmpty() || night.isEmpty()) {
+            setErrorMessage("Invalid Input -> Enter Digits only in 24 Hours range");
+            return;
+        }
+
+        try {
+            int dayVal = Integer.parseInt(day);
+            int nightVal = Integer.parseInt(night);
+            if (dayVal + nightVal != 24) {
+                setErrorMessage("Sum of Day and Night hours must be 24.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            setErrorMessage("Please enter valid numbers for time.");
+            return;
+        }
+
         if (onSaveCallback != null) {
             onSaveCallback.run();
+            error_lbl.setText("");
         }
         ((Stage) set_btn.getScene().getWindow()).close();
     }
+
 
     public void setOnSave(Runnable callback) {
         this.onSaveCallback = callback;
