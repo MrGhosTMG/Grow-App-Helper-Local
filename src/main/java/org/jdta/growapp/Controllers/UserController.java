@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import org.jdta.growapp.Controllers.ToolsControlls.NutrientsController;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.DialogUtils;
+import org.jdta.growapp.Utils.FXMLUtils;
 
 
 import java.io.IOException;
@@ -73,23 +74,18 @@ public class UserController implements Initializable {
 
     // On actions section
     protected void onNutrients() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/userBoard/Nutrients.fxml"));
-            Node root = loader.load();
 
-            //Get controller
-            NutrientsController controller = loader.getController();
-
-            //set callBacks
-            controller.setOnSaveNutr(() -> {
-                System.out.println("Save button clicked from UserController!");
-            });
-            controller.setOnAddNutr(() -> {
-                System.out.println("Add button clicked from UserController!");
-            });
+        Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/userBoard/Nutrients.fxml",
+                (NutrientsController controller) -> { //set callBacks
+                    controller.setOnSaveNutr(() -> {
+                        System.out.println("Save button clicked from UserController!");
+                    });
+                    controller.setOnAddNutr(() -> {
+                        System.out.println("Add button clicked from UserController!");
+                    });
+                });
+        if (root != null) {
             down_border_pane_top.getChildren().setAll(root);
-        } catch (Exception e) {
-            e.printStackTrace(); //Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
         }
     }
 

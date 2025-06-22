@@ -1,6 +1,7 @@
 package org.jdta.growapp.Utils;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
@@ -57,6 +58,31 @@ public class FXMLUtils {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Загружает FXML и передаёт контроллер через callback.
+     *
+     * @param fxmlPath путь до FXML
+     * @param controllerCallback действие над контроллером (установка колбэков и т.д.)
+     * @return Node для отображения в Scene
+     */
+    public static <T> Node loadWithControllerCallBackActions(String fxmlPath, Consumer<T> controllerCallback) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(FXMLUtils.class.getResource(fxmlPath));
+            Parent root = loader.load();
+            //Get controller
+            T controller = loader.getController();
+            if (controllerCallback != null) {
+                controllerCallback.accept(controller);
+            }
+            return root;
+        }catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static <T> void openModalWithCallback(
             String fxmlPath,
             String title,
