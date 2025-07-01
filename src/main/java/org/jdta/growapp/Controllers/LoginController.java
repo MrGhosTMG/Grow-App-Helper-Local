@@ -6,7 +6,9 @@ import javafx.stage.Stage;
 import org.jdta.growapp.DTO.User;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Service.UserService;
+import org.jdta.growapp.StartApp;
 import org.jdta.growapp.Utils.DialogUtils;
+import org.jdta.growapp.Utils.PreferencesUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,7 +32,7 @@ public class LoginController implements Initializable {
         exit_btn.setOnAction(actionEvent -> onExit());
 
         // Подгрузим сохранённый логин (если есть)
-        Preferences prefs = Preferences.userNodeForPackage(LoginController.class);
+        Preferences prefs = Preferences.userNodeForPackage(StartApp.class);
         String savedUsername = prefs.get("saved_username", "");
         if (!savedUsername.isEmpty()) {
             user_log_fld.setText(savedUsername);
@@ -54,13 +56,10 @@ public class LoginController implements Initializable {
             if (user != null) {
                 Model.getInstance().setCurrentUser(user);
 
-                Preferences prefs = Preferences.userNodeForPackage(LoginController.class);
                 if (stay_in_check.isSelected()) {
-                    prefs.putInt("saved_user_id", user.getId());
-                    prefs.put("saved_username", user.getUsername());
+                    PreferencesUtils.saveUser(user.getId(), user.getUsername());
                 } else {
-                    prefs.remove("saved_user_id");
-                    prefs.remove("saved_username");
+                    PreferencesUtils.clearUser();
                 }
 
                 Stage stage = (Stage) enter_button.getScene().getWindow();
@@ -72,6 +71,18 @@ public class LoginController implements Initializable {
         } catch (Exception e) {
             DialogUtils.error("Ошибка входа", "Произошла ошибка при попытке входа.");
             e.printStackTrace();
+        }
+    }
+
+
+    private void saveLoginPrefs(User user) {
+        Preferences prefs = Preferences.userNodeForPackage(LoginController.class);
+        if (stay_in_check.isSelected()) {
+            prefs.putInt("saved_user_id", user.getId());
+            prefs.put("saved_username", user.getUsername());
+        } else {
+            prefs.remove("saved_user_id");
+            prefs.remove("saved_username");
         }
     }
 

@@ -10,7 +10,7 @@ import org.jdta.growapp.Service.UserService;
 import org.jdta.growapp.Utils.DialogUtils;
 
 import java.net.URL;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class RegistrationController implements Initializable {
@@ -42,6 +42,9 @@ public class RegistrationController implements Initializable {
         reg_btn.setOnAction(actionEvent -> onRegister());
     }
 
+
+
+    // On actions section
     private void onRegister() {
         clearLabels(); // Очистка старых сообщений
 
@@ -53,17 +56,17 @@ public class RegistrationController implements Initializable {
         boolean hasError = false;
 
         if (!isValidEmail(email)) {
-            mail_lbl.setText(" Введите корректный email");
+            mail_lbl.setText(" Incorrect email form");
             hasError = true;
         }
 
         if (username.length() < 3) {
-            user_lbl.setText(" Имя пользователя от 3 символов");
+            user_lbl.setText(" user name must be longer than 3 symbols");
             hasError = true;
         }
 
-        if (password.length() < 8) {
-            pass_lbl.setText(" Пароль от 8 символов");
+        if (!isValidPassword(password)) {
+            pass_lbl.setText("minimum 1 digit 1 special from [@#$%^&+=!?*()_-] 1 from [a-z] + [A-Z]");
             hasError = true;
         }
 
@@ -73,32 +76,44 @@ public class RegistrationController implements Initializable {
         }
 
         if (!accept_terms_ch_box.isSelected()) {
-            DialogUtils.warning("Внимание", "Вы должны принять условия использования.");
+            pass_check_lbl.setText("Accept terms for complete registration");
             hasError = true;
         }
 
-        if (hasError) return;
+        if (hasError) {
+            if (!accept_terms_ch_box.isSelected()) {
+                DialogUtils.warning("Warning", "accept terms for complete registration");
+            }
+            return;
+        }
 
         try {
-            org.jdta.growapp.DTO.User user = new org.jdta.growapp.DTO.User();
+            User user = new User();
             user.setEmail(email);
             user.setUsername(username);
             user.setPassword(password); // можно захешировать позже
-            user.setCreatedAt(java.time.LocalDate.now());
+            user.setCreatedAt(LocalDateTime.now());
 
             userService.registerUser(user); //  метод должен проверить, не существует ли пользователь
 
-            DialogUtils.info("Успешно", "Пользователь зарегистрирован!");
-            onLogin(); // Вернуться к окну логина
+            DialogUtils.info("success", "New user created!");
+
+            // Вернуться к окну логина
+            onLogin();
+
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage().contains("Email")) {
+                mail_lbl.setText(" Email already used");
+            } else if (e.getMessage().contains("User name")) {
+                user_lbl.setText(" Name already used");
+            } else {
+                DialogUtils.error("Registration Error", e.getMessage());
+            }
         } catch (Exception e) {
-            DialogUtils.error("Ошибка регистрации", "Такой пользователь уже существует или произошла ошибка.");
+            DialogUtils.error("Registration Error", "Try to restart application and try again");
             e.printStackTrace();
         }
     }
-
-
-
-// On actions section
 
     private void onLogin() {
         Stage stage = (Stage) exit_btn.getScene().getWindow();
@@ -116,65 +131,14 @@ public class RegistrationController implements Initializable {
         });
     }
 
+
+    //Fields service tools
     private boolean isValidEmail(String email) {
         return email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
     }
 
-    private void onRegisterClicked() {
-        String email = e_mail_fld.getText().trim();
-        String username = user_name_fld.getText().trim();
-        String password = password_fld.getText();
-        String confirmPassword = password_check_fld.getText();
-
-        mail_lbl.setText("");
-        user_lbl.setText("");
-        pass_lbl.setText("");
-        pass_check_lbl.setText("");
-
-        boolean hasError = false;
-
-        if (email.isEmpty() || !isValidEmail(email)) {
-            mail_lbl.setText(" Введите корректный email");
-            hasError = true;
-        }
-
-        if (username.length() < 3) {
-            user_lbl.setText(" Имя пользователя должно быть от 3 символов");
-            hasError = true;
-        }
-
-        if (password.length() < 8) {
-            pass_lbl.setText(" Пароль должен быть не менее 8 символов");
-            hasError = true;
-        }
-
-        if (!password.equals(confirmPassword)) {
-            pass_check_lbl.setText(" Пароли не совпадают");
-            hasError = true;
-        }
-
-        if (!accept_terms_ch_box.isSelected()) {
-            pass_check_lbl.setText("Примите условия");
-            hasError = true;
-        }
-
-        if (hasError) return;
-
-        // Если всё ок — вызываем сервис
-        try {
-            User user = new User();
-            user.setEmail(email);
-            user.setUsername(username);
-            user.setPassword(password); // TODO: Пароль лучше хешировать (SHA-256 например) — можно потом внедрить
-            user.setCreatedAt(LocalDate.now());
-
-
-            userService.registerUser(user);
-
-            // показать сообщение, перейти к логину и т.д.
-        } catch (Exception e) {
-            user_lbl.setText(" Пользователь с таким email уже существует");
-        }
+    private boolean isValidPassword(String password) {
+        return password.matches("^(?=\\S*[0-9])(?=\\S*[a-z])(?=\\S*[A-Z])(?=\\S*[@#$%^&+=!?*()_-])\\S{8,}$");
     }
 
     private void clearLabels() {
@@ -183,6 +147,5 @@ public class RegistrationController implements Initializable {
         pass_lbl.setText("");
         pass_check_lbl.setText("");
     }
-
 
 }

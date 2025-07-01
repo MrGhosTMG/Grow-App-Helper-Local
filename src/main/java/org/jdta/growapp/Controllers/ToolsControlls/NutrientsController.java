@@ -10,13 +10,17 @@ import java.util.ResourceBundle;
 public class NutrientsController implements Initializable {
 
 
+    public CheckBox add_new_activ;
+    public TextField N_fld;
+    public TextField P_fld;
+    public TextField K_fld;
     private Runnable onSaveCallback;
     private Runnable onAddCallback;
 
     public AnchorPane parent_nutr;
     public Label header_lbl;
     public TextField nut_name_fld;
-    public ChoiceBox choise_nutr;
+    public ChoiceBox choose_nuts;
     public TextArea nutr_add_desc_text;
     public ListView desc_picked_nut_text;
     public Button save_to_list_btn;

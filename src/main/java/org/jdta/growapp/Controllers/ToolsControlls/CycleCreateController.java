@@ -2,13 +2,18 @@ package org.jdta.growapp.Controllers.ToolsControlls;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.DialogUtils;
 import org.jdta.growapp.Utils.FXMLUtils;
 
+import java.io.File;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 
 public class CycleCreateController implements Initializable {
@@ -52,8 +57,69 @@ public class CycleCreateController implements Initializable {
 
 
 
-    //on actions section
+    /*
+on actions section
+    private void onAddPhoto() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Выберите изображение");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
 
+        File selectedFile = fileChooser.showOpenDialog(add_img_btn.getScene().getWindow());
+        if (selectedFile != null) {
+            try {
+                File destDir = new File("Photos");
+                if (!destDir.exists()) {
+                    destDir.mkdirs();
+                }
+
+                File destFile = new File(destDir, selectedFile.getName());
+                Files.copy(selectedFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                loadImagesFromDisk(); // перезагрузка галереи
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void loadImagesFromDisk() {
+        File photoDir = new File("Photos");
+        if (!photoDir.exists() || !photoDir.isDirectory()) {
+            return;
+        }
+
+        File[] imageFiles = photoDir.listFiles((dir, name) ->
+                name.toLowerCase().endsWith(".png") ||
+                        name.toLowerCase().endsWith(".jpg") ||
+                        name.toLowerCase().endsWith(".jpeg")
+        );
+
+        grid_pane.getChildren().clear();
+
+        if (imageFiles == null) return;
+
+        int column = 0;
+        int row = 0;
+
+        for (File imgFile : imageFiles) {
+            Image image = new Image(imgFile.toURI().toString());
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(150);
+            imageView.setFitHeight(135);
+            imageView.setPreserveRatio(true);
+
+            grid_pane.add(imageView, column, row);
+            column++;
+            if (column == 2) {
+                column = 0;
+                row++;
+            }
+        }
+    }
+    ещё кнопку «Удалить все», превью при клике, или диалог редактирования.
+*/
 
     private void onSetLight() {
         FXMLUtils.openModalWithCallback(

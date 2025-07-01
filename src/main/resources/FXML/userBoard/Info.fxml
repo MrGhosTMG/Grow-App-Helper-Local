@@ -3,38 +3,48 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="parent_anchor" prefHeight="355.0" prefWidth="220.0"
-            stylesheets="@../CSSstyles/Info.css" xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane fx:id="parent_anchor" prefHeight="355.0" prefWidth="220.0" styleClass="info_main_container"
+            stylesheets="@../../CSSstyles/Info.css"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.jdta.growapp.Controllers.ToolsControlls.InfoController">
-   <Label fx:id="sort_name" layoutX="6.0" layoutY="6.0" prefHeight="17.0" prefWidth="210.0" styleClass="info_main_container" stylesheets="@../CSSstyles/Info.css" text="Sort name / selected cycle" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="4.0" />
-   <HBox layoutX="10.0" layoutY="28.0" prefHeight="46.0" prefWidth="220.0" styleClass="stage_field" stylesheets="@../CSSstyles/Info.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
-      <Label fx:id="start_date_lbl" prefHeight="46.0" prefWidth="100.0" text="Start Date">
+   <Label fx:id="sort_name" layoutX="6.0" layoutY="6.0" prefHeight="17.0" prefWidth="210.0" styleClass="info_main_container" stylesheets="@../../CSSstyles/Info.css" text="Sort name / selected cycle" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="4.0" />
+   <HBox layoutX="10.0" layoutY="28.0" prefHeight="40.0" prefWidth="220.0" styleClass="info_main_container" stylesheets="@../../CSSstyles/Info.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+      <Label fx:id="start_date_lbl" prefHeight="40.0" prefWidth="140.0" styleClass="stage_field" text="Start Date">
          <HBox.margin>
-            <Insets left="2.0" />
+            <Insets left="1.0" />
          </HBox.margin>
+         <padding>
+            <Insets left="25.0" />
+         </padding>
       </Label>
-      <Label fx:id="ETA_date_lbl" layoutX="10.0" layoutY="10.0" prefHeight="47.0" prefWidth="100.0" text="ETA Date">
+      <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Images/transfer_right_left_40X40.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="ETA_date_lbl" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="120.0" styleClass="date_field" text="ETA Date">
          <HBox.margin>
-            <Insets left="8.0" />
+            <Insets />
          </HBox.margin>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
       </Label>
    </HBox>
-   <VBox layoutY="70.0" prefHeight="115.0" prefWidth="120.0" styleClass="stage_field" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="100.0">
-      <Label fx:id="grow_stage_lbl" prefHeight="17.0" prefWidth="110.0" text="Current Grow stage">
+   <VBox layoutY="70.0" prefHeight="140.0" prefWidth="120.0" styleClass="stage_field" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="100.0">
+      <Label fx:id="grow_stage_lbl" prefHeight="25.0" prefWidth="110.0" text="Grow stage">
          <VBox.margin>
             <Insets left="4.0" />
          </VBox.margin>
       </Label>
-      <ImageView fx:id="image_cycle" fitHeight="98.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="image_cycle" fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
          <VBox.margin>
             <Insets left="2.0" />
          </VBox.margin>
@@ -43,80 +53,83 @@
          </cursor>
       </ImageView>
    </VBox>
-   <VBox layoutX="115.0" layoutY="70.0" prefHeight="115.0" prefWidth="105.0" styleClass="date_field">
+   <VBox layoutX="120.0" layoutY="70.0" prefHeight="140.0" prefWidth="100.0" styleClass="date_field">
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_additional" text="Day / Night time">
          <VBox.margin>
-            <Insets left="2.0" />
+            <Insets left="2.0" top="4.0" />
          </VBox.margin>
       </Text>
       <Label fx:id="light_on_hour" prefHeight="25.0" prefWidth="80.0" text="Day ? hours">
          <VBox.margin>
-            <Insets left="4.0" />
+            <Insets left="4.0" top="4.0" />
          </VBox.margin>
       </Label>
       <Label fx:id="light_of_hour" layoutX="10.0" layoutY="26.0" prefHeight="25.0" prefWidth="80.0" text="Night ? hours">
          <VBox.margin>
-            <Insets left="2.0" />
+            <Insets left="2.0" top="4.0" />
          </VBox.margin>
       </Label>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_additional" text="Light stage is">
          <VBox.margin>
-            <Insets left="2.0" />
+            <Insets left="2.0" top="4.0" />
          </VBox.margin>
       </Text>
       <Label fx:id="light_stage" prefHeight="25.0" prefWidth="80.0" text="Light stage ">
          <VBox.margin>
-            <Insets left="10.0" />
+            <Insets left="10.0" top="4.0" />
          </VBox.margin>
       </Label>
    </VBox>
-   <VBox layoutY="185.0" prefHeight="170.0" prefWidth="110.0" styleClass="grow_stage">
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last watering info :" wrappingWidth="100.25390625">
-         <VBox.margin>
-            <Insets left="2.0" />
-         </VBox.margin>
-      </Text>
-      <Label fx:id="moist_date" prefHeight="25.0" prefWidth="95.0" text="Date of watering">
-         <VBox.margin>
-            <Insets left="4.0" />
-         </VBox.margin>
-      </Label>
-      <Label fx:id="nutr_lbl" layoutX="14.0" layoutY="27.0" prefHeight="45.0" prefWidth="95.0" text="Nutrient added ? (name)" wrapText="true">
-         <VBox.margin>
-            <Insets left="4.0" top="4.0" />
-         </VBox.margin>
-      </Label>
-      <Label fx:id="clean_lbl" layoutX="14.0" layoutY="27.0" prefHeight="36.0" prefWidth="95.0" text="Cleaning added ? info" wrapText="true">
-         <VBox.margin>
-            <Insets left="4.0" top="4.0" />
-         </VBox.margin>
-      </Label>
-      <Label fx:id="moist_remind_lbl" layoutX="14.0" layoutY="105.0" prefHeight="36.0" prefWidth="95.0" text="Planned remind watering date" wrapText="true">
-         <VBox.margin>
-            <Insets left="4.0" />
-         </VBox.margin>
-      </Label>
+   <HBox layoutY="207.0" prefHeight="25.0" prefWidth="220.0" styleClass="info_main_container">
+      <children>
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last watering info :" wrappingWidth="100.25390625">
+            <HBox.margin>
+               <Insets left="4.0" top="4.0" />
+            </HBox.margin>
+         </Text>
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Training used:" wrappingWidth="85.537109375">
+            <HBox.margin>
+               <Insets left="20.0" top="4.0" />
+            </HBox.margin>
+         </Text>
+      </children>
+   </HBox>
+   <VBox layoutX="120.0" layoutY="232.0" prefHeight="129.0" prefWidth="100.0" styleClass="info_main_container">
+      <children>
+         <Label fx:id="training_lbl" prefHeight="40.0" prefWidth="134.0" text="Type of training / No used trainings" wrapText="true">
+            <VBox.margin>
+               <Insets left="4.0" top="4.0" />
+            </VBox.margin>
+         </Label>
+         <Label fx:id="training_remind_lbl" prefHeight="35.0" prefWidth="110.0" text="Training Reminder" wrapText="true">
+            <VBox.margin>
+               <Insets left="4.0" top="4.0" />
+            </VBox.margin>
+         </Label>
+         <Label fx:id="moist_remind_lbl" prefHeight="36.0" prefWidth="107.0" text="Planned watering date" wrapText="true">
+            <VBox.margin>
+               <Insets top="4.0" />
+            </VBox.margin>
+         </Label>
+      </children>
    </VBox>
-   <VBox layoutX="110.0" layoutY="185.0" prefHeight="170.0" prefWidth="110.0" styleClass="info_main_container">
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Training used" wrappingWidth="85.537109375">
-         <VBox.margin>
-            <Insets left="4.0" />
-         </VBox.margin>
-      </Text>
-      <Label fx:id="training_lbl" prefHeight="40.0" prefWidth="95.0" text="Type of training / No used trainings" wrapText="true">
-         <VBox.margin>
-            <Insets left="2.0" top="4.0" />
-         </VBox.margin>
-      </Label>
-      <Label fx:id="training_remind_lbl" prefHeight="35.0" prefWidth="95.0" text="Training Reminder" wrapText="true">
-         <VBox.margin>
-            <Insets left="2.0" top="4.0" />
-         </VBox.margin>
-      </Label>
-      <ScrollPane fx:id="note_scrl" prefHeight="73.0" prefWidth="100.0" styleClass="date_field">
-         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="98.0">
-            <TextArea fx:id="note_txt_area" editable="false" prefHeight="200.0" prefWidth="100.0" promptText="added note" styleClass="Textarea" />
-         </AnchorPane>
-      </ScrollPane>
+   <VBox layoutY="232.0" prefHeight="129.0" prefWidth="120.0" styleClass="grow_stage">
+      <children>
+         <Label fx:id="moist_date" prefHeight="25.0" prefWidth="108.0" text="Date of watering">
+            <VBox.margin>
+               <Insets left="4.0" top="4.0" />
+            </VBox.margin>
+         </Label>
+         <Label fx:id="nutr_lbl" prefHeight="45.0" prefWidth="110.0" text="Nutrient added ? (name)" wrapText="true">
+            <VBox.margin>
+               <Insets left="4.0" top="4.0" />
+            </VBox.margin>
+         </Label>
+         <Label fx:id="clean_lbl" prefHeight="46.0" prefWidth="111.0" text="Cleaning added ? info" wrapText="true">
+            <VBox.margin>
+               <Insets left="4.0" top="4.0" />
+            </VBox.margin>
+         </Label>
+      </children>
    </VBox>
 </AnchorPane>

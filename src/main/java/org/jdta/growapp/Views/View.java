@@ -6,12 +6,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.jdta.growapp.Controllers.LoginController;
+import org.jdta.growapp.DTO.User;
+import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.FXMLUtils;
 
 
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 
 
 public class View {
@@ -26,7 +30,9 @@ public class View {
     private AnchorPane regView;
     private AnchorPane cycleCreateView;
     private AnchorPane lightStageView;
+    private AnchorPane infoView;
     private BorderPane selectedCycleView;
+    private AnchorPane watering;
 
     public View() {
         this.userSelectedButton = new SimpleStringProperty("");
@@ -41,6 +47,21 @@ public class View {
 
 
     // FXML read section
+
+    public AnchorPane getWatering() {
+        if (watering == null) {
+            watering = FXMLUtils.loadFXML("/FXML/tools/userBoard/Watering.fxml");
+        }
+        return watering;
+    }
+
+    public AnchorPane getInfoView() {
+        if (infoView == null) {
+            lightStageView = FXMLUtils.loadFXML("/FXML/tools/userBoard/Info.fxml");
+        }
+        return infoView;
+    }
+
     public AnchorPane getLightStageView() {
         if (lightStageView == null) {
             lightStageView = FXMLUtils.loadFXML("/FXML/tools/LightTimeStage.fxml");
@@ -129,6 +150,8 @@ public class View {
 
     public void showLoginWindow() {
         FXMLUtils.openModalWindow("/FXML/Login.fxml", "Login");
+
+
     }
 
     public void showCycleCreateWindow() {
@@ -148,4 +171,6 @@ public class View {
     public void closeStage(Stage stage) {
         stage.close();
     }
+
+
 }

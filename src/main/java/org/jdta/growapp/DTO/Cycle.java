@@ -1,6 +1,6 @@
 package org.jdta.growapp.DTO;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Cycle {
 
@@ -9,8 +9,8 @@ public class Cycle {
     private String name;
     private boolean isIndoor;
     private double potCapacity;
-    private LocalDate startDate;
-    private LocalDate etaDate;
+    private LocalDateTime startDateTime;
+    private LocalDateTime etaDate;
     private String imagePath;
 
     public int getId() {
@@ -48,17 +48,17 @@ public class Cycle {
         this.potCapacity = potCapacity;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
     }
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setStartDateTime(LocalDateTime startDateTime) {
+        this.startDateTime = startDateTime;
     }
 
-    public LocalDate getEtaDate() {
+    public LocalDateTime getEtaDateTime() {
         return etaDate;
     }
-    public void setEtaDate(LocalDate etaDate) {
+    public void setEtaDateTime(LocalDateTime etaDate) {
         this.etaDate = etaDate;
     }
 

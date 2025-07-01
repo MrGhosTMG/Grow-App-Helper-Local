@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="parent_Anchor_pane" prefHeight="300.0" prefWidth="180.0" styleClass="light_container" stylesheets="@../../CSSstyles/LighTimeStage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.LightTimeStageController">
-   <Label fx:id="Hours_lbl" prefHeight="20.0" prefWidth="70.0" text="Hours" AnchorPane.leftAnchor="58.0" AnchorPane.topAnchor="2.0">
+   <Label fx:id="hours_lbl" layoutX="2.0" prefHeight="20.0" prefWidth="174.0" text="Please select time range" textFill="#ed0707" underline="true" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="2.0">
       <graphic>
          <ImageView fitHeight="28.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../../Images/small/ic_clock.png" />
@@ -43,23 +43,19 @@
       </HBox>
       <VBox prefHeight="115.0" prefWidth="174.0">
          <VBox.margin>
-            <Insets left="6.0"/>
+            <Insets left="6.0" />
          </VBox.margin>
-         <Label fx:id="error_lbl"  prefHeight="65.0" prefWidth="166.0" textAlignment="CENTER" underline="true"
-                wrapText="true">
+         <Label fx:id="error_lbl" prefHeight="65.0" prefWidth="166.0" textAlignment="CENTER" underline="true" wrapText="true">
             <font>
-               <Font name="Roboto Bold Italic" size="12.0"/>
+               <Font name="Roboto Bold Italic" size="12.0" />
             </font>
             <VBox.margin>
-               <Insets left="3.0"/>
+               <Insets left="3.0" />
             </VBox.margin>
          </Label>
-         <TextArea fx:id="text_info_area" editable="false" prefHeight="85.0" prefWidth="172.0" promptText="tips"
-                   styleClass="Textarea" stylesheets="@../../CSSstyles/LighTimeStage.css"
-                   text="For auto-fem pick 20/4 or 18/6  For FEM &amp; REG seeds 12/12 is good for Flowering stage and also can be set if needed fast FINISH(REDUCES YELD) for any type of seeds"
-                   wrapText="true">
+         <TextArea fx:id="text_info_area" editable="false" prefHeight="85.0" prefWidth="172.0" promptText="tips" styleClass="Textarea" stylesheets="@../../CSSstyles/LighTimeStage.css" text="For auto-fem pick 20/4 or 18/6  For FEM &amp; REG seeds 12/12 is good for Flowering stage and also can be set if needed fast FINISH(REDUCES YELD) for any type of seeds" wrapText="true">
             <VBox.margin>
-               <Insets bottom="2.0" left="1.0" right="1.0" top="2.0"/>
+               <Insets bottom="2.0" left="1.0" right="1.0" top="2.0" />
             </VBox.margin>
          </TextArea>
       </VBox>

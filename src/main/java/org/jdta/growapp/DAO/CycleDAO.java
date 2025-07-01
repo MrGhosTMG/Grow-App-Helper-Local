@@ -3,7 +3,7 @@ package org.jdta.growapp.DAO;
 import org.jdta.growapp.DTO.Cycle;
 
 import java.sql.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +21,8 @@ public class CycleDAO {
             stmt.setString(2, cycle.getName());
             stmt.setBoolean(3, cycle.isIndoor());
             stmt.setDouble(4, cycle.getPotCapacity());
-            stmt.setString(5, cycle.getStartDate().toString());
-            stmt.setString(6, cycle.getEtaDate().toString());
+            stmt.setString(5, cycle.getStartDateTime().toString());
+            stmt.setString(6, cycle.getEtaDateTime().toString());
             stmt.setString(7, cycle.getImagePath());
             stmt.executeUpdate();
         }
@@ -41,8 +41,8 @@ public class CycleDAO {
                 cycle.setName(rs.getString("name"));
                 cycle.setIndoor(rs.getInt("is_indoor") == 1);
                 cycle.setPotCapacity(rs.getDouble("pot_capacity"));
-                cycle.setStartDate(LocalDate.parse(rs.getString("start_date")));
-                cycle.setEtaDate(LocalDate.parse(rs.getString("eta_date")));
+                cycle.setStartDateTime(LocalDateTime.parse(rs.getString("start_date")));
+                cycle.setEtaDateTime(LocalDateTime.parse(rs.getString("eta_date")));
                 cycle.setImagePath(rs.getString("image_path"));
                 cycles.add(cycle);
             }
@@ -63,8 +63,8 @@ public class CycleDAO {
                     cycle.setName(rs.getString("name"));
                     cycle.setIndoor(rs.getInt("is_indoor") == 1);
                     cycle.setPotCapacity(rs.getDouble("pot_capacity"));
-                    cycle.setStartDate(LocalDate.parse(rs.getString("start_date")));
-                    cycle.setEtaDate(LocalDate.parse(rs.getString("eta_date")));
+                    cycle.setStartDateTime(LocalDateTime.parse(rs.getString("start_date")));
+                    cycle.setEtaDateTime(LocalDateTime.parse(rs.getString("eta_date")));
                     cycle.setImagePath(rs.getString("image_path"));
                     return cycle;
                 }
@@ -88,8 +88,8 @@ public class CycleDAO {
             stmt.setString(2, cycle.getName());
             stmt.setBoolean(3, cycle.isIndoor());
             stmt.setDouble(4, cycle.getPotCapacity());
-            stmt.setString(5, cycle.getStartDate().toString());
-            stmt.setString(6, cycle.getEtaDate().toString());
+            stmt.setString(5, cycle.getStartDateTime().toString());
+            stmt.setString(6, cycle.getEtaDateTime().toString());
             stmt.setString(7, cycle.getImagePath());
             stmt.setInt(8, cycle.getId());
             return stmt.executeUpdate() > 0;
@@ -117,8 +117,8 @@ public class CycleDAO {
                 cycle.setName(rs.getString("name"));
                 cycle.setIndoor(rs.getInt("is_indoor") == 1);
                 cycle.setPotCapacity(rs.getDouble("pot_capacity"));
-                cycle.setStartDate(LocalDate.parse(rs.getString("start_date")));
-                cycle.setEtaDate(LocalDate.parse(rs.getString("eta_date")));
+                cycle.setStartDateTime(LocalDateTime.parse(rs.getString("start_date")));
+                cycle.setEtaDateTime(LocalDateTime.parse(rs.getString("eta_date")));
                 cycle.setImagePath(rs.getString("image_path"));
                 cycles.add(cycle);
             }

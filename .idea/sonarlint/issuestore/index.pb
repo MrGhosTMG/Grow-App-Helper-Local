@@ -66,3 +66,13 @@ _
 0src/main/java/org/jdta/growapp/DAO/PhotoDAO.java,8\3\8387dc07fa588531adb41041c3eda33c89b9c8a7
 g
 7src/main/java/org/jdta/growapp/Service/UserService.java,0\8\084db2078e094d126b940abf2d396e9bada05c83
+}
+Msrc/main/java/org/jdta/growapp/Controllers/ToolsControlls/InfoController.java,6\a\6a6b559f67227e4c035db64c16b54b32d4698102
+j
+:src/main/java/org/jdta/growapp/Utils/PreferencesUtils.java,8\d\8dc78ed4aefacb997084e8fd6337c0e9e4b31b3e
+Å
+Qsrc/main/java/org/jdta/growapp/Controllers/ToolsControlls/WateringController.java,1\a\1ae9c70cb3e0adc8e7fedecc44e599fe29b9db02
+Å
+Qsrc/main/java/org/jdta/growapp/Controllers/ToolsControlls/TrainingController.java,7\2\72078ef2bf46ffe58dce1e13f7d82b7c850cfeb7
+f
+6src/main/java/org/jdta/growapp/Enums/TrainingType.java,0\d\0da58a22206c3e9a7c9bb0c985f5b063523f0b5e

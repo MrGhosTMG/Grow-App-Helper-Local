@@ -6,7 +6,7 @@ import org.jdta.growapp.DTO.Cycle;
 import org.jdta.growapp.Database.DBConnection;
 
 import java.sql.Connection;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class CycleDAOTest {
     public static void main(String[] args) {
@@ -19,15 +19,15 @@ public class CycleDAOTest {
             cycle.setName("Amnesia Auto");
             cycle.setIndoor(true);
             cycle.setPotCapacity(5.5);
-            cycle.setStartDate(LocalDate.now());
-            cycle.setEtaDate(LocalDate.now().plusDays(70));
+            cycle.setStartDateTime(LocalDateTime.now());
+            cycle.setEtaDateTime(LocalDateTime.now().plusDays(70));
             cycle.setImagePath("/photos/amnesia.png");
 
             dao.insert(cycle);
             System.out.println("Cycle inserted!");
 
             for (Cycle c : dao.findAll()) {
-                System.out.println(c.getName() + " (" + c.getStartDate() + ")");
+                System.out.println(c.getName() + " (" + c.getStartDateTime() + ")");
             }
 
             DBConnection.closeConnection();

@@ -3,12 +3,13 @@ package org.jdta.growapp.DAO;
 import org.jdta.growapp.DTO.User;
 
 import java.sql.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
+
 
     private final Connection connection;
     private static final DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -38,6 +39,8 @@ public class UserDAO {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+                System.out.println("Looking for user with ID: " + id);
+
                 return extractUserFromResultSet(resultSet);
             }
         }
@@ -57,6 +60,7 @@ public class UserDAO {
         }
         return users;
     }
+
 
 
     public void update(User user) throws SQLException {
@@ -89,7 +93,7 @@ public class UserDAO {
 
         String createdAtSrt = resultSet.getString("created_at");
         if (createdAtSrt != null) {
-            user.setCreatedAt(LocalDate.parse(createdAtSrt, formater));
+            user.setCreatedAt(LocalDateTime.parse(createdAtSrt, formater));
         }
         return user;
     }
@@ -98,6 +102,18 @@ public class UserDAO {
         String sql = "SELECT * FROM users WHERE username = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return extractUserFromResultSet(rs);
+            }
+        }
+        return null;
+    }
+
+    public User findByEmail(String email) throws SQLException {
+        String sql = "SELECT * FROM users WHERE email = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, email);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 return extractUserFromResultSet(rs);

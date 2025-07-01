@@ -3,7 +3,6 @@ package org.jdta.growapp.Controllers.ToolsControlls;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.ResourceBundle;
 
 public class LightTimeStageController implements Initializable {
     public AnchorPane parent_Anchor_pane;
-    public Label Hours_lbl;
+    public Label hours_lbl;
     public CheckBox check_box_manually;
     public TextField night_input_fld;
     public TextField day_input_fld;
@@ -56,6 +55,11 @@ public class LightTimeStageController implements Initializable {
                 }
             }
         });
+    }
+
+    public String setHoursMessage(String msg) {
+        hours_lbl.setText(msg);
+        return msg;
     }
 
     public String setErrorMessage(String msg) {
@@ -171,7 +175,8 @@ public class LightTimeStageController implements Initializable {
             onSaveCallback.run();
             error_lbl.setText("");
         }
-        ((Stage) set_btn.getScene().getWindow()).close();
+        setHoursMessage("Saved " + getSelectedHours());
+        //((Stage) set_btn.getScene().getWindow()).close();
     }
 
 
@@ -185,6 +190,15 @@ public class LightTimeStageController implements Initializable {
     }
 
     public String getSelectedHours() {
-        return day_input_fld.getText() + " / " + night_input_fld.getText();
+        String day = day_input_fld.getText().trim();
+        String night = night_input_fld.getText().trim();
+        try {
+            int d = Integer.parseInt(day);
+            int n = Integer.parseInt(night);
+            return d + " / " + n;
+        } catch (NumberFormatException e) {
+            return "Invalid format";
+        }
     }
+
 }

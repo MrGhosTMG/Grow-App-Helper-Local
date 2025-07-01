@@ -1,11 +1,14 @@
 package org.jdta.growapp.Models;
 
+import org.jdta.growapp.Controllers.LoginController;
 import org.jdta.growapp.DAO.UserDAO;
 import org.jdta.growapp.DTO.User;
 import org.jdta.growapp.Database.DBConnection;
+import org.jdta.growapp.Utils.PreferencesUtils;
 import org.jdta.growapp.Views.View;
 
 import java.sql.Connection;
+import java.util.prefs.Preferences;
 
 public class Model {
 
@@ -51,4 +54,13 @@ public class Model {
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
+
+    public void logout() {
+        PreferencesUtils.clearUser();
+        currentUser = null;
+        getView().showLoginWindow();
+    }
+
+
+
 }

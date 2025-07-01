@@ -1,6 +1,6 @@
 package org.jdta.growapp.DTO;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class User {
 
@@ -8,7 +8,7 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     public int getId() {
         return id;
@@ -39,10 +39,10 @@ public class User {
     }
 
     //парсить строку в LocalDate или LocalDateTime (можно через DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

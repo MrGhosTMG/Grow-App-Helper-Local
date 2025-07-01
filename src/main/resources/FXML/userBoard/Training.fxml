@@ -1,14 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
-
-</AnchorPane>
+<BorderPane fx:id="parent_border_pane" prefHeight="355.0" prefWidth="220.0" styleClass="main_training_window" stylesheets="@../../CSSstyles/Training.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.TrainingController">
+   <top>
+      <AnchorPane prefHeight="203.0" prefWidth="220.0" BorderPane.alignment="CENTER">
+         <HBox prefHeight="200.0" prefWidth="220.0">
+            <VBox prefHeight="200.0" prefWidth="110.0">
+               <RadioButton fx:id="LST_rb" mnemonicParsing="false" prefHeight="25.0" text="LST" textFill="#da0cbf">
+                  <VBox.margin>
+                     <Insets left="6.0" top="4.0" />
+                  </VBox.margin>
+               </RadioButton>
+               <RadioButton fx:id="DEF_rb" mnemonicParsing="false" prefHeight="25.0" text="DEFOLIATION" textFill="#92f507">
+                  <VBox.margin>
+                     <Insets left="6.0" top="4.0" />
+                  </VBox.margin>
+               </RadioButton>
+               <RadioButton fx:id="SCRG_rb" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" text="SCROG" textFill="#0d37dd">
+                  <VBox.margin>
+                     <Insets left="6.0" top="4.0" />
+                  </VBox.margin>
+               </RadioButton>
+               <RadioButton fx:id="TOP_rb" layoutX="10.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" text="TOPING" textFill="#f80606">
+                  <VBox.margin>
+                     <Insets left="6.0" top="4.0" />
+                  </VBox.margin>
+               </RadioButton>
+               <RadioButton fx:id="FIM_rb" mnemonicParsing="false" prefHeight="25.0" text="FIM + SCROG" textFill="#26afff">
+                  <VBox.margin>
+                     <Insets left="6.0" top="4.0" />
+                  </VBox.margin>
+               </RadioButton>
+               <RadioButton fx:id="ML_rb" mnemonicParsing="false" prefHeight="25.0" text="MainLining" textFill="#1a720e">
+                  <VBox.margin>
+                     <Insets left="6.0" top="4.0" />
+                  </VBox.margin>
+               </RadioButton>
+               <RadioButton fx:id="other_rb" mnemonicParsing="false" prefHeight="24.0" text="Other stresses" textFill="#f8f8f8">
+                  <VBox.margin>
+                     <Insets left="6.0" top="4.0" />
+                  </VBox.margin>
+               </RadioButton>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="110.0">
+               <Label fx:id="delay_lbl" prefHeight="27.0" prefWidth="110.0" text="Add delay manually:" textFill="#f5f2f2">
+                  <VBox.margin>
+                     <Insets left="2.0" />
+                  </VBox.margin>
+               </Label>
+               <HBox prefHeight="33.0" prefWidth="110.0">
+                  <TextField fx:id="days_in_fld" alignment="TOP_CENTER" prefHeight="25.0" prefWidth="75.0" promptText="days" styleClass="input_field">
+                     <HBox.margin>
+                        <Insets left="20.0" top="2.0" />
+                     </HBox.margin>
+                  </TextField>
+               </HBox>
+               <Button fx:id="add_days_btn" mnemonicParsing="false" text="Add">
+                  <VBox.margin>
+                     <Insets bottom="2.0" left="35.0" />
+                  </VBox.margin>
+               </Button>
+               <Line endX="100.0" startX="-8.384737968444824" startY="1.5497207641601562E-6">
+                  <VBox.margin>
+                     <Insets top="2.0" />
+                  </VBox.margin>
+               </Line>
+               <Text fill="#1a720e" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Text" text="MainLining steps:">
+                  <VBox.margin>
+                     <Insets left="4.0" top="10.0" />
+                  </VBox.margin>
+               </Text>
+               <RadioButton fx:id="ml_main_step_rb" mnemonicParsing="false" prefHeight="15.0" text="Main step" textFill="#dd150a">
+                  <VBox.margin>
+                     <Insets left="6.0" top="4.0" />
+                  </VBox.margin>
+               </RadioButton>
+               <RadioButton fx:id="adit_step_rb" layoutX="10.0" layoutY="92.0" mnemonicParsing="false" prefHeight="15.0" text="Additional step" textFill="#0c1cd3">
+                  <VBox.margin>
+                     <Insets left="6.0" top="4.0" />
+                  </VBox.margin>
+               </RadioButton>
+               <Button fx:id="set_step_btn" mnemonicParsing="false" text="Set step">
+                  <VBox.margin>
+                     <Insets left="30.0" top="8.0" />
+                  </VBox.margin>
+               </Button>
+            </VBox>
+         </HBox>
+         <Line endX="100.0" layoutX="110.0" layoutY="200.0" startX="-100.0" />
+         <Line endX="-10.0" endY="-210.0" layoutX="120.0" layoutY="210.0" startX="-10.0" startY="-10.500015258789062" />
+         <Button fx:id="set_train_btn" mnemonicParsing="false" prefHeight="15.0" prefWidth="118.0" text="Set training / stress" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="202.0">
+            <padding>
+               <Insets bottom="2.0" />
+            </padding>
+         </Button>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane fx:id="info_top_anchor" prefHeight="130.0" prefWidth="220.0" BorderPane.alignment="CENTER">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></AnchorPane>
+   </center>
+</BorderPane>

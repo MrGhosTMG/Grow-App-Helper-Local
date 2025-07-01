@@ -1,0 +1,29 @@
+
+.info_main_container {
+    -fx-background-color: #f7a902;
+}
+
+Text {
+    -fx-fill: #c709f7;
+}
+
+.date_field {
+    -fx-background-color:#e0e40f;
+}
+
+.stage_field {
+    -fx-background-color:#0fe421;
+}
+
+.grow_stage {
+    -fx-background-color:#02b1f7;
+}
+
+Text_additional {
+    -fx-fill: #f50505;
+}
+
+Label {
+    -fx-text-fill: #f70909;
+}
+
