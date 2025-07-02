@@ -33,7 +33,7 @@
                      <Insets left="6.0" top="4.0" />
                   </VBox.margin>
                </RadioButton>
-               <RadioButton fx:id="TOP_rb" layoutX="10.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" text="TOPING" textFill="#f80606">
+               <RadioButton fx:id="TOP_rb" layoutX="10.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" text="TOPPING" textFill="#f80606">
                   <VBox.margin>
                      <Insets left="6.0" top="4.0" />
                   </VBox.margin>
@@ -55,23 +55,23 @@
                </RadioButton>
             </VBox>
             <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="110.0">
-               <Label fx:id="delay_lbl" prefHeight="27.0" prefWidth="110.0" text="Add delay manually:" textFill="#f5f2f2">
+               <Label fx:id="delay_lbl" prefHeight="27.0" prefWidth="110.0" text="Other stress" textFill="#f5f2f2">
                   <VBox.margin>
-                     <Insets left="2.0" />
+                     <Insets left="6.0" />
                   </VBox.margin>
                </Label>
-               <HBox prefHeight="33.0" prefWidth="110.0">
-                  <TextField fx:id="days_in_fld" alignment="TOP_CENTER" prefHeight="25.0" prefWidth="75.0" promptText="days" styleClass="input_field">
+               <HBox prefHeight="28.0" prefWidth="110.0">
+                  <TextField fx:id="days_in_fld" alignment="TOP_CENTER" prefHeight="25.0" prefWidth="50.0" promptText="days" styleClass="input_field">
                      <HBox.margin>
-                        <Insets left="20.0" top="2.0" />
+                        <Insets left="6.0" top="2.0" />
                      </HBox.margin>
                   </TextField>
+                  <Button fx:id="add_days_btn" mnemonicParsing="false" prefHeight="25.0" prefWidth="42.0" text="Add">
+                     <HBox.margin>
+                        <Insets left="6.0" top="2.0" />
+                     </HBox.margin>
+                  </Button>
                </HBox>
-               <Button fx:id="add_days_btn" mnemonicParsing="false" text="Add">
-                  <VBox.margin>
-                     <Insets bottom="2.0" left="35.0" />
-                  </VBox.margin>
-               </Button>
                <Line endX="100.0" startX="-8.384737968444824" startY="1.5497207641601562E-6">
                   <VBox.margin>
                      <Insets top="2.0" />
@@ -79,7 +79,7 @@
                </Line>
                <Text fill="#1a720e" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Text" text="MainLining steps:">
                   <VBox.margin>
-                     <Insets left="4.0" top="10.0" />
+                     <Insets left="4.0" top="2.0" />
                   </VBox.margin>
                </Text>
                <RadioButton fx:id="ml_main_step_rb" mnemonicParsing="false" prefHeight="15.0" text="Main step" textFill="#dd150a">
@@ -94,24 +94,30 @@
                </RadioButton>
                <Button fx:id="set_step_btn" mnemonicParsing="false" text="Set step">
                   <VBox.margin>
-                     <Insets left="30.0" top="8.0" />
+                     <Insets left="30.0" top="5.0" />
+                  </VBox.margin>
+               </Button>
+               <Label fx:id="error_lbl" prefHeight="20.0" prefWidth="105.0">
+                  <VBox.margin>
+                     <Insets left="3.0" top="2.0" />
+                  </VBox.margin>
+               </Label>
+               <Button fx:id="set_train_btn" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Set training">
+                  <VBox.margin>
+                     <Insets left="6.0" />
                   </VBox.margin>
                </Button>
             </VBox>
          </HBox>
          <Line endX="100.0" layoutX="110.0" layoutY="200.0" startX="-100.0" />
          <Line endX="-10.0" endY="-210.0" layoutX="120.0" layoutY="210.0" startX="-10.0" startY="-10.500015258789062" />
-         <Button fx:id="set_train_btn" mnemonicParsing="false" prefHeight="15.0" prefWidth="118.0" text="Set training / stress" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="202.0">
-            <padding>
-               <Insets bottom="2.0" />
-            </padding>
-         </Button>
       </AnchorPane>
    </top>
    <center>
       <AnchorPane fx:id="info_top_anchor" prefHeight="130.0" prefWidth="220.0" BorderPane.alignment="CENTER">
          <cursor>
             <Cursor fx:constant="TEXT" />
-         </cursor></AnchorPane>
+         </cursor>
+      </AnchorPane>
    </center>
 </BorderPane>

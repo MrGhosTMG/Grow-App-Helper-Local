@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="152.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <TextArea editable="false" prefHeight="152.0" prefWidth="220.0" stylesheets="@../../../CSSstyles/LSTtip.css" text="Refers to a low-stress version of plant bending. In this case, the central vertical stem is redirected to the horizontal plane, the other shoots - to the vertical. From them, analogues of the main cola with inflorescence's are then created.It is in demand for vegetative plants with 4...5 formed growth nodes, those that can recover after being put into stress by bending. It is carried out after 7...14 days after watering, otherwise the stem may break. Having bent, cut off the shoots of the secondary row turned to the base, which will not receive light for development. Sequence of actions for bending and gartering: Fix the plant at the base with a stretcher, attaching it to the edges of the system so that the bush is not pulled out of substrate when bending.Tie a rope or fishing line 2...3 cm from the top. Bend carefully until it lies horizontally - fix it. Move large leaves to the sides with stretchers, making sure that they do not block the light falling on the shoots. After 7...14 days of stress, the plant will start growing. Watch, move to the side the shoots that stretch faster." wrapText="true" />
+</AnchorPane>

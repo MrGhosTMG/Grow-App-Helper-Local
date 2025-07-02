@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="152.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <TextArea editable="false" prefHeight="152.0" prefWidth="220.0" stylesheets="@../../../CSSstyles/Defoliation.css"
+              text="Defoliation in the context of plant cultivation, particularly cannabis and bonsai, is a technique that involves removing leaves to improve light and ventilation, which can increase the yield and health of the plant. The main purpose of defoliation is to redirect the plant's energy to the development of larger, more productive top buds, as well as to improve air circulation, which reduces the risk of mold and fungal diseases. Defoliation can be applied at different stages of plant growth. In the case of cannabis, leaves are removed as the plant grows, starting with the lower nodes. Defoliation should be done carefully, removing a small number of leaves at a time, to avoid damaging the plant, so that the plant has time to grow new leaves. After defoliation, it is recommended to place the plant in a shaded place for some time."
+              wrapText="true" />
+</AnchorPane>

@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -31,12 +30,12 @@
             <Insets left="2.0" />
          </VBox.margin>
       </CheckBox>
+      <Text fill="#b9e509" strokeType="OUTSIDE" strokeWidth="0.0" text="NPK Information">
+         <VBox.margin>
+            <Insets left="55.0" />
+         </VBox.margin>
+      </Text>
         <VBox prefHeight="200.0" prefWidth="100.0">
-            <Label prefHeight="17.0" prefWidth="99.0" text="NPK information" textFill="#07eb39">
-                <VBox.margin>
-                    <Insets left="4.0" />
-                </VBox.margin>
-            </Label>
             <TextField fx:id="N_fld" prefHeight="25.0" prefWidth="87.0" promptText="N">
                 <VBox.margin>
                     <Insets left="2.0" right="2.0" />

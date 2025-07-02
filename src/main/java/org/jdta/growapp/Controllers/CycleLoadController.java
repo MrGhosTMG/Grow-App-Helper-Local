@@ -44,7 +44,6 @@ public class CycleLoadController  implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       // Model.getInstance().getView().
         add_new_cycle_btn.setOnAction(actionEvent -> onNewCycle());
         exit_btn.setOnAction(actionEvent -> onExit());
         nutr_btn.setOnAction(actionEvent -> onNutrients());
@@ -55,6 +54,7 @@ public class CycleLoadController  implements Initializable {
         moist_btn.setOnAction(actionEvent -> onWatering());
         train_btn.setOnAction(actionEvent -> onTraining());
     }
+
     // On actions section
 
     private void onTraining() {
@@ -139,10 +139,8 @@ public class CycleLoadController  implements Initializable {
             Stage stage = (Stage) exit_btn.getScene().getWindow();
             stage.close();
         });
-
-//        Stage stage = (Stage) exit_btn.getScene().getWindow();
-//        Model.getInstance().getView().closeStage(stage);
     }
+
 //    public void addListeners() {
 //        Model.getInstance().getView().getUserSelectedButton().addListener((observableValue, oldVal, newVal) -> {
 //            switch (newVal) {

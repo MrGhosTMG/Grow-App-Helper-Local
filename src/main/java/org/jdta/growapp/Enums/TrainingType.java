@@ -1,7 +1,29 @@
 package org.jdta.growapp.Enums;
 
-import javafx.scene.paint.Color;
 
+
+public enum TrainingType {
+    LST("/FXML/tools/cycleCreateTools/LSTtip.fxml"),
+    DEF("/FXML/tools/cycleCreateTools/DefoliationTip.fxml"),
+    SCRG("/FXML/tools/cycleCreateTools/ScrogTip.fxml"),
+    TOP("/FXML/tools/cycleCreateTools/ToppingTip.fxml"),
+    FIM("/FXML/tools/cycleCreateTools/FimTip.fxml"),
+    ML("/FXML/tools/cycleCreateTools/MainLiningTip.fxml"),
+    OTHER("/FXML/tools/cycleCreateTools/MainTip.fxml");
+
+    private final String fxmlPath;
+
+    TrainingType(String fxmlPath) {
+        this.fxmlPath = fxmlPath;
+    }
+
+    public String getFxmlPath() {
+        return fxmlPath;
+    }
+}
+
+/*
+import javafx.scene.paint.Color;
 public enum TrainingType {
     LST("Low Stress Training", "Мягкое сгибание побегов", Color.HOTPINK),
     DEF("Defoliation", "Удаление листьев для\r проветривания", Color.LIME),
@@ -25,4 +47,5 @@ public enum TrainingType {
     public String getDescription() { return description; }
     public Color getColor() { return color; }
 }
+*/
 

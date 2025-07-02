@@ -6,8 +6,8 @@ import org.jdta.growapp.DTO.User;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.PreferencesUtils;
 
-import java.util.prefs.Preferences;
 
+// Gендальф©
 public class StartApp extends Application {
 
     @Override

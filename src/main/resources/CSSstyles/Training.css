@@ -1,6 +1,6 @@
 
 .main_training_window {
-    -fx-background-color: #ec6d6d;
+    -fx-background-color: #14a06a;
 }
 
 .input_field {
@@ -23,7 +23,7 @@ Button {
 }
 
 Button:hover {
-    -fx-background-color: #fa5305;
+    -fx-background-color: #5640d1;
 }
 
 .button:pressed {
@@ -36,6 +36,10 @@ Button:hover {
 .radio-button {
     -fx-font-family: "Arial";
 
+}
+
+Label {
+    -fx-text-fill: #f70707;
 }
 
 /* Стиль для "точки" внутри RadioButton */

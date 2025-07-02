@@ -110,5 +110,14 @@ public class FXMLUtils {
             Logger.getLogger(FXMLUtils.class.getName()).log(Level.SEVERE, "Ошибка открытия модального окна с callback", e);
         }
     }
-
+    public static Node loadFXMLTips(String fxmlPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(FXMLUtils.class.getResource(fxmlPath));
+            return loader.load();
+        }catch (IOException | NullPointerException e) {
+            System.out.println(" Error loading FXML Tip: " + fxmlPath);
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
