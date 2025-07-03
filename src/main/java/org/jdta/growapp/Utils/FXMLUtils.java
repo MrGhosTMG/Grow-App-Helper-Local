@@ -120,4 +120,16 @@ public class FXMLUtils {
             return null;
         }
     }
+
+    public static Stage getCurrentStage() {
+        return (Stage) javafx.stage.Window.getWindows().stream()
+                .filter(javafx.stage.Window::isShowing)
+                .findFirst()
+                .orElse(null);
+    }
+
+
+    public static Stage stageFrom(Node node) {
+        return (Stage) node.getScene().getWindow();
+    }
 }

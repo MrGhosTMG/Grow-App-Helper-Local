@@ -2,18 +2,13 @@ package org.jdta.growapp.Controllers.ToolsControlls;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.jdta.growapp.Models.Model;
-import org.jdta.growapp.Utils.DialogUtils;
+import org.jdta.growapp.Utils.StageActions;
 import org.jdta.growapp.Utils.FXMLUtils;
 
-import java.io.File;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 
 public class CycleCreateController implements Initializable {
@@ -48,15 +43,44 @@ public class CycleCreateController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        exit_btn.setOnAction(actionEvent -> onExit());
-        log_out_btn.setOnAction(actionEvent -> onLogin());
-        back_btn.setOnAction(actionEvent -> onUser());
+
+        exit_btn.setOnAction(actionEvent -> StageActions.onExit(getStage()));
+        log_out_btn.setOnAction(event -> StageActions.onLogout(getStage()));
+        back_btn.setOnAction(actionEvent -> StageActions.backToUser(getStage()));
         save_btn.setOnAction(actionEvent -> onSelectedCycle());
         light_stage_btn.setOnAction(actionEvent -> onSetLight());
     }
 
 
+    private void onSetLight() {
+        FXMLUtils.openModalWithCallback(
+                "/FXML/tools/LightTimeStage.fxml",
+                "Set Light Time",
+                (LightTimeStageController controller) -> {
+                    // Передаём данные в контроллер, например, установить день/ночь
+                    controller.setDayNightTimes("24", "0");
+                    controller.setDayNightTimes("20", "4");
+                    controller.setDayNightTimes("18", "6");
+                    controller.setDayNightTimes("12", "12");
 
+                    // Подписываемся на кнопку — можно в контроллере вызвать `onComplete`, `onApply` и т.д.
+                    controller.setOnSave(() -> {
+                        System.out.println("Выбранный режим: " + controller.getSelectedHours());
+                    });
+                }
+        );
+    }
+
+    private Stage getStage() {
+        return FXMLUtils.stageFrom(exit_btn); // можно использовать любой доступный Node
+    }
+
+
+    private void onSelectedCycle() {
+        Stage stage = FXMLUtils.getCurrentStage();
+        Model.getInstance().getView().showSelectedCycleWindow();
+        Model.getInstance().getView().closeStage(stage);
+    }
     /*
 on actions section
     private void onAddPhoto() {
@@ -120,51 +144,4 @@ on actions section
     }
     ещё кнопку «Удалить все», превью при клике, или диалог редактирования.
 */
-
-    private void onSetLight() {
-        FXMLUtils.openModalWithCallback(
-                "/FXML/tools/LightTimeStage.fxml",
-                "Set Light Time",
-                (LightTimeStageController controller) -> {
-                    // Передаём данные в контроллер, например, установить день/ночь
-                    controller.setDayNightTimes("24", "0");
-                    controller.setDayNightTimes("20", "4");
-                    controller.setDayNightTimes("18", "6");
-                    controller.setDayNightTimes("12", "12");
-
-                    // Подписываемся на кнопку — можно в контроллере вызвать `onComplete`, `onApply` и т.д.
-                    controller.setOnSave(() -> {
-                        System.out.println("Выбранный режим: " + controller.getSelectedHours());
-                    });
-                }
-        );
-    }
-
-
-    private void onUser() {
-        Stage stage = (Stage) back_btn.getScene().getWindow();
-        Model.getInstance().getView().showUserWindow();
-        Model.getInstance().getView().closeStage(stage);
-    }
-
-    private void onLogin() {
-        DialogUtils.confirm("Logout from application?", () -> {
-            Stage stage = (Stage) log_out_btn.getScene().getWindow();
-            Model.getInstance().getView().showLoginWindow();
-            stage.close();
-        });
-
-    }
-    private void onExit() {
-        DialogUtils.confirm("Do you really want to exit?", () -> {
-            Stage stage = (Stage) exit_btn.getScene().getWindow();
-            stage.close();
-        });
-    }
-
-    private void onSelectedCycle() {
-        Stage stage = (Stage) exit_btn.getScene().getWindow();
-        Model.getInstance().getView().showSelectedCycleWindow();
-        Model.getInstance().getView().closeStage(stage);
-    }
 }

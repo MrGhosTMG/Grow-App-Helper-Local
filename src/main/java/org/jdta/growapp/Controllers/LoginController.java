@@ -7,6 +7,8 @@ import org.jdta.growapp.DTO.User;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Service.UserService;
 import org.jdta.growapp.StartApp;
+import org.jdta.growapp.Utils.FXMLUtils;
+import org.jdta.growapp.Utils.StageActions;
 import org.jdta.growapp.Utils.DialogUtils;
 import org.jdta.growapp.Utils.PreferencesUtils;
 
@@ -29,7 +31,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         enter_button.setOnAction(actionEvent -> onLogin());
         reg_btn.setOnAction(actionEvent -> onReg());
-        exit_btn.setOnAction(actionEvent -> onExit());
+        exit_btn.setOnAction(actionEvent -> StageActions.onExit(getStage()));
 
         // Подгрузим сохранённый логин (если есть)
         Preferences prefs = Preferences.userNodeForPackage(StartApp.class);
@@ -62,7 +64,7 @@ public class LoginController implements Initializable {
                     PreferencesUtils.clearUser();
                 }
 
-                Stage stage = (Stage) enter_button.getScene().getWindow();
+                Stage stage = FXMLUtils.getCurrentStage();
                 Model.getInstance().getView().showUserWindow();
                 Model.getInstance().getView().closeStage(stage);
             } else {
@@ -87,15 +89,12 @@ public class LoginController implements Initializable {
     }
 
     private void onReg() {
-        Stage stage = (Stage) reg_btn.getScene().getWindow();
+        Stage stage = FXMLUtils.getCurrentStage();
         Model.getInstance().getView().showRegWindow();
         Model.getInstance().getView().closeStage(stage);
     }
 
-    private void onExit() {
-        DialogUtils.confirm("Do you really want to exit?", () -> {
-            Stage stage = (Stage) exit_btn.getScene().getWindow();
-            stage.close();
-        });
+    private Stage getStage() {
+        return FXMLUtils.stageFrom(exit_btn); // можно использовать любой доступный Node
     }
 }

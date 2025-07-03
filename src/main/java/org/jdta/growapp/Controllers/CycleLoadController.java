@@ -8,15 +8,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.jdta.growapp.Controllers.ToolsControlls.*;
 import org.jdta.growapp.Models.Model;
-import org.jdta.growapp.Utils.DialogUtils;
+import org.jdta.growapp.Utils.StageActions;
 import org.jdta.growapp.Utils.FXMLUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
+// Gендальф©
 public class CycleLoadController  implements Initializable {
-
-    public UserController userController;
 
 
     public Label cycle_name_lbl;
@@ -45,12 +43,12 @@ public class CycleLoadController  implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         add_new_cycle_btn.setOnAction(actionEvent -> onNewCycle());
-        exit_btn.setOnAction(actionEvent -> onExit());
+        exit_btn.setOnAction(actionEvent -> StageActions.onExit(stage()));
         nutr_btn.setOnAction(actionEvent -> onNutrients());
         light_btn.setOnAction(actionEvent -> onSetLight());
         info_btn.setOnAction(actionEvent -> onInfo());
         //addListeners();
-        log_out_btn.setOnAction(event -> onLogin());
+        log_out_btn.setOnAction(event -> StageActions.onLogout(stage()));
         moist_btn.setOnAction(actionEvent -> onWatering());
         train_btn.setOnAction(actionEvent -> onTraining());
     }
@@ -121,41 +119,30 @@ public class CycleLoadController  implements Initializable {
     }
 
     private void onNewCycle() {
-        Stage stage = (Stage) exit_btn.getScene().getWindow();
+        Stage stage = FXMLUtils.getCurrentStage();
         Model.getInstance().getView().showCycleCreateWindow();
         Model.getInstance().getView().closeStage(stage);
     }
-
-    private void onLogin() {
-        DialogUtils.confirm("Logout from application?", () -> {
-            Stage stage = (Stage) log_out_btn.getScene().getWindow();
-            Model.getInstance().getView().showLoginWindow();
-            stage.close();
+    public Stage stage() {
+        return FXMLUtils.stageFrom(exit_btn);
+    }
+/*
+    public void addListeners() {
+        Model.getInstance().getView().getUserSelectedButton().addListener((observableValue, oldVal, newVal) -> {
+            switch (newVal) {
+                case "Photo" ->
+                        Model.getInstance().getView().getPhotoView();// .showPhotoFieldInPane(down_border_pane_top);
+                case "History" ->
+                        Model.getInstance().getView().getHistoryView();
+                case "Nutrients" ->
+                        Model.getInstance().getView().getNutrientsView();
+                case "Info" ->
+                    Model.getInstance().getView().getInfoView();
+                default -> {
+                    Model.getInstance().getView().getUserView();
+                }
+            }
         });
     }
-
-    private void onExit() {
-        DialogUtils.confirm("Do you really want to exit?", () -> {
-            Stage stage = (Stage) exit_btn.getScene().getWindow();
-            stage.close();
-        });
-    }
-
-//    public void addListeners() {
-//        Model.getInstance().getView().getUserSelectedButton().addListener((observableValue, oldVal, newVal) -> {
-//            switch (newVal) {
-//                case "Photo" ->
-//                        Model.getInstance().getView().getPhotoView();// .showPhotoFieldInPane(down_border_pane_top);
-//                case "History" ->
-//                        Model.getInstance().getView().getHistoryView();
-//                case "Nutrients" ->
-//                        Model.getInstance().getView().getNutrientsView();
-//                case "Info" ->
-//                    Model.getInstance().getView().getInfoView();
-//                default -> {
-//                    Model.getInstance().getView().getUserView();
-//                }
-//            }
-//        });
-//    }
+*/
 }

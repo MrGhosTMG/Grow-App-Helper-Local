@@ -19,11 +19,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<AnchorPane prefHeight="520.0" prefWidth="420.0" styleClass="cycle_main" stylesheets="@../../../CSSstyles/Cycle.css"
+<AnchorPane prefHeight="520.0" prefWidth="420.0" styleClass="cycle_main" stylesheets="@../CSSstyles/Cycle.css"
             xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.jdta.growapp.Controllers.ToolsControlls.CycleCreateController">
     <VBox layoutX="14.0" layoutY="14.0" prefHeight="520.0" prefWidth="420.0" styleClass="cycle_main"
-          stylesheets="@../../../CSSstyles/Cycle.css" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="4.0">
+          stylesheets="@../CSSstyles/Cycle.css" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="4.0">
         <BorderPane prefHeight="478.0" prefWidth="395.0">
             <VBox.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
@@ -47,7 +47,7 @@
                         </graphic>
                     </Button>
                     <TextArea fx:id="text_aea_fld" prefHeight="127.0" prefWidth="86.0" promptText="text notes" scrollTop="4.0"
-                              styleClass="list_cell" stylesheets="@../../../CSSstyles/Cycle.css">
+                              styleClass="list_cell" stylesheets="@../CSSstyles/Cycle.css">
                         <VBox.margin>
                             <Insets left="8.0" right="6.0" top="2.0" />
                         </VBox.margin>
@@ -93,7 +93,7 @@
             <center>
                 <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                     <TextField fx:id="txt_sort_fld" prefHeight="30.0" prefWidth="200.0" promptText="Enter sort / cycle name here"
-                               styleClass="input_field" stylesheets="@../../../CSSstyles/Cycle.css">
+                               styleClass="input_field" stylesheets="@../CSSstyles/Cycle.css">
                         <VBox.margin>
                             <Insets left="6.0" top="2.0" />
                         </VBox.margin>
@@ -252,13 +252,13 @@
                 <Label fx:id="cycle_reg_lbl" text="New cycle registration" BorderPane.alignment="CENTER">
                <graphic>
                    <ImageView fx:id="img_reg" fitHeight="18.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../Images/ic_change.png"/>
+                       <Image url="@../Images/ic_change.png"/>
                    </ImageView>
                </graphic>
                 </Label>
             </top>
         </BorderPane>
-        <Button fx:id="save_btn" mnemonicParsing="false" prefHeight="25.0" prefWidth="278.0" stylesheets="@../../../CSSstyles/Cycle.css" text="Save and Start">
+        <Button fx:id="save_btn" mnemonicParsing="false" prefHeight="25.0" prefWidth="278.0" stylesheets="@../CSSstyles/Cycle.css" text="Save and Start">
             <VBox.margin>
                 <Insets left="10.0" />
             </VBox.margin>

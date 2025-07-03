@@ -1,19 +1,11 @@
 package org.jdta.growapp.Utils;
 
-import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 import org.jdta.growapp.Models.Model;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class DTOUtils implements Initializable {
+public class StageActions {
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
 
     public static void onLogout(Stage stage) {
         DialogUtils.confirm(stage," Logout ? Come back soon :)", () -> {
@@ -30,5 +22,4 @@ public class DTOUtils implements Initializable {
         Model.getInstance().getView().showUserWindow();
         stage.close();
     }
-
 }

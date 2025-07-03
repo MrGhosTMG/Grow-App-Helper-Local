@@ -7,7 +7,9 @@ import javafx.stage.Stage;
 import org.jdta.growapp.DTO.User;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Service.UserService;
+import org.jdta.growapp.Utils.StageActions;
 import org.jdta.growapp.Utils.DialogUtils;
+import org.jdta.growapp.Utils.FXMLUtils;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -38,11 +40,13 @@ public class RegistrationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         login_btn.setOnAction(actionEvent -> onLogin());
-        exit_btn.setOnAction(actionEvent -> onExit());
+        exit_btn.setOnAction(actionEvent -> StageActions.onExit(getStage()));
         reg_btn.setOnAction(actionEvent -> onRegister());
     }
 
-
+    private Stage getStage() {
+        return FXMLUtils.stageFrom(exit_btn); // можно использовать любой доступный Node
+    }
 
     // On actions section
     private void onRegister() {
@@ -116,21 +120,10 @@ public class RegistrationController implements Initializable {
     }
 
     private void onLogin() {
-        Stage stage = (Stage) exit_btn.getScene().getWindow();
-        //Model.getInstance().getView().showConfirmDialogWindow();
+        Stage stage = FXMLUtils.stageFrom(exit_btn);
         Model.getInstance().getView().showLoginWindow();
         Model.getInstance().getView().closeStage(stage);
     }
-
-    private void onExit() {
-//        Stage stage = (Stage) exit_btn.getScene().getWindow();
-//        Model.getInstance().getView().closeStage(stage);
-        DialogUtils.confirm("Do you really want to exit?", () -> {
-            Stage stage = (Stage) exit_btn.getScene().getWindow();
-            stage.close();
-        });
-    }
-
 
     //Fields service tools
     private boolean isValidEmail(String email) {

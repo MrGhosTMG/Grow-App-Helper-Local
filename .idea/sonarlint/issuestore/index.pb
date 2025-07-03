@@ -76,3 +76,5 @@ Qsrc/main/java/org/jdta/growapp/Controllers/ToolsControlls/WateringController.ja
 Qsrc/main/java/org/jdta/growapp/Controllers/ToolsControlls/TrainingController.java,7\2\72078ef2bf46ffe58dce1e13f7d82b7c850cfeb7
 f
 6src/main/java/org/jdta/growapp/Enums/TrainingType.java,0\d\0da58a22206c3e9a7c9bb0c985f5b063523f0b5e
+f
+6src/main/java/org/jdta/growapp/Utils/StageActions.java,1\6\16b2590b68df71490085841572e2c255406be72d
