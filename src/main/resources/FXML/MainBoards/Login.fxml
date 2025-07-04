@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="520.0" prefWidth="420.0" styleClass="login_container" stylesheets="@../CSSstyles/login.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.LoginController">
+<AnchorPane prefHeight="520.0" prefWidth="420.0" styleClass="login_container" stylesheets="@../../CSSstyles/login.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.LoginController">
    <VBox layoutX="14.0" layoutY="14.0" prefHeight="500.0" prefWidth="392.0" styleClass="login_container" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="login_container" text="Hi..!!!  Please LogIn or press Registration">
          <VBox.margin>
@@ -34,7 +34,7 @@
             <Insets left="4.0" />
          </VBox.margin>
       </Text>
-      <TextField fx:id="user_log_fld" promptText="user" styleClass="inpit_field" stylesheets="@../CSSstyles/login.css">
+      <TextField fx:id="user_log_fld" promptText="user" styleClass="inpit_field" stylesheets="@../../CSSstyles/login.css">
          <VBox.margin>
             <Insets top="6.0" />
          </VBox.margin>
@@ -54,12 +54,12 @@
             <Insets left="10.0" top="10.0" />
          </padding>
       </CheckBox>
-      <Button fx:id="enter_button" mnemonicParsing="false" prefHeight="45.0" prefWidth="300.0" styleClass="enter_Button" stylesheets="@../CSSstyles/login.css" text="Enter">
+      <Button fx:id="enter_button" mnemonicParsing="false" prefHeight="45.0" prefWidth="300.0" styleClass="enter_Button" stylesheets="@../../CSSstyles/login.css" text="Enter">
          <VBox.margin>
             <Insets left="45.0" top="20.0" />
          </VBox.margin>
       </Button>
-      <Label fx:id="err_lbl" styleClass="login_container" stylesheets="@../CSSstyles/login.css">
+      <Label fx:id="err_lbl" styleClass="login_container" stylesheets="@../../CSSstyles/login.css">
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
@@ -69,7 +69,7 @@
             <Insets left="115.0" top="65.0" />
          </VBox.margin>
       </Button>
-      <Button fx:id="exit_btn" mnemonicParsing="false" stylesheets="@../CSSstyles/login.css" text="Not this time )) Bye...">
+      <Button fx:id="exit_btn" mnemonicParsing="false" stylesheets="@../../CSSstyles/login.css" text="Not this time )) Bye...">
          <VBox.margin>
             <Insets left="135.0" top="25.0" />
          </VBox.margin>

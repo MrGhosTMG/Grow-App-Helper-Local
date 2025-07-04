@@ -36,7 +36,8 @@ public class UserService {
         if (user != null && checkPassword(password, user.getPassword())) {
             return user;
         }
-        return null; // Incorrect username/password
+        // Incorrect username/password
+        return null;
     }
 
     // Password hashing using SHA-256
@@ -46,7 +47,7 @@ public class UserService {
             byte[] hash = digest.digest(password.getBytes());
             return Base64.getEncoder().encodeToString(hash);
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Ошибка хеширования пароля", e);
+            throw new RuntimeException("Password hashing error", e);
         }
     }
 

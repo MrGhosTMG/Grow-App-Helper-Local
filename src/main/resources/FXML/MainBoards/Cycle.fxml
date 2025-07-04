@@ -16,7 +16,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="420.0" styleClass="cycle_border_pane" stylesheets="@../CSSstyles/CycleUp.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.CycleLoadController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="420.0"
+            styleClass="cycle_border_pane" stylesheets="@../../CSSstyles/CycleUp.css"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.jdta.growapp.Controllers.CycleLoadController">
    <top>
       <HBox prefHeight="49.0" prefWidth="420.0" styleClass="cycle_sides" BorderPane.alignment="CENTER">
          <ChoiceBox prefHeight="27.0" prefWidth="154.0" styleClass="input_field">
@@ -45,7 +48,7 @@
       </HBox>
    </top>
    <right>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="cycle_sides" stylesheets="@../CSSstyles/CycleUp.css" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="cycle_sides" stylesheets="@../../CSSstyles/CycleUp.css" BorderPane.alignment="CENTER">
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Functions">
             <VBox.margin>
                <Insets left="20.0" top="4.0" />
@@ -73,7 +76,7 @@
             </VBox.margin>
             <graphic>
                <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Images/a.png" />
+                  <Image url="@../../Images/a.png" />
                </ImageView>
             </graphic>
          </Button>
@@ -83,7 +86,7 @@
             </VBox.margin>
             <graphic>
                <ImageView fitHeight="19.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Images/small/ic_action_sun.png" />
+                  <Image url="@../../Images/small/ic_action_sun.png" />
                </ImageView>
             </graphic>
          </Button>
@@ -106,7 +109,7 @@
       </VBox>
    </right>
    <left>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="cycle_sides" stylesheets="@../CSSstyles/CycleUp.css" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="cycle_sides" stylesheets="@../../CSSstyles/CycleUp.css" BorderPane.alignment="CENTER">
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MENU BAR">
             <VBox.margin>
                <Insets left="16.0" />
@@ -142,7 +145,7 @@
             </VBox.margin>
             <graphic>
                <ImageView fitHeight="21.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Images/small/ic_action_shop.png" />
+                  <Image url="@../../Images/small/ic_action_shop.png" />
                </ImageView>
             </graphic>
          </Button>
@@ -162,7 +165,7 @@
       </VBox>
    </left>
    <bottom>
-      <VBox prefHeight="100.0" styleClass="cycle_sides" stylesheets="@../CSSstyles/CycleUp.css" BorderPane.alignment="CENTER">
+      <VBox prefHeight="100.0" styleClass="cycle_sides" stylesheets="@../../CSSstyles/CycleUp.css" BorderPane.alignment="CENTER">
          <Slider fx:id="slider" majorTickUnit="23.0" minorTickCount="1" prefHeight="18.0" prefWidth="412.0" showTickMarks="true" snapToTicks="true" styleClass="cycle_border_pane">
             <VBox.margin>
                <Insets left="4.0" right="4.0" top="4.0" />
@@ -175,7 +178,7 @@
             <VBox.margin>
                <Insets bottom="2.0" />
             </VBox.margin>
-            <Image url="@../Images/imageForSlideBar.jpg" />
+            <Image url="@../../Images/imageForSlideBar.jpg" />
          </ImageView>
          <ButtonBar prefHeight="40.0" prefWidth="180.0" styleClass="cycle_sides">
             <buttons>

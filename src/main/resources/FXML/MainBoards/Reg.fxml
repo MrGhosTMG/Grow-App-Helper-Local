@@ -14,10 +14,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="520.0" prefWidth="420.0" styleClass="main_reg_container" stylesheets="@../CSSstyles/regStylesheet.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.RegistrationController">
+<AnchorPane prefHeight="520.0" prefWidth="420.0" styleClass="main_reg_container" stylesheets="@../../CSSstyles/regStylesheet.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.RegistrationController">
     <Text layoutX="167.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registration" wrappingWidth="86.865234375" AnchorPane.leftAnchor="166.0" AnchorPane.rightAnchor="166.0" AnchorPane.topAnchor="10.0" />
-    <VBox layoutX="29.0" layoutY="47.0" prefHeight="400.0" prefWidth="250.0" styleClass="main_reg_container_field" stylesheets="@../CSSstyles/regStylesheet.css" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="40.0">
-        <TextField fx:id="e_mail_fld" alignment="CENTER" promptText="e-mail" styleClass="input_field" stylesheets="@../CSSstyles/regStylesheet.css">
+    <VBox layoutX="29.0" layoutY="47.0" prefHeight="400.0" prefWidth="250.0" styleClass="main_reg_container_field" stylesheets="@../../CSSstyles/regStylesheet.css" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="40.0">
+        <TextField fx:id="e_mail_fld" alignment="CENTER" promptText="e-mail" styleClass="input_field" stylesheets="@../../CSSstyles/regStylesheet.css">
             <VBox.margin>
                 <Insets top="4.0" />
             </VBox.margin>
@@ -92,7 +92,7 @@
             </graphic>
         </Button>
     </VBox>
-    <VBox layoutX="295.0" layoutY="40.0" prefHeight="400.0" prefWidth="120.0" styleClass="main_reg_container_r" stylesheets="@../CSSstyles/regStylesheet.css" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="40.0">
+    <VBox layoutX="295.0" layoutY="40.0" prefHeight="400.0" prefWidth="120.0" styleClass="main_reg_container_r" stylesheets="@../../CSSstyles/regStylesheet.css" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="40.0">
         <FontAwesomeIconView glyphName="LEAF" size="65" styleClass="FontAwesomeIconView">
             <VBox.margin>
                 <Insets left="25.0" top="10.0" />

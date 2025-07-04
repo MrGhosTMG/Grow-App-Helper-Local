@@ -6,16 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.jdta.growapp.Controllers.LoginController;
-import org.jdta.growapp.DTO.User;
-import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.FXMLUtils;
 
 
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.prefs.Preferences;
 
 
 public class View {
@@ -50,21 +46,21 @@ public class View {
 
     public AnchorPane getWatering() {
         if (watering == null) {
-            watering = FXMLUtils.loadFXML("/FXML/tools/userBoard/Watering.fxml");
+            watering = FXMLUtils.loadFXML("/FXML/CycleTools/userBoard/Watering.fxml");
         }
         return watering;
     }
 
     public AnchorPane getInfoView() {
         if (infoView == null) {
-            lightStageView = FXMLUtils.loadFXML("/FXML/tools/userBoard/Info.fxml");
+            lightStageView = FXMLUtils.loadFXML("/FXML/CycleTools/userBoard/Info.fxml");
         }
         return infoView;
     }
 
     public AnchorPane getLightStageView() {
         if (lightStageView == null) {
-            lightStageView = FXMLUtils.loadFXML("/FXML/tools/LightTimeStage.fxml");
+            lightStageView = FXMLUtils.loadFXML("/FXML/userBoard/LightTimeStage.fxml");
         }
         return lightStageView;
     }
@@ -93,21 +89,21 @@ public class View {
 
     public BorderPane getSelectedCycleView() {
         if (selectedCycleView == null) {
-            FXMLUtils.loadFXML("/FXML/Cycle.fxml");
+            FXMLUtils.loadFXML("/FXML/MainBoards/Cycle.fxml");
         }
         return selectedCycleView;
     }
 
     public AnchorPane getLoginView() {
         if (loginView == null) {
-            FXMLUtils.loadFXML("/FXML/Login.fxml");
+            FXMLUtils.loadFXML("/FXML/MainBoards/Login.fxml");
         }
         return loginView;
     }
 
     public AnchorPane getUserView() {
         if (userView == null) {
-            FXMLUtils.loadFXML("/FXML/User.fxml");
+            FXMLUtils.loadFXML("/FXML/MainBoards/User.fxml");
 
         }
             return userView;
@@ -115,21 +111,21 @@ public class View {
 
     public AnchorPane getRegView() {
         if (regView == null) {
-            FXMLUtils.loadFXML("/FXML/Reg.fxml");
+            FXMLUtils.loadFXML("/FXML/MainBoards/Reg.fxml");
         }
         return regView;
     }
 
     public AnchorPane getCycleCreateView() {
         if (cycleCreateView == null) {
-            FXMLUtils.loadFXML("/FXML/tools/cycleCreateTools/CycleCreate.fxml");
+            FXMLUtils.loadFXML("/FXML/MainBoards/CycleCreate.fxml");
         }
         return cycleCreateView;
     }
 
     //show window section
     public void showLightStageWindow() {
-        FXMLUtils.openModalWindow("/FXML/tools/LightTimeStage.fxml", "Set Light Time");
+        FXMLUtils.openModalWindow("/FXML/userBoard/LightTimeStage.fxml", "Set Light Time");
     }
 
     public void showPhotoFieldInPane(AnchorPane parentPane) {
@@ -145,25 +141,25 @@ public class View {
 
 
     public void showSelectedCycleWindow() {
-        FXMLUtils.openModalWindow("/FXML/Cycle.fxml", "Cycle");
+        FXMLUtils.openModalWindow("/FXML/MainBoards/Cycle.fxml", "Cycle");
     }
 
     public void showLoginWindow() {
-        FXMLUtils.openModalWindow("/FXML/Login.fxml", "Login");
+        FXMLUtils.openModalWindow("/FXML/MainBoards/Login.fxml", "Login");
 
 
     }
 
     public void showCycleCreateWindow() {
-        FXMLUtils.openModalWindow("/FXML/tools/cycleCreateTools/CycleCreate.fxml", "CycleCreate");
+        FXMLUtils.openModalWindow("/FXML/MainBoards/CycleCreate.fxml", "CycleCreate");
     }
 
     public void showRegWindow() {
-        FXMLUtils.openModalWindow("/FXML/Reg.fxml", "Reg");
+        FXMLUtils.openModalWindow("/FXML/MainBoards/Reg.fxml", "Reg");
     }
 
     public void showUserWindow() {
-        FXMLUtils.openModalWindow("/FXML/User.fxml", "User");
+        FXMLUtils.openModalWindow("/FXML/MainBoards/User.fxml", "User");
     }
 
 

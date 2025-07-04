@@ -1,14 +1,13 @@
 package org.jdta.growapp.Controllers.ToolsControlls;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.util.Duration;
 import org.jdta.growapp.Enums.TrainingType;
+import org.jdta.growapp.Utils.DialogUtils;
 import org.jdta.growapp.Utils.FXMLUtils;
 
 import java.net.URL;
@@ -36,7 +35,7 @@ public class TrainingController implements Initializable {
 
     private boolean readOnlyMode = false;
     private boolean mainStepApplied  = false;
-
+    private Runnable onSaveCallback;
 
 
     @Override
@@ -79,8 +78,64 @@ public class TrainingController implements Initializable {
         if (readOnlyMode) {
             disableEditableControls();
         }
+
+        add_days_btn.setOnAction(actionEvent -> onSetClicked());
+
+        filterInputField(days_in_fld);
     }
 
+    private void onSetClicked() {
+        if (isDaysInputInvalid()) {
+            return;
+        }
+
+        if (onSaveCallback != null) {
+            onSaveCallback.run();
+            error_lbl.setText("");
+        }
+        setDaysMessage("Saved " + getSelectedDays());
+    }
+
+    private boolean isDaysInputInvalid() {
+        String day = days_in_fld.getText().trim();
+        if (day.isEmpty()) {
+            DialogUtils.warning("Training Stage", "Please enter number of days");
+            return true;
+        }
+
+        try {
+            int dayVal = Integer.parseInt(day);
+            if (dayVal > 30) {
+                DialogUtils.warning("Warning", "There is no Stress type more than 30 days");
+                return true;
+            }
+            return false;
+        } catch (NumberFormatException e) {
+            DialogUtils.warning("Training", "Please enter valid number for days");
+            return true;
+        }
+    }
+
+    public void setOnSave(Runnable callback) {
+        this.onSaveCallback = callback;
+    }
+
+    public String getSelectedDays() {
+        String day = days_in_fld.getText().trim();
+
+        try {
+            int d = Integer.parseInt(day);
+
+            return d + " days stress set " ;
+        } catch (NumberFormatException e) {
+            return "Invalid format";
+        }
+    }
+
+    public void setDaysMessage(String msg) {
+        error_lbl.setText(msg);
+        DialogUtils.hideErrorMessage(error_lbl, 3);
+    }
 
     private void disableEditableControls() {
         days_in_fld.setVisible(false);
@@ -113,17 +168,45 @@ public class TrainingController implements Initializable {
         this.readOnlyMode = readOnly;
     }
 
+    private void filterInputField(TextField daysInFld) {
+        daysInFld.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal == null) {
+                error_lbl.setText("");
+                return; // If empty field
+            }
+
+            // Проверяем, что ввод состоит только из цифр
+            if (!newVal.matches("\\d*")) {
+                daysInFld.setText(oldVal != null ? oldVal : "");
+                setDaysMessage("Enter digits only (1-30)");
+                return;
+            }
+
+            // Check range
+            if (!newVal.isEmpty()) {
+                try {
+                    int day = Integer.parseInt(newVal);
+                    if (day < 1 || day > 30) {
+                        daysInFld.setText(oldVal != null ? oldVal : "");
+                        DialogUtils.setErrorMessage(error_lbl,"Enter from 1 to 30");
+                    } else {
+                        error_lbl.setText("");
+                    }
+                } catch (NumberFormatException e) {
+                    daysInFld.setText(oldVal != null ? oldVal : "");
+                    DialogUtils.setErrorMessage(error_lbl,"Invalid number");
+                }
+            }
+        });
+    }
+
     private void setStep() {
         set_step_btn.setOnAction(actionEvent -> {
-
-            //Clean error label in 3 sec
-            Timeline clearMsg = new Timeline(new KeyFrame(Duration.seconds(3),event -> error_lbl.setText("")));
-            clearMsg.play();
-
             if (ml_main_step_rb.isSelected()) {
                 if (!mainStepApplied) {
-                    error_lbl.setText("Main step set!");
+                    DialogUtils.setErrorMessage(error_lbl,"Main step set!");
                     mainStepApplied = true;
+                    //Clean error label in 3 sec
 
                     // блокируем Main step после применения
                     ml_main_step_rb.setDisable(true);
@@ -133,18 +216,20 @@ public class TrainingController implements Initializable {
                     adit_step_rb.setDisable(false);
 
                 } else {
-                    error_lbl.setText("Not allowed");
+                    DialogUtils.warning("Attention", "Not allowed");
+                    DialogUtils.setErrorMessage(error_lbl,"Not allowed");
                 }
 
             } else if (adit_step_rb.isSelected()) {
                 if (mainStepApplied) {
-                    error_lbl.setText("New step added!");
+                    DialogUtils.setErrorMessage(error_lbl,"New step added!");
                 } else {
-                    error_lbl.setText("Apply Main step first!");
-                }
 
+                    DialogUtils.setErrorMessage(error_lbl,"Apply Main step first!");
+                }
             } else {
-                error_lbl.setText("Select a step.");
+                DialogUtils.warning(" MainLining method needs to ", "Apply Main step first! then Select a step.");
+                setDaysMessage("Select a step.");
             }
         });
     }

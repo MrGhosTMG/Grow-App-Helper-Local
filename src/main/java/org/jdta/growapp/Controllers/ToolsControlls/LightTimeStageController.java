@@ -3,6 +3,8 @@ package org.jdta.growapp.Controllers.ToolsControlls;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import org.jdta.growapp.Utils.DialogUtils;
+import org.jdta.growapp.Utils.StageActions;
 
 import java.net.URL;
 import java.util.List;
@@ -57,14 +59,9 @@ public class LightTimeStageController implements Initializable {
         });
     }
 
-    public String setHoursMessage(String msg) {
+    public void setHoursMessage(String msg) {
         hours_lbl.setText(msg);
-        return msg;
-    }
-
-    public String setErrorMessage(String msg) {
-        error_lbl.setText(msg);
-        return msg;
+        DialogUtils.hideErrorMessage(hours_lbl, 3);
     }
 
     private void setupRadioButtons(ToggleGroup group) {
@@ -128,46 +125,9 @@ public class LightTimeStageController implements Initializable {
         }
     }
 
-    private void filterInputField(TextField day, TextField night) {
-        day.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.matches("\\d{0,2}")) {
-                day.setText(oldVal);
-            } else if (!newVal.isEmpty()) {
-                try {
-                    int val = Integer.parseInt(newVal);
-                    if (val > 24) {
-                        day.setText(oldVal);
-                    } else {
-                        night.setText(String.valueOf(24 - val));
-                    }
-                } catch (NumberFormatException e) {
-                    day.setText(oldVal);
-                }
-            } else {
-                night.setText("");
-            }
-        });
-    }
-
     // check actions
     private void onSetClicked() {
-        String day = day_input_fld.getText().trim();
-        String night = night_input_fld.getText().trim();
-
-        if (day.isEmpty() || night.isEmpty()) {
-            setErrorMessage("Invalid Input -> Enter Digits only in 24 Hours range");
-            return;
-        }
-
-        try {
-            int dayVal = Integer.parseInt(day);
-            int nightVal = Integer.parseInt(night);
-            if (dayVal + nightVal != 24) {
-                setErrorMessage("Sum of Day and Night hours must be 24.");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            setErrorMessage("Please enter valid numbers for time.");
+        if(!StageActions.isTimePairValid(day_input_fld, night_input_fld, error_lbl, 24)) {
             return;
         }
 
@@ -176,9 +136,27 @@ public class LightTimeStageController implements Initializable {
             error_lbl.setText("");
         }
         setHoursMessage("Saved " + getSelectedHours());
-        //((Stage) set_btn.getScene().getWindow()).close();
     }
 
+    private void filterInputField(TextField day, TextField night) {
+        day.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal == null || !newVal.matches("\\d{0,2}")) {
+                day.setText(oldVal);
+                return;
+            }
+
+            if (!newVal.isEmpty()) {
+                try {
+                    int val = Integer.parseInt(newVal);
+                    night.setText(val <= 24 ? String.valueOf(24 - val) : "");
+                } catch (NumberFormatException e) {
+                    day.setText(oldVal);
+                }
+            } else {
+                night.setText("");
+            }
+        });
+    }
 
     public void setOnSave(Runnable callback) {
         this.onSaveCallback = callback;

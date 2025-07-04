@@ -54,7 +54,7 @@ public class CycleCreateController implements Initializable {
 
     private void onSetLight() {
         FXMLUtils.openModalWithCallback(
-                "/FXML/tools/LightTimeStage.fxml",
+                "/FXML/userBoard/LightTimeStage.fxml",
                 "Set Light Time",
                 (LightTimeStageController controller) -> {
                     // Передаём данные в контроллер, например, установить день/ночь

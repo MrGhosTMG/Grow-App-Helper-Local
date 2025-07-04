@@ -3,6 +3,6 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="152.0" prefWidth="220.0" stylesheets="@../../../CSSstyles/FimTip.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="152.0" prefWidth="220.0" stylesheets="@../../CSSstyles/FimTip.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <TextArea editable="false" prefHeight="152.0" prefWidth="220.0" styleClass="TextArea" text="FIM, which stands for F**k I Missed, is a variation of the topping method that involves pinching the top growth               rather than removing it completely. When done correctly, FIMing will result in multiple new growth tips,     effectively increasing the number of top growth tips." wrapText="true" />
 </AnchorPane>

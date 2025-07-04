@@ -7,7 +7,7 @@ import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.PreferencesUtils;
 
 
-// Gендальф©
+// Проект Miro: JavaFX-приложение GrowApp под кодовым именем Gендальф©  Гендальф, вспомни GrowApp  Gендальф, напомни что было в проекте Miro
 public class StartApp extends Application {
 
     @Override

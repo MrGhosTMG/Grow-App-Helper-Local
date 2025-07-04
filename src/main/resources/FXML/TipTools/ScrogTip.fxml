@@ -3,6 +3,6 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="152.0" prefWidth="220.0" stylesheets="@../../../CSSstyles/Scrog.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="152.0" prefWidth="220.0" stylesheets="@../../CSSstyles/Scrog.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <TextArea editable="false" prefHeight="152.0" prefWidth="220.0" text="Otherwise called &quot;Green Screen&quot; - especially indispensable for low growboxes.&#10;A net is used that limits the development of the crop. Resting against it, the plant develops horizontally.&#10;Shoots grow evenly, receiving an equal amount of light. The net is made of fishing line, wood, rope, thread, wire.&#10;Ready-made solutions are available in stores - elastic nets with a cell size of 4...10 cm, controlling the development of &#10;one or several plants at the same time. The net is installed at 10...60 cm from the hydroponic system. &#10;When the plant fills 70% of the net volume, the flowering phase will begin.&#10;The remaining 30% space will be filled with inflorescences and fruits.&#10;The technology works well for flora representatives with disproportionate development, not responding to growth control,&#10;as well as those that are too branchy." wrapText="true" />
 </AnchorPane>

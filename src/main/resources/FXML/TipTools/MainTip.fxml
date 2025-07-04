@@ -4,5 +4,5 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="152.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
-       <TextArea editable="false" prefHeight="152.0" prefWidth="220.0" styleClass="TextArea" stylesheets="@../../../CSSstyles/MainTip.css" text="Pay attention ! Using any each type of training gets delay plant growing. Depends on type applied. Stress may delay grow from 2-3 day to 2 weeks. But most of photo periodical plants brings more yield because of trainings. Important to follow correct steps,and do not torment plants. After each training used,must add to watering some necessary anti-stress nutrients and minerals." wrapText="true" />
+       <TextArea editable="false" prefHeight="152.0" prefWidth="220.0" styleClass="TextArea" stylesheets="@../../CSSstyles/MainTip.css" text="Pay attention ! Using any each type of training gets delay plant growing. Depends on type applied. Stress may delay grow from 2-3 day to 2 weeks. But most of photo periodical plants brings more yield because of trainings. Important to follow correct steps,and do not torment plants. After each training used,must add to watering some necessary anti-stress nutrients and minerals." wrapText="true" />
 </AnchorPane>

@@ -3,13 +3,13 @@ package org.jdta.growapp.Enums;
 
 
 public enum TrainingType {
-    LST("/FXML/tools/cycleCreateTools/LSTtip.fxml"),
-    DEF("/FXML/tools/cycleCreateTools/DefoliationTip.fxml"),
-    SCRG("/FXML/tools/cycleCreateTools/ScrogTip.fxml"),
-    TOP("/FXML/tools/cycleCreateTools/ToppingTip.fxml"),
-    FIM("/FXML/tools/cycleCreateTools/FimTip.fxml"),
-    ML("/FXML/tools/cycleCreateTools/MainLiningTip.fxml"),
-    OTHER("/FXML/tools/cycleCreateTools/MainTip.fxml");
+    LST("/FXML/TipTools/LSTtip.fxml"),
+    DEF("/FXML/TipTools/DefoliationTip.fxml"),
+    SCRG("/FXML/TipTools/ScrogTip.fxml"),
+    TOP("/FXML/TipTools/ToppingTip.fxml"),
+    FIM("/FXML/TipTools/FimTip.fxml"),
+    ML("/FXML/TipTools/MainLiningTip.fxml"),
+    OTHER("/FXML/TipTools/MainTip.fxml");
 
     private final String fxmlPath;
 

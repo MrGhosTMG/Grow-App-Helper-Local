@@ -34,8 +34,7 @@ public class LoginController implements Initializable {
         exit_btn.setOnAction(actionEvent -> StageActions.onExit(getStage()));
 
         // Подгрузим сохранённый логин (если есть)
-        Preferences prefs = Preferences.userNodeForPackage(StartApp.class);
-        String savedUsername = prefs.get("saved_username", "");
+        String savedUsername = PreferencesUtils.getSavedUsername();
         if (!savedUsername.isEmpty()) {
             user_log_fld.setText(savedUsername);
             stay_in_check.setSelected(true);
@@ -49,7 +48,8 @@ public class LoginController implements Initializable {
         err_lbl.setText("");
 
         if (username.isEmpty() || password.isEmpty()) {
-            err_lbl.setText("Введите имя пользователя и пароль");
+            err_lbl.setText("Enter your username and password");
+            DialogUtils.hideErrorMessage(err_lbl, 5);
             return;
         }
 
@@ -68,25 +68,15 @@ public class LoginController implements Initializable {
                 Model.getInstance().getView().showUserWindow();
                 Model.getInstance().getView().closeStage(stage);
             } else {
-                err_lbl.setText("Неверный логин или пароль");
+                err_lbl.setText("Incorrect login or password");
+                DialogUtils.hideErrorMessage(err_lbl, 5);
             }
         } catch (Exception e) {
-            DialogUtils.error("Ошибка входа", "Произошла ошибка при попытке входа.");
+            DialogUtils.error("Login Error", "An error occurred while trying to log in.");
             e.printStackTrace();
         }
     }
 
-
-    private void saveLoginPrefs(User user) {
-        Preferences prefs = Preferences.userNodeForPackage(LoginController.class);
-        if (stay_in_check.isSelected()) {
-            prefs.putInt("saved_user_id", user.getId());
-            prefs.put("saved_username", user.getUsername());
-        } else {
-            prefs.remove("saved_user_id");
-            prefs.remove("saved_username");
-        }
-    }
 
     private void onReg() {
         Stage stage = FXMLUtils.getCurrentStage();

@@ -18,9 +18,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<AnchorPane prefHeight="520.0" prefWidth="420.0" styleClass="user_container" stylesheets="@../CSSstyles/user.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.UserController">
-   <Label fx:id="select_lbl" layoutX="34.0" layoutY="6.0" stylesheets="@../CSSstyles/user.css" text="Select your cycle" AnchorPane.topAnchor="8.0" />
-   <Label fx:id="cycle_name_info_lbl" layoutX="314.0" layoutY="6.0" styleClass="Label" stylesheets="@../CSSstyles/user.css" text="Cycle Info" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="2.0" />
+<AnchorPane prefHeight="520.0" prefWidth="420.0" styleClass="user_container" stylesheets="@../../CSSstyles/user.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.UserController">
+   <Label fx:id="select_lbl" layoutX="34.0" layoutY="6.0" stylesheets="@../../CSSstyles/user.css" text="Select your cycle" AnchorPane.topAnchor="8.0" />
+   <Label fx:id="cycle_name_info_lbl" layoutX="314.0" layoutY="6.0" styleClass="Label" stylesheets="@../../CSSstyles/user.css" text="Cycle Info" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="2.0" />
    <Line endX="250.0" endY="5.292893409729004" layoutX="165.0" layoutY="164.0" startX="-160.0" startY="5.292893409729004" AnchorPane.topAnchor="177.0" />
    <HBox layoutX="5.0" layoutY="185.0" prefHeight="330.0" prefWidth="410.0" styleClass="main_user_container_field" AnchorPane.leftAnchor="5.0">
       <BorderPane prefWidth="410.0">
@@ -92,9 +92,9 @@
          </center>
       </BorderPane>
    </HBox>
-   <Label fx:id="selected_user_name" stylesheets="@../CSSstyles/Cycle.css" text="User TOOLS" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="1.0" />
-   <ListView fx:id="list_view_cycle_info" layoutX="194.0" layoutY="18.0" prefHeight="155.0" prefWidth="220.0" style="-fx-border-color: #e81212; -fx-background-color: D8DBDE; -fx-cursor: TEXT;" stylesheets="@../CSSstyles/user.css" AnchorPane.leftAnchor="198.0" AnchorPane.topAnchor="20.0" />
-   <ComboBox fx:id="select_cycle_combo_box" layoutX="2.0" layoutY="27.0" prefWidth="100.0" promptText="Cycles list" stylesheets="@../CSSstyles/Cycle.css">
+   <Label fx:id="selected_user_name" stylesheets="@../../CSSstyles/Cycle.css" text="User TOOLS" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="1.0" />
+   <ListView fx:id="list_view_cycle_info" layoutX="194.0" layoutY="18.0" prefHeight="155.0" prefWidth="220.0" style="-fx-border-color: #e81212; -fx-background-color: D8DBDE; -fx-cursor: TEXT;" stylesheets="@../../CSSstyles/user.css" AnchorPane.leftAnchor="198.0" AnchorPane.topAnchor="20.0" />
+   <ComboBox fx:id="select_cycle_combo_box" layoutX="2.0" layoutY="27.0" prefWidth="100.0" promptText="Cycles list" stylesheets="@../../CSSstyles/Cycle.css">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></ComboBox>
@@ -102,7 +102,7 @@
       <viewport>
          <Rectangle2D height="115.0" width="100.0" />
       </viewport>
-      <Image url="@../Images/img.jpg" />
+      <Image url="@../../Images/img.jpg" />
    </ImageView>
    <Button fx:id="select_cycle_btn" layoutX="113.0" layoutY="27.0" mnemonicParsing="false" prefWidth="75.0" text="Go to">
       <graphic>

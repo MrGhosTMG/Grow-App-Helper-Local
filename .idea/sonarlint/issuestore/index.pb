@@ -24,10 +24,6 @@ e
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-b
-2src/main/java/org/jdta/growapp/Utils/DTOUtils.java,7\6\76f4dce94e909563bfe46098eec7b145df46fa22
-b
-2src/main/java/org/jdta/growapp/Utils/DtoUtils.java,2\a\2a0d6dcdea647123c52fa341360acb05fde925b1
 ‡
 Wsrc/main/java/org/jdta/growapp/Controllers/ToolsControlls/LightTimeStageController.java,f\6\f65d1491c064776f9bf4a18222d913bd71c8ea36
 c
@@ -78,3 +74,5 @@ f
 6src/main/java/org/jdta/growapp/Enums/TrainingType.java,0\d\0da58a22206c3e9a7c9bb0c985f5b063523f0b5e
 f
 6src/main/java/org/jdta/growapp/Utils/StageActions.java,1\6\16b2590b68df71490085841572e2c255406be72d
+†
+Vsrc/main/java/org/jdta/growapp/Controllers/ToolsControlls/WarningDialogController.java,c\d\cda7da4d15efac0cc19045b1395aa97c00c464c4

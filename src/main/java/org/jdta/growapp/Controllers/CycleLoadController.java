@@ -81,7 +81,7 @@ public class CycleLoadController  implements Initializable {
 
     private void onSetLight() {
         Node root = FXMLUtils.loadWithControllerCallBackActions(
-                "/FXML/tools/LightTimeStageCycle.fxml",
+                "/FXML/CycleTools/LightTimeStageCycle.fxml",
                 (LightTimeStageController controller) -> {
                     // Передаём данные в контроллер, например, установить день/ночь
                     controller.setDayNightTimes("24", "0");
@@ -104,7 +104,7 @@ public class CycleLoadController  implements Initializable {
 
     protected void onNutrients() {
 
-        Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/tools/NutrientCycle.fxml",
+        Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/CycleTools/NutrientCycle.fxml",
                 (NutrientsController controller) -> { //set callBacks
                     controller.setOnSaveNutr(() -> {
                         System.out.println("Save button clicked from UserController!");
@@ -126,23 +126,5 @@ public class CycleLoadController  implements Initializable {
     public Stage stage() {
         return FXMLUtils.stageFrom(exit_btn);
     }
-/*
-    public void addListeners() {
-        Model.getInstance().getView().getUserSelectedButton().addListener((observableValue, oldVal, newVal) -> {
-            switch (newVal) {
-                case "Photo" ->
-                        Model.getInstance().getView().getPhotoView();// .showPhotoFieldInPane(down_border_pane_top);
-                case "History" ->
-                        Model.getInstance().getView().getHistoryView();
-                case "Nutrients" ->
-                        Model.getInstance().getView().getNutrientsView();
-                case "Info" ->
-                    Model.getInstance().getView().getInfoView();
-                default -> {
-                    Model.getInstance().getView().getUserView();
-                }
-            }
-        });
-    }
-*/
+
 }

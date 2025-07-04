@@ -60,33 +60,34 @@ public class RegistrationController implements Initializable {
         boolean hasError = false;
 
         if (!isValidEmail(email)) {
-            mail_lbl.setText(" Incorrect email form");
+            DialogUtils.setErrorMessage(mail_lbl," Incorrect email form");
             hasError = true;
         }
 
         if (username.length() < 3) {
-            user_lbl.setText(" user name must be longer than 3 symbols");
+            DialogUtils.setErrorMessage(user_lbl," user name must be longer than 3 symbols");
             hasError = true;
         }
 
         if (!isValidPassword(password)) {
-            pass_lbl.setText("minimum 1 digit 1 special from [@#$%^&+=!?*()_-] 1 from [a-z] + [A-Z]");
+            DialogUtils.setErrorMessage(pass_lbl,"minimum 1 digit 1 special from [@#$%^&+=!?*()_-] 1 from [a-z] + [A-Z]");
             hasError = true;
         }
 
         if (!password.equals(confirmPassword)) {
-            pass_check_lbl.setText(" Пароли не совпадают");
+            DialogUtils.setErrorMessage(pass_check_lbl, " Passwords do not match");
             hasError = true;
         }
 
         if (!accept_terms_ch_box.isSelected()) {
-            pass_check_lbl.setText("Accept terms for complete registration");
+            DialogUtils.setErrorMessage(pass_check_lbl,"Accept terms for complete registration");
             hasError = true;
         }
 
         if (hasError) {
             if (!accept_terms_ch_box.isSelected()) {
-                DialogUtils.warning("Warning", "accept terms for complete registration");
+                DialogUtils.warning("Oops!", "You forgot to fill in all fields!");
+
             }
             return;
         }
@@ -95,7 +96,7 @@ public class RegistrationController implements Initializable {
             User user = new User();
             user.setEmail(email);
             user.setUsername(username);
-            user.setPassword(password); // можно захешировать позже
+            user.setPassword(password);
             user.setCreatedAt(LocalDateTime.now());
 
             userService.registerUser(user); //  метод должен проверить, не существует ли пользователь
@@ -107,9 +108,9 @@ public class RegistrationController implements Initializable {
 
         } catch (IllegalArgumentException e) {
             if (e.getMessage().contains("Email")) {
-                mail_lbl.setText(" Email already used");
+                DialogUtils.setErrorMessage(mail_lbl," Email already used");
             } else if (e.getMessage().contains("User name")) {
-                user_lbl.setText(" Name already used");
+                DialogUtils.setErrorMessage(user_lbl," Name already used");
             } else {
                 DialogUtils.error("Registration Error", e.getMessage());
             }

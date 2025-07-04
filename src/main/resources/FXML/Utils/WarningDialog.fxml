@@ -7,17 +7,15 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="parent_anchor" prefHeight="140.0" prefWidth="180.0" styleClass="main_scene" stylesheets="@../../CSSstyles/Warning.css"
-            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.jdta.growapp.Controllers.ToolsControlls.WarningDialogController">
-   <ImageView fitHeight="160.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+<AnchorPane fx:id="parent_anchor" prefHeight="140.0" prefWidth="180.0" styleClass="main_scene" stylesheets="@../../CSSstyles/Warning.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.WarningDialogController">
+   <ImageView fitHeight="160.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <Image url="@../../Images/smoke200_160.jpg" />
    </ImageView>
-   <Label fx:id="title_lbl" layoutX="4.0" layoutY="6.0" prefHeight="17.0" prefWidth="173.0" text="Upss.. you missd some fields" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="6.0" />
-   <Label fx:id="warn_msg" layoutX="23.0" layoutY="117.0" prefHeight="37.0" prefWidth="166.0" text="Warning message" wrapText="true">
+   <Label fx:id="title_lbl" layoutX="4.0" layoutY="6.0" text="Upss.. you missd some fields" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="6.0" />
+   <Label fx:id="warn_msg" layoutY="49.0" text="Warning message" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <padding>
-         <Insets left="25.0" />
+         <Insets left="10.0" />
       </padding>
    </Label>
-   <Button fx:id="ok_btn" layoutX="60.0" layoutY="31.0" mnemonicParsing="false" text="Yeah.. True" />
+   <Button fx:id="ok_btn" layoutX="63.0" layoutY="121.0" mnemonicParsing="false" text="Yeah.. True" />
 </AnchorPane>
