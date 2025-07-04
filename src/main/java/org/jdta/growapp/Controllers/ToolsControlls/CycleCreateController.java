@@ -3,6 +3,8 @@ package org.jdta.growapp.Controllers.ToolsControlls;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.StageActions;
@@ -34,12 +36,20 @@ public class CycleCreateController implements Initializable {
     public Button save_btn;
     public SplitMenuButton split_menu_typeSort_btn;
     public Button light_stage_btn;
-    public TextField start_date_fld;
-    public TextField eta_date_fld;
     public Button set_date_btn;
-    public TableView formed_info_table_view;
     public Label cycle_reg_lbl;
     public ImageView img_reg;
+    public DatePicker start_date;
+    public DatePicker EET_date;
+    public RadioButton indoor_rb;
+    public RadioButton outdoor_rb;
+    public RadioButton auto_fem_btn;
+    public RadioButton photo_fem_btn;
+    public RadioButton reg_btn;
+    public RadioButton photo_fast_fem_btn;
+    public AnchorPane scene_anchor;
+    public Label error_lbl;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -75,6 +85,15 @@ public class CycleCreateController implements Initializable {
         return FXMLUtils.stageFrom(exit_btn); // можно использовать любой доступный Node
     }
 
+//    public LocalDate getValidatedDate() {
+//        if (dayCombo.getValue() == null ||
+//                monthCombo.getValue() == null ||
+//                yearCombo.getValue() == null) {
+//            DialogUtils.showError("Error", "Please select full date");
+//            return null;
+//        }
+//        return getSelectedDate();
+//    }
 
     private void onSelectedCycle() {
         Stage stage = FXMLUtils.getCurrentStage();
