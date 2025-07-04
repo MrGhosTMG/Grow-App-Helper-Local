@@ -1,0 +1,24 @@
+
+.text-area {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px; /* Размер шрифта */
+    -fx-text-fill: rgb(32, 29, 204); /* Цвет текста (для контраста на темном фоне) */
+    -fx-background-color: #408015; /* Зеленый фон (последний указанный цвет) */
+    -fx-control-inner-background: #994040; /* Фон внутренней области */
+    -fx-border-color: #5c0e0e; /* Темно-зеленая граница */
+    -fx-border-radius: 5px; /* Скругление углов */
+     /*-fx-padding: 10px; Отступы внутри */
+}
+
+/* Стиль для текста внутри TextArea */
+.text-area .content {
+    -fx-background-color: -fx-control-inner-background; /* Наследует основной фон */
+    -fx-text-fill: -fx-text-inner-color; /* Цвет текста */
+}
+
+/* Стиль при фокусе */
+.text-area:focused {
+    -fx-border-color: #761aa1; 
+    -fx-effect: dropshadow(gaussian, rgba(34, 161, 26, 0.3), 5, 0, 0, 0); /* Тень */
+}
+

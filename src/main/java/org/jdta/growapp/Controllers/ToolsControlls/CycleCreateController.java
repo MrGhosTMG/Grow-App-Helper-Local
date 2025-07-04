@@ -5,7 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.jdta.growapp.Models.Model;
-import org.jdta.growapp.Utils.DialogUtils;
+import org.jdta.growapp.Utils.StageActions;
 import org.jdta.growapp.Utils.FXMLUtils;
 
 import java.net.URL;
@@ -43,21 +43,18 @@ public class CycleCreateController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        exit_btn.setOnAction(actionEvent -> onExit());
-        log_out_btn.setOnAction(actionEvent -> onLogin());
-        back_btn.setOnAction(actionEvent -> onUser());
+
+        exit_btn.setOnAction(actionEvent -> StageActions.onExit(getStage()));
+        log_out_btn.setOnAction(event -> StageActions.onLogout(getStage()));
+        back_btn.setOnAction(actionEvent -> StageActions.backToUser(getStage()));
         save_btn.setOnAction(actionEvent -> onSelectedCycle());
         light_stage_btn.setOnAction(actionEvent -> onSetLight());
     }
 
 
-
-    //on actions section
-
-
     private void onSetLight() {
         FXMLUtils.openModalWithCallback(
-                "/FXML/tools/LightTimeStage.fxml",
+                "/FXML/userBoard/LightTimeStage.fxml",
                 "Set Light Time",
                 (LightTimeStageController controller) -> {
                     // Передаём данные в контроллер, например, установить день/ночь
@@ -74,31 +71,77 @@ public class CycleCreateController implements Initializable {
         );
     }
 
-
-    private void onUser() {
-        Stage stage = (Stage) back_btn.getScene().getWindow();
-        Model.getInstance().getView().showUserWindow();
-        Model.getInstance().getView().closeStage(stage);
+    private Stage getStage() {
+        return FXMLUtils.stageFrom(exit_btn); // можно использовать любой доступный Node
     }
 
-    private void onLogin() {
-        DialogUtils.confirm("Logout from application?", () -> {
-            Stage stage = (Stage) log_out_btn.getScene().getWindow();
-            Model.getInstance().getView().showLoginWindow();
-            stage.close();
-        });
-
-    }
-    private void onExit() {
-        DialogUtils.confirm("Do you really want to exit?", () -> {
-            Stage stage = (Stage) exit_btn.getScene().getWindow();
-            stage.close();
-        });
-    }
 
     private void onSelectedCycle() {
-        Stage stage = (Stage) exit_btn.getScene().getWindow();
+        Stage stage = FXMLUtils.getCurrentStage();
         Model.getInstance().getView().showSelectedCycleWindow();
         Model.getInstance().getView().closeStage(stage);
     }
+    /*
+on actions section
+    private void onAddPhoto() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Выберите изображение");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(add_img_btn.getScene().getWindow());
+        if (selectedFile != null) {
+            try {
+                File destDir = new File("Photos");
+                if (!destDir.exists()) {
+                    destDir.mkdirs();
+                }
+
+                File destFile = new File(destDir, selectedFile.getName());
+                Files.copy(selectedFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                loadImagesFromDisk(); // перезагрузка галереи
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void loadImagesFromDisk() {
+        File photoDir = new File("Photos");
+        if (!photoDir.exists() || !photoDir.isDirectory()) {
+            return;
+        }
+
+        File[] imageFiles = photoDir.listFiles((dir, name) ->
+                name.toLowerCase().endsWith(".png") ||
+                        name.toLowerCase().endsWith(".jpg") ||
+                        name.toLowerCase().endsWith(".jpeg")
+        );
+
+        grid_pane.getChildren().clear();
+
+        if (imageFiles == null) return;
+
+        int column = 0;
+        int row = 0;
+
+        for (File imgFile : imageFiles) {
+            Image image = new Image(imgFile.toURI().toString());
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(150);
+            imageView.setFitHeight(135);
+            imageView.setPreserveRatio(true);
+
+            grid_pane.add(imageView, column, row);
+            column++;
+            if (column == 2) {
+                column = 0;
+                row++;
+            }
+        }
+    }
+    ещё кнопку «Удалить все», превью при клике, или диалог редактирования.
+*/
 }

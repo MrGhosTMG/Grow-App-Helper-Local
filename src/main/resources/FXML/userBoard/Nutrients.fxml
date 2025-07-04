@@ -10,22 +10,20 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="parent_nutr" prefHeight="322.0" prefWidth="310.0" styleClass="nuts_container"
-            stylesheets="@../../CSSstyles/nutsStyle.css" xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.NutrientsController">
+<AnchorPane fx:id="parent_nutr" prefHeight="322.0" prefWidth="310.0" styleClass="nuts_container" stylesheets="@../../CSSstyles/nutsStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.NutrientsController">
    <Label fx:id="header_lbl" layoutX="81.0" prefHeight="17.0" prefWidth="172.0" styleClass="Label" text="Nutrients add/select section" AnchorPane.leftAnchor="81.0" AnchorPane.rightAnchor="59.0" AnchorPane.topAnchor="1.0">
       <padding>
          <Insets left="2.0" />
       </padding></Label>
    <Line endY="-137.0" layoutX="155.0" layoutY="180.0" startY="132.0" styleClass="separator" AnchorPane.leftAnchor="152.0" AnchorPane.rightAnchor="154.0" />
    <TextField fx:id="nut_name_fld" layoutX="8.0" layoutY="44.0" prefHeight="25.0" prefWidth="138.0" promptText="Enter nutr_name" styleClass="input_field" AnchorPane.rightAnchor="164.0" AnchorPane.topAnchor="44.0" />
-   <ChoiceBox fx:id="choise_nutr" layoutX="165.0" layoutY="44.0" prefHeight="25.0" prefWidth="138.0" styleClass="input_field" AnchorPane.topAnchor="44.0" />
+   <ChoiceBox fx:id="choose_nuts" layoutX="165.0" layoutY="44.0" prefHeight="25.0" prefWidth="138.0" styleClass="input_field" AnchorPane.topAnchor="44.0" />
    <Text fill="#0adfee" layoutX="14.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add manually" AnchorPane.bottomAnchor="284.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="225.998046875" AnchorPane.topAnchor="21.0" />
    <Text fill="#0adfee" layoutX="236.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pick from list" AnchorPane.topAnchor="20.05078125" />
-   <TextArea fx:id="nutr_add_desc_text" layoutX="13.0" layoutY="75.0" prefHeight="200.0" prefWidth="138.0" promptText="Descriptions and notes" AnchorPane.rightAnchor="164.0" />
    <ListView fx:id="desc_picked_nut_text" layoutX="163.0" layoutY="75.0" prefHeight="200.0" prefWidth="145.0" styleClass="readonly-area" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="76.0">
       <cursor>
          <Cursor fx:constant="TEXT" />
@@ -40,4 +38,26 @@
          <FontAwesomeIconView glyphName="PLUS" styleClass="alt_FontAwesomeIconView" />
       </graphic>
    </Button>
+   <VBox layoutX="10.0" layoutY="78.0" prefHeight="200.0" prefWidth="138.0">
+      <TextField fx:id="N_fld" prefWidth="100.0" promptText="N">
+         <VBox.margin>
+            <Insets left="10.0" right="10.0"/>
+         </VBox.margin>
+      </TextField>
+      <TextField fx:id="P_fld" layoutX="10.0" layoutY="10.0" promptText="P">
+         <VBox.margin>
+            <Insets left="10.0" right="10.0" top="2.0"/>
+         </VBox.margin>
+      </TextField>
+      <TextField fx:id="K_fld" layoutX="10.0" layoutY="135.0" promptText="K">
+         <VBox.margin>
+            <Insets left="10.0" right="10.0" top="2.0"/>
+         </VBox.margin>
+      </TextField>
+      <TextArea fx:id="nutr_add_desc_text" prefHeight="119.0" prefWidth="138.0" promptText="Descriptions and notes">
+         <VBox.margin>
+            <Insets top="2.0"/>
+         </VBox.margin>
+      </TextArea>
+   </VBox>
 </AnchorPane>

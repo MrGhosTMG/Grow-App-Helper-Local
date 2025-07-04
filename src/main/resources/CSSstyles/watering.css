@@ -1,0 +1,135 @@
+
+.watering_main {
+-fx-background-color: #4f9af0;
+}
+
+Label {
+    -fx-alignment: center;
+    -fx-text-fill: #fa5305;
+}
+
+.input_field {
+    
+    -fx-text-fill: #fa5305;
+    -fx-background-color: #9ec1e9;
+    -fx-prompt-text-fill: #da1212;
+    -fx-font-family: "Arial";
+    
+}
+
+.input_field_r {
+    
+    -fx-text-fill: #1505fa;
+    -fx-background-color: #90cae0;
+    -fx-prompt-text-fill: #f8fc05;
+    -fx-font-family: "Arial";
+    
+}
+
+Button {
+   -fx-cursor: hand; 
+    -fx-background-color: #9ec1e9;
+}
+
+Button:hover {
+    -fx-background-color: #fa5305;
+}
+
+.button:pressed {
+    -fx-background-color: #29b948;
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
+}
+
+/* Основной стиль ChoiceBox */
+.choice-box {
+    -fx-background-color: #bbe7eb;
+    -fx-border-color: #bdc3c7;
+    
+    -fx-mark-color: #3498db; /* Цвет стрелки */
+    
+}
+
+/* Стиль выпадающего списка */
+.choice-box .context-menu {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+}
+
+/* Стиль элементов в списке */
+.choice-box .menu-item {
+    -fx-padding: 5px 10px;
+    -fx-background-color: white;
+}
+
+/* Стиль элементов при наведении */
+.choice-box .menu-item:hover {
+    -fx-background-color: #3498db;
+    -fx-text-fill: rgb(233, 145, 63);
+}
+
+/* Стиль выбранного элемента */
+.choice-box .menu-item:selected {
+    -fx-background-color: #2980b9;
+    -fx-text-fill: white;
+}
+/* Основной стиль ListView */
+.list-view {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+/* Стиль ячеек (элементов списка) */
+.list-cell {
+    -fx-background-color: white;
+    -fx-border-color: #e9ecef;
+    -fx-padding: 8px 10px;
+}
+
+/* Стиль при наведении */
+.list-cell:hover {
+    -fx-background-color: #e9ecef;
+}
+
+/* Стиль выбранной ячейки */
+.list-cell:selected {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+/* Скрыть горизонтальный скроллбар */
+.list-view .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}
+
+.check-box {
+    /* Стиль текста */
+    -fx-text-fill: #2c3e50;
+   
+}
+
+/* Стиль "галочки" (без изменения размера) */
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    
+}
+
+/* Стиль при наведении */
+.check-box:hover .box {
+    -fx-border-color: #3498db;
+}
+
+/* Стиль выбранного состояния */
+.check-box:selected .box {
+    -fx-background-color: #3498db;
+    -fx-border-color: #3498db;
+}
+
+/* Галочка (mark) */
+.check-box:selected .mark {
+    -fx-background-color: white;
+}

@@ -3,13 +3,22 @@ package org.jdta.growapp.Controllers;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.jdta.growapp.DTO.User;
 import org.jdta.growapp.Models.Model;
+import org.jdta.growapp.Service.UserService;
+import org.jdta.growapp.StartApp;
+import org.jdta.growapp.Utils.FXMLUtils;
+import org.jdta.growapp.Utils.StageActions;
 import org.jdta.growapp.Utils.DialogUtils;
+import org.jdta.growapp.Utils.PreferencesUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 public class LoginController implements Initializable {
+    private final UserService userService = new UserService(Model.getInstance().getUserDAO());
+
     public TextField user_log_fld;
     public PasswordField pass_fld;
     public CheckBox stay_in_check;
@@ -22,32 +31,60 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         enter_button.setOnAction(actionEvent -> onLogin());
         reg_btn.setOnAction(actionEvent -> onReg());
-        exit_btn.setOnAction(actionEvent -> onExit());
+        exit_btn.setOnAction(actionEvent -> StageActions.onExit(getStage()));
+
+        // Подгрузим сохранённый логин (если есть)
+        String savedUsername = PreferencesUtils.getSavedUsername();
+        if (!savedUsername.isEmpty()) {
+            user_log_fld.setText(savedUsername);
+            stay_in_check.setSelected(true);
+        }
+    }
+
+    private void onLogin() {
+        String username = user_log_fld.getText().trim();
+        String password = pass_fld.getText().trim();
+
+        err_lbl.setText("");
+
+        if (username.isEmpty() || password.isEmpty()) {
+            err_lbl.setText("Enter your username and password");
+            DialogUtils.hideErrorMessage(err_lbl, 5);
+            return;
+        }
+
+        try {
+            User user = userService.login(username, password);
+            if (user != null) {
+                Model.getInstance().setCurrentUser(user);
+
+                if (stay_in_check.isSelected()) {
+                    PreferencesUtils.saveUser(user.getId(), user.getUsername());
+                } else {
+                    PreferencesUtils.clearUser();
+                }
+
+                Stage stage = FXMLUtils.getCurrentStage();
+                Model.getInstance().getView().showUserWindow();
+                Model.getInstance().getView().closeStage(stage);
+            } else {
+                err_lbl.setText("Incorrect login or password");
+                DialogUtils.hideErrorMessage(err_lbl, 5);
+            }
+        } catch (Exception e) {
+            DialogUtils.error("Login Error", "An error occurred while trying to log in.");
+            e.printStackTrace();
+        }
     }
 
 
-    // On actions section
     private void onReg() {
-        Stage stage = (Stage) reg_btn.getScene().getWindow();
+        Stage stage = FXMLUtils.getCurrentStage();
         Model.getInstance().getView().showRegWindow();
         Model.getInstance().getView().closeStage(stage);
     }
 
-
-    private void onLogin() {
-        Stage stage = (Stage) enter_button.getScene().getWindow();
-        Model.getInstance().getView().showUserWindow();
-        Model.getInstance().getView().closeStage(stage);
-    }
-
-    private void onExit() {
-        DialogUtils.confirm("Do you really want to exit?", () -> {
-            Stage stage = (Stage) exit_btn.getScene().getWindow();
-            stage.close();
-        });
-
-//        Stage stage = (Stage) exit_btn.getScene().getWindow();
-//        Model.getInstance().getView().closeStage(stage);
-
+    private Stage getStage() {
+        return FXMLUtils.stageFrom(exit_btn); // можно использовать любой доступный Node
     }
 }

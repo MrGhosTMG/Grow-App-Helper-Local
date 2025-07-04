@@ -1,0 +1,64 @@
+
+.main_training_window {
+    -fx-background-color: #14a06a;
+}
+
+.input_field {
+    
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #eb7d3d;
+    -fx-prompt-text-fill: #f50c0c;
+    -fx-font-family: "Arial";
+    
+}
+
+.Text {
+    -fx-font-size: 1.1em;
+}
+
+Button {
+   -fx-cursor: hand; 
+    -fx-background-color: #18b840;
+    -fx-text-fill: #f50808;
+}
+
+Button:hover {
+    -fx-background-color: #5640d1;
+}
+
+.button:pressed {
+    -fx-background-color: #0c77db;
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
+}
+
+/* Стиль для RadioButton по умолчанию */
+.radio-button {
+    -fx-font-family: "Arial";
+
+}
+
+Label {
+    -fx-text-fill: #f70707;
+}
+
+/* Стиль для "точки" внутри RadioButton */
+.radio-button .dot {
+    
+    -fx-mark-color: #fa7508;           /* Цвет "галочки" */
+    -fx-background-radius: 100%;        /* Круглая форма */
+}
+
+/* Стиль при наведении */
+/* .radio-button:hover {
+    -fx-text-fill: #000000;
+} */
+
+/* Стиль для выбранного RadioButton */
+/* .radio-button:selected .dot {
+    -fx-background-color: #f10808;
+} */
+
+/* .radio-button .radio {
+    -fx-transition: -fx-background-color 0.3s, -fx-border-color 0.3s;
+} */

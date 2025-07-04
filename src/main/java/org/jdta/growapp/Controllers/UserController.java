@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.jdta.growapp.Controllers.ToolsControlls.NutrientsController;
 import org.jdta.growapp.Models.Model;
-import org.jdta.growapp.Utils.DialogUtils;
+import org.jdta.growapp.Utils.StageActions;
 import org.jdta.growapp.Utils.FXMLUtils;
 
 
@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserController implements Initializable {
+
 
     public AnchorPane down_border_pane_top;
     public ImageView image_view_board;
@@ -45,8 +46,8 @@ public class UserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         select_cycle_btn.setOnAction(actionEvent -> onSelectedCycle());
-        exit_btn.setOnAction(actionEvent -> onExit());
-        change_user_btn.setOnAction(actionEvent -> onLogin());
+        exit_btn.setOnAction(actionEvent -> StageActions.onExit(stage()));
+        change_user_btn.setOnAction(event -> StageActions.onLogout(stage()));
         add_new_cycle_btn.setOnAction(actionEvent -> onNewCycle());
         photos_btn.setOnAction(actionEvent -> onPhoto());
         history_btn.setOnAction(actionEvent -> onHistory());
@@ -70,7 +71,6 @@ public class UserController implements Initializable {
             }
         });
     }
-
 
     // On actions section
     protected void onNutrients() {
@@ -108,38 +108,18 @@ public class UserController implements Initializable {
         }
     }
 
-
     private void onSelectedCycle() {
-        Stage stage = (Stage) exit_btn.getScene().getWindow();
+        Stage stage = FXMLUtils.stageFrom(exit_btn);
         Model.getInstance().getView().showSelectedCycleWindow();
         Model.getInstance().getView().closeStage(stage);
     }
 
-
     private void onNewCycle() {
-        Stage stage = (Stage) exit_btn.getScene().getWindow();
+        Stage stage = FXMLUtils.stageFrom(exit_btn);
         Model.getInstance().getView().showCycleCreateWindow();
         Model.getInstance().getView().closeStage(stage);
     }
-
-
-    private void onLogin() {
-        DialogUtils.confirm("Logout from application?", () -> {
-            Stage stage = (Stage) change_user_btn.getScene().getWindow();
-            Model.getInstance().getView().showLoginWindow();
-            stage.close();
-        });
-
-
+    public Stage stage() {
+        return FXMLUtils.stageFrom(exit_btn);
     }
-
-    private void onExit() {
-
-        DialogUtils.confirm("Do you really want to exit?", () -> {
-            Stage stage = (Stage) exit_btn.getScene().getWindow();
-            stage.close();
-        });
-
-    }
-
 }

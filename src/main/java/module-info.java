@@ -6,6 +6,7 @@ module org.jdta.growapp {
     requires org.xerial.sqlitejdbc;
 
     requires org.controlsfx.controls;
+    requires java.prefs;
 
 
     opens org.jdta.growapp to javafx.fxml;
@@ -15,5 +16,4 @@ module org.jdta.growapp {
     exports org.jdta.growapp.Views;
     exports org.jdta.growapp.Utils;
     exports org.jdta.growapp.Controllers.ToolsControlls;
-
 }

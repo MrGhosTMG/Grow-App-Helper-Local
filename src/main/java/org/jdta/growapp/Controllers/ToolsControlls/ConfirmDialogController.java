@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ConfirmDialogController implements Initializable {
+public class ConfirmDialogController {
 
 
     public BorderPane parent_bord_pane;
@@ -22,8 +22,5 @@ public class ConfirmDialogController implements Initializable {
     public ImageView icon_view;
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    }
 }

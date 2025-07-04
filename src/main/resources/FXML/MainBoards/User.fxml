@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane prefHeight="520.0" prefWidth="420.0" styleClass="user_container" stylesheets="@../../CSSstyles/user.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.UserController">
+   <Label fx:id="select_lbl" layoutX="34.0" layoutY="6.0" stylesheets="@../../CSSstyles/user.css" text="Select your cycle" AnchorPane.topAnchor="8.0" />
+   <Label fx:id="cycle_name_info_lbl" layoutX="314.0" layoutY="6.0" styleClass="Label" stylesheets="@../../CSSstyles/user.css" text="Cycle Info" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="2.0" />
+   <Line endX="250.0" endY="5.292893409729004" layoutX="165.0" layoutY="164.0" startX="-160.0" startY="5.292893409729004" AnchorPane.topAnchor="177.0" />
+   <HBox layoutX="5.0" layoutY="185.0" prefHeight="330.0" prefWidth="410.0" styleClass="main_user_container_field" AnchorPane.leftAnchor="5.0">
+      <BorderPane prefWidth="410.0">
+         <left>
+            <VBox prefHeight="90.0" prefWidth="95.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets top="2.0" />
+               </BorderPane.margin>
+               <Button fx:id="photos_btn" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="Photos">
+                  <VBox.margin>
+                     <Insets left="4.0" top="4.0" />
+                  </VBox.margin>
+                  <graphic>
+                     <FontAwesomeIconView fill="#2e28e1" glyphName="PHOTO" />
+                  </graphic>
+               </Button>
+               <Button fx:id="history_btn" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="History">
+                  <graphic>
+                     <FontAwesomeIconView fill="#e81212" glyphName="BOOK" />
+                  </graphic>
+                  <VBox.margin>
+                     <Insets left="4.0" top="4.0" />
+                  </VBox.margin>
+               </Button>
+               <Button fx:id="nutr_btn" mnemonicParsing="false" prefHeight="45.0" prefWidth="80.0" text="Nutrients">
+                  <graphic>
+                     <FontAwesomeIconView fill="#a012b9" glyphName="LIST" />
+                  </graphic>
+                  <VBox.margin>
+                     <Insets left="4.0" top="4.0" />
+                  </VBox.margin>
+               </Button>
+               <Button fx:id="shop_btn" disable="true" mnemonicParsing="false" prefHeight="45.0" prefWidth="80.0" text="SHOP WEB">
+                  <VBox.margin>
+                     <Insets left="4.0" top="14.0" />
+                  </VBox.margin>
+               </Button>
+               <Button fx:id="change_user_btn" mnemonicParsing="false" text="Logout">
+                  <VBox.margin>
+                     <Insets left="8.0" top="50.0" />
+                  </VBox.margin>
+                  <graphic>
+                     <FontAwesomeIconView fill="#d71212" glyphName="EXTERNAL_LINK" />
+                  </graphic>
+               </Button>
+               <Button fx:id="exit_btn" layoutX="10.0" layoutY="112.0" mnemonicParsing="false" text="Exit">
+                  <VBox.margin>
+                     <Insets left="17.0" top="10.0" />
+                  </VBox.margin>
+                  <graphic>
+                     <FontAwesomeIconView fill="#d71212" glyphName="CLOSE" />
+                  </graphic>
+               </Button>
+            </VBox>
+         </left>
+         <center>
+            <AnchorPane fx:id="down_border_pane_top" prefHeight="520.0" prefWidth="420.0" BorderPane.alignment="CENTER">
+               <TextArea  fx:id="info_text_fld" editable="false" layoutX="4.0" layoutY="5.0" prefHeight="322.0" prefWidth="310.0"
+                         text="Growers assistance App&#10; Moist, Training, Cycle control with&#10; alarms notes and&#10;Photo/History controlling"  AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="2.0"
+                         AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="3.0">
+                  <padding>
+                     <Insets bottom="4.0" left="4.0" right="4.0" top="4.0"/>
+                  </padding>
+               </TextArea>
+               <ScrollBar fx:id="scrl_bar" layoutX="294.0" layoutY="3.0" orientation="VERTICAL" prefHeight="315.0"
+                          AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="298.0" AnchorPane.rightAnchor="3.0"
+                          AnchorPane.topAnchor="8.0"/>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </HBox>
+   <Label fx:id="selected_user_name" stylesheets="@../../CSSstyles/Cycle.css" text="User TOOLS" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="1.0" />
+   <ListView fx:id="list_view_cycle_info" layoutX="194.0" layoutY="18.0" prefHeight="155.0" prefWidth="220.0" style="-fx-border-color: #e81212; -fx-background-color: D8DBDE; -fx-cursor: TEXT;" stylesheets="@../../CSSstyles/user.css" AnchorPane.leftAnchor="198.0" AnchorPane.topAnchor="20.0" />
+   <ComboBox fx:id="select_cycle_combo_box" layoutX="2.0" layoutY="27.0" prefWidth="100.0" promptText="Cycles list" stylesheets="@../../CSSstyles/Cycle.css">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></ComboBox>
+   <ImageView fx:id="image_view_board" fitHeight="115.0" fitWidth="100.0" layoutX="1.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: OPEN_HAND;" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="60.0">
+      <viewport>
+         <Rectangle2D height="115.0" width="100.0" />
+      </viewport>
+      <Image url="@../../Images/img.jpg" />
+   </ImageView>
+   <Button fx:id="select_cycle_btn" layoutX="113.0" layoutY="27.0" mnemonicParsing="false" prefWidth="75.0" text="Go to">
+      <graphic>
+         <FontAwesomeIconView fill="#30a850" glyphName="ARROW_RIGHT" size="14" styleClass="FontAwesomeIconView" />
+      </graphic>
+   </Button>
+   <Button fx:id="add_new_cycle_btn" layoutX="108.0" layoutY="150.0" mnemonicParsing="false" prefWidth="85.0" text="Add cycle" AnchorPane.bottomAnchor="348.0" AnchorPane.leftAnchor="108.0">
+      <graphic>
+         <FontAwesomeIconView fill="#30a850" glyphName="PLUS" size="14" text="" />
+      </graphic>
+   </Button>
+</AnchorPane>

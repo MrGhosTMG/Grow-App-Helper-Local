@@ -3,7 +3,8 @@ package org.jdta.growapp.Controllers.ToolsControlls;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+import org.jdta.growapp.Utils.DialogUtils;
+import org.jdta.growapp.Utils.StageActions;
 
 import java.net.URL;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.ResourceBundle;
 
 public class LightTimeStageController implements Initializable {
     public AnchorPane parent_Anchor_pane;
-    public Label Hours_lbl;
+    public Label hours_lbl;
     public CheckBox check_box_manually;
     public TextField night_input_fld;
     public TextField day_input_fld;
@@ -58,9 +59,9 @@ public class LightTimeStageController implements Initializable {
         });
     }
 
-    public String setErrorMessage(String msg) {
-        error_lbl.setText(msg);
-        return msg;
+    public void setHoursMessage(String msg) {
+        hours_lbl.setText(msg);
+        DialogUtils.hideErrorMessage(hours_lbl, 3);
     }
 
     private void setupRadioButtons(ToggleGroup group) {
@@ -124,18 +125,30 @@ public class LightTimeStageController implements Initializable {
         }
     }
 
+    // check actions
+    private void onSetClicked() {
+        if(!StageActions.isTimePairValid(day_input_fld, night_input_fld, error_lbl, 24)) {
+            return;
+        }
+
+        if (onSaveCallback != null) {
+            onSaveCallback.run();
+            error_lbl.setText("");
+        }
+        setHoursMessage("Saved " + getSelectedHours());
+    }
+
     private void filterInputField(TextField day, TextField night) {
         day.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.matches("\\d{0,2}")) {
+            if (newVal == null || !newVal.matches("\\d{0,2}")) {
                 day.setText(oldVal);
-            } else if (!newVal.isEmpty()) {
+                return;
+            }
+
+            if (!newVal.isEmpty()) {
                 try {
                     int val = Integer.parseInt(newVal);
-                    if (val > 24) {
-                        day.setText(oldVal);
-                    } else {
-                        night.setText(String.valueOf(24 - val));
-                    }
+                    night.setText(val <= 24 ? String.valueOf(24 - val) : "");
                 } catch (NumberFormatException e) {
                     day.setText(oldVal);
                 }
@@ -144,36 +157,6 @@ public class LightTimeStageController implements Initializable {
             }
         });
     }
-
-    // check actions
-    private void onSetClicked() {
-        String day = day_input_fld.getText().trim();
-        String night = night_input_fld.getText().trim();
-
-        if (day.isEmpty() || night.isEmpty()) {
-            setErrorMessage("Invalid Input -> Enter Digits only in 24 Hours range");
-            return;
-        }
-
-        try {
-            int dayVal = Integer.parseInt(day);
-            int nightVal = Integer.parseInt(night);
-            if (dayVal + nightVal != 24) {
-                setErrorMessage("Sum of Day and Night hours must be 24.");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            setErrorMessage("Please enter valid numbers for time.");
-            return;
-        }
-
-        if (onSaveCallback != null) {
-            onSaveCallback.run();
-            error_lbl.setText("");
-        }
-        ((Stage) set_btn.getScene().getWindow()).close();
-    }
-
 
     public void setOnSave(Runnable callback) {
         this.onSaveCallback = callback;
@@ -185,6 +168,15 @@ public class LightTimeStageController implements Initializable {
     }
 
     public String getSelectedHours() {
-        return day_input_fld.getText() + " / " + night_input_fld.getText();
+        String day = day_input_fld.getText().trim();
+        String night = night_input_fld.getText().trim();
+        try {
+            int d = Integer.parseInt(day);
+            int n = Integer.parseInt(night);
+            return d + " / " + n;
+        } catch (NumberFormatException e) {
+            return "Invalid format";
+        }
     }
+
 }
