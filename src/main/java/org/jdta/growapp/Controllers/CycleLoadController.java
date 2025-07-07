@@ -51,9 +51,19 @@ public class CycleLoadController  implements Initializable {
         log_out_btn.setOnAction(event -> StageActions.onLogout(stage()));
         moist_btn.setOnAction(actionEvent -> onWatering());
         train_btn.setOnAction(actionEvent -> onTraining());
+        stage_btn.setOnAction(actionEvent -> onGrowStageEdit());
     }
 
     // On actions section
+
+    private void onGrowStageEdit() {
+        Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/cycleTools/GrowStageEdit.fxml",
+                (GrowStageController controller) -> {});
+        if (root != null) {
+            central_view.getChildren().setAll(root);
+        }
+    }
+
 
     private void onTraining() {
         Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/userBoard/Training.fxml",

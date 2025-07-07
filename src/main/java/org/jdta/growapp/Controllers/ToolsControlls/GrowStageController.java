@@ -1,6 +1,5 @@
 package org.jdta.growapp.Controllers.ToolsControlls;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -12,6 +11,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GrowStageController implements Initializable {
+    private final ObservableList<GrowStages> pickedStages = FXCollections.observableArrayList();
+
     public AnchorPane parent_GR_create_anchor;
     public Label new_started_lbl;
     public Label days_of_stage_lbl;
@@ -21,7 +22,24 @@ public class GrowStageController implements Initializable {
     public DatePicker start_date_picker;
     public Button apply_btn;
     public ProgressBar grow_progress_bar;
-    private ObservableList<GrowStages> pickedStages = FXCollections.observableArrayList();
+    public Label set_edit_error_lbl;
+    public Label current_stage_name_days_lbl;
+    public ChoiceBox stage_select_choice_box;
+    public Button set_stage;
+    public Label start_stage_days_lbl;
+    public Label germinated_days_lbl;
+    public Label vegetation_days_lbl;
+    public Label pre_flow_days_lbl;
+    public Label flow_days_lbl;
+    public CheckBox clean_check;
+    public CheckBox harvest_check;
+    public TextField days_grams_in_fld;
+    public RadioButton Drying_rb;
+    public RadioButton yield_rb;
+    public Label drying_or_yield_lbl;
+    public Label total_days_lbl;
+    public Button add_btn;
+    public AnchorPane parent_anchor;
 
 
     @Override
