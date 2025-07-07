@@ -14,19 +14,32 @@ public class CycleDAO {
         this.conn = conn;
     }
 
-    public void insert(Cycle cycle) throws SQLException {
-        String sql = "INSERT INTO cycles (user_id, name, is_indoor, pot_capacity, start_date, eta_date, image_path) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+    public int insert(Cycle cycle) throws SQLException {
+        String sql = "INSERT INTO cycles (user_id, cycle_name, indoor_outdoor, sort_type, start_date, estimated_end_date, pot_capacity, notes, light_day_hours, light_night_hours, image_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, cycle.getUserId());
             stmt.setString(2, cycle.getName());
-            stmt.setBoolean(3, cycle.isIndoor());
-            stmt.setDouble(4, cycle.getPotCapacity());
+            stmt.setString(3, cycle.getIndoorOutdoor()); // было .isInOutDoor()
+            stmt.setString(4, cycle.getSortType());
             stmt.setString(5, cycle.getStartDateTime().toString());
             stmt.setString(6, cycle.getEtaDateTime().toString());
-            stmt.setString(7, cycle.getImagePath());
+            stmt.setDouble(7, cycle.getPotCapacity());
+            stmt.setString(8, cycle.getNotes());
+            stmt.setInt(9, cycle.getLightDayHours());
+            stmt.setInt(10, cycle.getLightNightHours());
+            stmt.setString(11, cycle.getImagePath());
+
             stmt.executeUpdate();
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1); // Возвращаем сгенерированный ID
+            }
         }
+        return -1;
     }
+
 
     public List<Cycle> findAll() throws SQLException {
         List<Cycle> cycles = new ArrayList<>();
@@ -39,10 +52,14 @@ public class CycleDAO {
                 cycle.setId(rs.getInt("id"));
                 cycle.setUserId(rs.getInt("user_id"));
                 cycle.setName(rs.getString("name"));
-                cycle.setIndoor(rs.getInt("is_indoor") == 1);
-                cycle.setPotCapacity(rs.getDouble("pot_capacity"));
+                cycle.setIndoorOutdoor(rs.getString("indoor_outdoor"));
+                cycle.setSortType(rs.getString("sort_type"));
                 cycle.setStartDateTime(LocalDateTime.parse(rs.getString("start_date")));
-                cycle.setEtaDateTime(LocalDateTime.parse(rs.getString("eta_date")));
+                cycle.setEtaDateTime(LocalDateTime.parse(rs.getString("estimated_end_date")));
+                cycle.setPotCapacity(rs.getDouble("pot_capacity"));
+                cycle.setNotes(rs.getString("notes"));
+                cycle.setLightDayHours(rs.getInt("light_day_hours"));
+                cycle.setLightNightHours(rs.getInt("light_night_hours"));
                 cycle.setImagePath(rs.getString("image_path"));
                 cycles.add(cycle);
             }
@@ -61,10 +78,14 @@ public class CycleDAO {
                     cycle.setId(rs.getInt("id"));
                     cycle.setUserId(rs.getInt("user_id"));
                     cycle.setName(rs.getString("name"));
-                    cycle.setIndoor(rs.getInt("is_indoor") == 1);
-                    cycle.setPotCapacity(rs.getDouble("pot_capacity"));
+                    cycle.setIndoorOutdoor(rs.getString("indoor_outdoor"));
+                    cycle.setSortType(rs.getString("sort_type"));
                     cycle.setStartDateTime(LocalDateTime.parse(rs.getString("start_date")));
-                    cycle.setEtaDateTime(LocalDateTime.parse(rs.getString("eta_date")));
+                    cycle.setEtaDateTime(LocalDateTime.parse(rs.getString("estimated_end_date")));
+                    cycle.setPotCapacity(rs.getDouble("pot_capacity"));
+                    cycle.setNotes(rs.getString("notes"));
+                    cycle.setLightDayHours(rs.getInt("light_day_hours"));
+                    cycle.setLightNightHours(rs.getInt("light_night_hours"));
                     cycle.setImagePath(rs.getString("image_path"));
                     return cycle;
                 }
@@ -82,16 +103,33 @@ public class CycleDAO {
     }
 
     public boolean update(Cycle cycle) throws SQLException {
-        String sql = "UPDATE cycles SET user_id = ?, name = ?, is_indoor = ?, pot_capacity = ?, start_date = ?, eta_date = ?, image_path = ? WHERE id = ?";
+        String sql = "UPDATE cycles SET " +
+                "user_id = ?, " +
+                "cycle_name = ?, " +
+                "indoor_outdoor = ?, " +
+                "sort_type = ?, " +
+                "start_date = ?, " +
+                "estimated_end_date = ?, " +
+                "pot_capacity = ?, " +
+                "notes = ?, " +
+                "light_day_hours = ?, " +
+                "light_night_hours = ?, " +
+                "image_path = ? " +
+                "WHERE id = ?";
+
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, cycle.getUserId());
             stmt.setString(2, cycle.getName());
-            stmt.setBoolean(3, cycle.isIndoor());
-            stmt.setDouble(4, cycle.getPotCapacity());
+            stmt.setString(3, cycle.getIndoorOutdoor());
+            stmt.setString(4, cycle.getSortType());
             stmt.setString(5, cycle.getStartDateTime().toString());
             stmt.setString(6, cycle.getEtaDateTime().toString());
-            stmt.setString(7, cycle.getImagePath());
-            stmt.setInt(8, cycle.getId());
+            stmt.setDouble(7, cycle.getPotCapacity());
+            stmt.setString(8, cycle.getNotes());
+            stmt.setInt(9, cycle.getLightDayHours());
+            stmt.setInt(10, cycle.getLightNightHours());
+            stmt.setString(11, cycle.getImagePath());
+            stmt.setInt(12, cycle.getId());
             return stmt.executeUpdate() > 0;
         }
     }
@@ -115,7 +153,7 @@ public class CycleDAO {
                 cycle.setId(rs.getInt("id"));
                 cycle.setUserId(rs.getInt("user_id"));
                 cycle.setName(rs.getString("name"));
-                cycle.setIndoor(rs.getInt("is_indoor") == 1);
+                cycle.setIndoorOutdoor(rs.getString("indoor_outdoor")); // было .isInOutDoor()
                 cycle.setPotCapacity(rs.getDouble("pot_capacity"));
                 cycle.setStartDateTime(LocalDateTime.parse(rs.getString("start_date")));
                 cycle.setEtaDateTime(LocalDateTime.parse(rs.getString("eta_date")));

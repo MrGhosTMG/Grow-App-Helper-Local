@@ -76,3 +76,9 @@ f
 6src/main/java/org/jdta/growapp/Utils/StageActions.java,1\6\16b2590b68df71490085841572e2c255406be72d
 †
 Vsrc/main/java/org/jdta/growapp/Controllers/ToolsControlls/WarningDialogController.java,c\d\cda7da4d15efac0cc19045b1395aa97c00c464c4
+e
+5src/main/java/org/jdta/growapp/Enums/GrowStadies.java,f\3\f3fe8c7a52df2f66387ee84d92aba9eb8093f775
+d
+4src/main/java/org/jdta/growapp/Enums/GrowStages.java,e\3\e36e8c28a414fcaa4dbca2e2350391244ead6e58
+‚
+Rsrc/main/java/org/jdta/growapp/Controllers/ToolsControlls/GrowStageController.java,a\7\a7c7e3f2dfa8d2635f4975a1455a7b6a33b0b9c3

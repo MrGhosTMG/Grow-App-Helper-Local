@@ -1,6 +1,7 @@
 package org.jdta.growapp.Models;
 
-import org.jdta.growapp.Controllers.LoginController;
+
+import org.jdta.growapp.DAO.CycleDAO;
 import org.jdta.growapp.DAO.UserDAO;
 import org.jdta.growapp.DTO.User;
 import org.jdta.growapp.Database.DBConnection;
@@ -8,7 +9,6 @@ import org.jdta.growapp.Utils.PreferencesUtils;
 import org.jdta.growapp.Views.View;
 
 import java.sql.Connection;
-import java.util.prefs.Preferences;
 
 public class Model {
 
@@ -17,14 +17,20 @@ public class Model {
     private final View view;
     private final UserDAO userDAO;
     private User currentUser;
+    private final CycleDAO cycleDAO;
 
 
     private Model() {
         this.view = new View();
+
         try {
-            Connection connection = DBConnection.getConnection();
+            Connection connection = DBConnection.getConnection(); // ← СНАЧАЛА получаем соединение
+
+            DBConnection.initTables(); // можно инициализировать структуру
             this.userDAO = new UserDAO(connection);
-        }catch (Exception e) {
+            this.cycleDAO = new CycleDAO(connection); // ← теперь всё ок
+
+        } catch (Exception e) {
             throw new RuntimeException("Failed connect to database", e);
         }
     }
@@ -62,5 +68,7 @@ public class Model {
     }
 
 
-
+    public CycleDAO getCycleDAO() {
+        return cycleDAO;
+    }
 }
