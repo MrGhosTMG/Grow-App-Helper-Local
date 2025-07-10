@@ -41,9 +41,10 @@ Button {
 -fx-cursor: hand;
 }
 
-.label {
+.Label {
     -fx-text-fill: #f70c0c;
     -fx-font-size:1.1em;
+    -fx-alignment: center;
 }
 
 .input_field {

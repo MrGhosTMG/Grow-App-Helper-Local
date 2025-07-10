@@ -1,11 +1,11 @@
 
-Label {
+.Label {
     -fx-alignment: center;
     -fx-text-alignment: center;
-    
+    -fx-font-size: 1.2em;
     -fx-font-family: "arial";
     -fx-text-fill: #ee0f0f;
-    -fx-border-color: #158ace;
+    -fx-border-color: #f00303;
     -fx-fill: #225bd469;
 }
 
@@ -32,12 +32,9 @@ Button:hover {
 .main_scene {
     -fx-background-color: #10e657;
 }
-.Label {
+.Label_title {
     -fx-alignment: center;
     -fx-text-alignment: center;
-    
     -fx-font-family: "arial";
     -fx-text-fill: #300fee;
-    -fx-border-color: #158ace;
-    -fx-fill: #c1d412fd;
 }

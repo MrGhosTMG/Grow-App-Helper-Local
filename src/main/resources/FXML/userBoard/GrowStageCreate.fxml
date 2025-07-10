@@ -10,7 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="parent_GR_create_anchor" prefHeight="230.0" prefWidth="160.0" styleClass="anchor-pane" stylesheets="@../../CSSstyles/createGrowStage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.GrowStageController">
+<AnchorPane fx:id="parent_GR_create_anchor" prefHeight="230.0" prefWidth="160.0" styleClass="anchor-pane"
+            stylesheets="@../../CSSstyles/createGrowStage.css" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.GrowStageCreateController">
    <Label fx:id="new_started_lbl" layoutX="9.0" layoutY="5.0" prefHeight="17.0" prefWidth="132.0" styleClass="Label" text="Select Grow Stage" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="4.0" />
    <Label fx:id="days_of_stage_lbl" layoutX="108.0" layoutY="52.0" styleClass="Label" text="__0 Days" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="52.0" />
    <CheckBox fx:id="new_check" layoutX="14.0" layoutY="35.0" mnemonicParsing="false" text="Start new" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="25.0">
@@ -23,7 +25,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </CheckBox>
-   <ChoiceBox fx:id="stage_picker" layoutX="5.0" layoutY="115.0" prefHeight="30.0" prefWidth="155.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="123.0">
+   <ChoiceBox fx:id="stage_picker" layoutX="5.0" layoutY="126.0" prefHeight="33.0" prefWidth="120.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="125.0">
       <cursor>
          <Cursor fx:constant="OPEN_HAND" />
       </cursor>
@@ -40,4 +42,5 @@
       </cursor>
    </ProgressBar>
    <Text layoutX="45.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start at" AnchorPane.leftAnchor="42.0" />
+   <Button fx:id="add_btn" layoutX="128.0" layoutY="127.0" mnemonicParsing="false" text="Add" AnchorPane.rightAnchor="2.0" />
 </AnchorPane>

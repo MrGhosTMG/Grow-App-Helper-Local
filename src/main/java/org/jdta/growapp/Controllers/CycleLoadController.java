@@ -52,13 +52,21 @@ public class CycleLoadController  implements Initializable {
         moist_btn.setOnAction(actionEvent -> onWatering());
         train_btn.setOnAction(actionEvent -> onTraining());
         stage_btn.setOnAction(actionEvent -> onGrowStageEdit());
+
+        // NEW — если режим просмотра завершённого цикла:
+        if (Model.getInstance().isFinishedCycle()) {
+            disableAllButtonsExceptInfo();
+            showFinishedInfo();
+            // сбросим флаг на будущее
+            Model.getInstance().setFinishedCycle(false);
+        }
     }
 
     // On actions section
 
     private void onGrowStageEdit() {
         Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/cycleTools/GrowStageEdit.fxml",
-                (GrowStageController controller) -> {});
+                (GrowStageEditController controller) -> {});
         if (root != null) {
             central_view.getChildren().setAll(root);
         }
@@ -137,4 +145,27 @@ public class CycleLoadController  implements Initializable {
         return FXMLUtils.stageFrom(exit_btn);
     }
 
+    private void disableAllButtonsExceptInfo() {
+        train_btn.setDisable(true);
+        moist_btn.setDisable(true);
+        stage_btn.setDisable(true);
+        light_btn.setDisable(true);
+        edit_btn.setDisable(true);
+        del_btn.setDisable(true);
+        nutr_btn.setDisable(true);
+        gallery_btn.setDisable(true);
+        hist_btn.setDisable(true);
+        shop_btn.setDisable(true);
+        Tips_btn.setDisable(true);
+    }
+    private void showFinishedInfo() {
+        Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/userBoard/InfoFinishedCycle.fxml",
+                (InfoFinishedCycle controller) -> {
+                    controller.setDataFromCycle(Model.getInstance().getCurrentCycle());
+                });
+
+        if (root != null) {
+            central_view.getChildren().setAll(root);
+        }
+    }
 }

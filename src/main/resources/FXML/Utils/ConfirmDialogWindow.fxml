@@ -13,15 +13,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.paint.Color?>
 
-<BorderPane fx:id="parent_bord_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="150.0" prefWidth="220.0" styleClass="border_pane"
-            stylesheets="@../../CSSstyles/CustomConfirmDialogWindow.css" xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.jdta.growapp.Controllers.ToolsControlls.ConfirmDialogController">
+<BorderPane fx:id="parent_bord_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="220.0" styleClass="border_pane" stylesheets="@../../CSSstyles/CustomConfirmDialogWindow.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Utils.ConfirmDialogController">
    <bottom>
       <HBox fx:id="btn_box" prefHeight="65.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <Button fx:id="ok_btn" mnemonicParsing="false" prefHeight="35.0" prefWidth="105.0" styleClass="ok_button"
-                 stylesheets="@../../CSSstyles/CustomConfirmDialogWindow.css" text="Just Do it">
+         <Button fx:id="ok_btn" mnemonicParsing="false" prefHeight="35.0" prefWidth="105.0" styleClass="ok_button" stylesheets="@../../CSSstyles/CustomConfirmDialogWindow.css" text="Just Do it">
             <HBox.margin>
                <Insets left="4.0" top="15.0" />
             </HBox.margin>

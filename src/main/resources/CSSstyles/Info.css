@@ -25,5 +25,6 @@ Text_additional {
 
 Label {
     -fx-text-fill: #f70909;
+    -fx-alignment: center;
 }
 

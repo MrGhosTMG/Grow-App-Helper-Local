@@ -207,8 +207,9 @@ public class CycleCreateController implements Initializable {
     private void onCreateGrowStage() {
         Node root = FXMLUtils.loadWithControllerCallBackActions(
                 "/FXML/userBoard/GrowStageCreate.fxml",
-                (GrowStageController controller) -> {
-
+                (GrowStageCreateController controller) -> {
+                    //controller.isEditGrowStage(false);
+                    //controller.setStartDateFromCycle(LocalDateTime.now());
                 });
         if (root != null) {
             light_grow_scene.getChildren().setAll(root);

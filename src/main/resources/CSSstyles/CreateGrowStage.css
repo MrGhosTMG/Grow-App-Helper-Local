@@ -118,21 +118,3 @@ Text {
     -fx-text-alignment: center;
 }
 
-.progress-bar {
-    -fx-accent: linear-gradient(to right, #4CAF50, #8BC34A); /* Зелёный градиент */
-    -fx-background-color: #E0E0E0; /* Фон */
-    -fx-background-insets: 0;
-    -fx-background-radius: 5px; /* Скругление фона */
-    -fx-padding: 2px;
-}
-
-.progress-bar .track {
-    -fx-background-radius: 5px; /* Скругление трека */
-    -fx-border-radius: 5px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);
-}
-
-.progress-bar .bar {
-    -fx-background-radius: 5px; /* Скругление заполнения */
-    -fx-padding: 2px;
-}

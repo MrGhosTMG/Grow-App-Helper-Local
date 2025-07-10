@@ -9,6 +9,25 @@ import org.jdta.growapp.Models.Model;
 public class StageActions {
 
 
+    public static void onEasterEgg(Stage stage) {
+/*
+        DialogUtils.confirm(stage,
+                "This one gave its best. Start fresh?",
+                ()-> {
+            System.out.println("🌱 RESTARTING... LOG STILL RUNNING...");
+            System.out.println("Bye bye 🥚 Wishing you always Good Mood.. !!! ;-) 420 Thx to Gендальф© ");
+            Model.getInstance().getView().showUserWindow();
+            stage.close();
+        });
+*/
+        DialogUtils.error("This one gave its best. Start fresh?", "Oops,.. Something went wrong.. " +
+                "Cleaning All data... Deleting User... Removing Application...");
+        System.out.println("🌱 RESTARTING... LOG STILL RUNNING...");
+        System.out.println("Bye bye 🥚 Wishing you always Good Mood.. !!! ;-) 420 Thx to Gендальф© ");
+        stage.close();
+    }
+
+
     public static void onLogout(Stage stage) {
         DialogUtils.confirm(stage," Logout ? Come back soon :)", () -> {
             Model.getInstance().logout();

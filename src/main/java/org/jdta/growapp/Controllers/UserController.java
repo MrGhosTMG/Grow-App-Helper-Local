@@ -8,7 +8,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.jdta.growapp.Controllers.ToolsControlls.HistoryController;
 import org.jdta.growapp.Controllers.ToolsControlls.NutrientsController;
+import org.jdta.growapp.DTO.Cycle;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.StageActions;
 import org.jdta.growapp.Utils.FXMLUtils;
@@ -16,6 +18,7 @@ import org.jdta.growapp.Utils.FXMLUtils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,6 +56,29 @@ public class UserController implements Initializable {
         history_btn.setOnAction(actionEvent -> onHistory());
         nutr_btn.setOnAction(actionEvent -> onNutrients());
         addListeners();
+
+// Добавляем
+        if (Model.getInstance().getFinishedCycles().isEmpty()) {
+            //test MOCk
+            Cycle test = new Cycle();
+            test.setName("TestCycle 001");
+            test.setStartDateTime(LocalDateTime.now().minusDays(50));
+            test.setEtaDateTime(LocalDateTime.now());
+            test.setYieldGrams(320);
+            test.setFinished(true);
+            test.setSortType("AK-47");
+            test.setPotCapacity(5.0);
+            test.setIndoorOutdoor("Indoor");
+
+// Доп. стадии
+            test.setVegetationDays(15);
+            test.setFloweringDays(20);
+            test.setPreFloweringDays(5);
+            test.setDryingDays(10);
+            test.setTotalGrowDays(50);
+            Model.getInstance().getFinishedCycles().add(test);
+            //Model.getInstance().getFinishedCycles().clear();
+        }
     }
 
 
@@ -90,11 +116,13 @@ public class UserController implements Initializable {
     }
 
     private void onHistory() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/userBoard/History.fxml"));
-        try {
-            down_border_pane_top.getChildren().setAll((Node) loader.load());
-        } catch (IOException e) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
+        Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/userBoard/History.fxml",
+                (HistoryController controller) -> {
+                    controller.setCycles(Model.getInstance().getFinishedCycles());
+                });
+
+        if (root != null) {
+            down_border_pane_top.getChildren().setAll(root);
         }
     }
 
