@@ -64,9 +64,6 @@ public class GrowStageEditController implements Initializable {
             });
         }
 
-        if (stage_select_choice_box != null) {
-            stage_select_choice_box.getItems().addAll(GrowStages.values());
-        }
 
         if (add_btn != null) {
             add_btn.setOnAction(event -> {

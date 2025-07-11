@@ -3,13 +3,11 @@ package org.jdta.growapp.Controllers.ToolsControlls;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import org.jdta.growapp.Enums.GrowStages;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.DialogUtils;
-import org.jdta.growapp.Utils.FXMLUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,7 +16,7 @@ public class GrowStageCreateController implements Initializable {
     private final ObservableList<GrowStages> pickedStages = FXCollections.observableArrayList();
     private boolean isEditMode = false;
 
-    // FXML элементы
+
     public AnchorPane parent_GR_create_anchor;
     public Label new_started_lbl;
     public Label days_of_stage_lbl;
@@ -31,9 +29,7 @@ public class GrowStageCreateController implements Initializable {
     public ChoiceBox<GrowStages> stage_select_choice_box;
     public Button set_stage;
     public TextField days_grams_in_fld;
-    public RadioButton Drying_rb;
     public RadioButton yield_rb;
-
     public Button add_btn;
     public AnchorPane parent_anchor;
 
@@ -108,7 +104,7 @@ public class GrowStageCreateController implements Initializable {
         });
     }
 
-    // Оригинальный метод без изменений
+
     private void initialGrowStages() {
         if (stage_picker != null) {
             stage_picker.getItems().addAll(GrowStages.values());
@@ -140,7 +136,7 @@ public class GrowStageCreateController implements Initializable {
             set_stage.setOnAction(event -> {
                 if (yield_rb != null && yield_rb.isSelected() &&
                         days_grams_in_fld != null && days_grams_in_fld.getText().matches("\\d+")) {
-                    showInfoFinishedCycle();
+                    //to do logic
                 } else {
                     DialogUtils.warning("Missing data", "Enter yield in grams to finish stage.");
                 }
@@ -148,17 +144,7 @@ public class GrowStageCreateController implements Initializable {
         }
     }
 
-    private void showInfoFinishedCycle() {
-        Node root = FXMLUtils.loadWithControllerCallBackActions(
-                "/FXML/userBoard/InfoFinishedCycle.fxml",
-                (InfoFinishedCycle controller) -> {
-                    controller.setDataFromCycle(Model.getInstance().getCurrentCycle());
-                });
 
-        if (root != null) {
-            parent_anchor.getChildren().setAll(root);
-        }
-    }
 
     public void setEditMode(boolean editMode) {
         this.isEditMode = editMode;
