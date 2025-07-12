@@ -12,13 +12,16 @@ import org.jdta.growapp.Controllers.ToolsControlls.HistoryController;
 import org.jdta.growapp.Controllers.ToolsControlls.NutrientsController;
 import org.jdta.growapp.DTO.Cycle;
 import org.jdta.growapp.Models.Model;
+import org.jdta.growapp.Utils.DeleteDialogController;
 import org.jdta.growapp.Utils.StageActions;
 import org.jdta.growapp.Utils.FXMLUtils;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +29,7 @@ import java.util.logging.Logger;
 public class UserController implements Initializable {
 
 
+    private static final File PHOTO_DIR = new File("Photos/cycle_photos");
     public AnchorPane down_border_pane_top;
     public ImageView image_view_board;
     public Button select_cycle_btn;
@@ -44,6 +48,7 @@ public class UserController implements Initializable {
     public ScrollPane top_scroll_pane;
     public ScrollBar scrl_bar;
     public TextArea info_text_fld;
+    public Button del_all_photo_btn;
 
 
     @Override
@@ -56,7 +61,7 @@ public class UserController implements Initializable {
         history_btn.setOnAction(actionEvent -> onHistory());
         nutr_btn.setOnAction(actionEvent -> onNutrients());
         addListeners();
-
+        del_all_photo_btn.setOnAction(actionEvent -> onDeleteAllPhoto());
 // Добавляем
         if (Model.getInstance().getFinishedCycles().isEmpty()) {
             //test MOCk
@@ -147,6 +152,28 @@ public class UserController implements Initializable {
         Model.getInstance().getView().showCycleCreateWindow();
         Model.getInstance().getView().closeStage(stage);
     }
+
+    // Добавил кнопку
+    private void onDeleteAllPhoto() {
+        boolean isExist = PHOTO_DIR.exists();
+        if (isExist) {
+            for (File file : PHOTO_DIR.listFiles()) { // тут - но Dereference of 'PHOTO_DIR.listFiles()' may produce 'NullPointerException'
+                deleteImagesRecursively(file);
+            }
+        }
+    }
+    // рекурсия удаления
+    private void deleteImagesRecursively(File photoDir) { // тут - но Dereference of 'PHOTO_DIR.listFiles()' may produce 'NullPointerException'
+        if (photoDir == null) return;
+        for (File file : photoDir.listFiles()) {
+            if (file.isDirectory()) {
+                deleteImagesRecursively(file);
+            } else if (file.getName().matches("(?i).*\\.(png|jpg|jpeg)$")) {
+                file.delete(); // Result of 'File.delete()' is ignored
+            }
+        }
+    }
+
     public Stage stage() {
         return FXMLUtils.stageFrom(exit_btn);
     }

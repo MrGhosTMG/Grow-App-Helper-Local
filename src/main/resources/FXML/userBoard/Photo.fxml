@@ -6,7 +6,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<ScrollPane fx:id="scrl_pane" fitToHeight="true" fitToWidth="true" prefHeight="322.0" prefWidth="310.0" styleClass="photo_container" stylesheets="@../../CSSstyles/photo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.PhotoController">
+<ScrollPane fx:id="scrl_pane" fitToHeight="true" fitToWidth="true" prefHeight="322.0" prefWidth="310.0" styleClass="photo_container"
+            stylesheets="@../../CSSstyles/photo.css" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.PhotoController">
 
     <StackPane styleClass="photo_container">
         <GridPane fx:id="grid_pane" hgap="10" styleClass="photo_container" stylesheets="@../../CSSstyles/photo.css" vgap="10" />

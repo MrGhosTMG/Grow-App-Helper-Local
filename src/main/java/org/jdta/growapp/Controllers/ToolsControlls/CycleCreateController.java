@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -25,28 +26,31 @@ import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 
 public class CycleCreateController implements Initializable {
+    private static final File TEMP_PHOTO_DIR = new File("Photos/__temp_cycle__");
+    public TextArea text_area_fld;
+    public TextField txt_sort_fld;
+    public TextField text_pot_fld;
     public Button web_cat_btn;
     public Button add_note_btn;
-    public TextArea text_area_fld;
     public Button delete_img_btn;
     public Button import_btn;
     public Button back_btn;
     public Button log_out_btn;
     public Button exit_btn;
-    public TextField txt_sort_fld;
+    public Button add_img_btn;
+    public Button stage_btn;
+    public Button save_btn;
+    public Button light_stage_btn;
+    public Button add_component_btn;
+    public Button set_date_btn;
     public Label pot_capa_lbl;
+    public Label cycle_reg_lbl;
+    public Label soil_components_lbl;
+    public Label error_lbl;
     public CheckBox check_pot_1;
     public CheckBox check_pot_2;
     public CheckBox check_pot_3;
     public CheckBox check_pot_4;
-    public TextField text_pot_fld;
-    public Button stage_btn;
-    public Button add_img_btn;
-    public Button save_btn;
-    public Button light_stage_btn;
-    public Button set_date_btn;
-    public Label cycle_reg_lbl;
-    public ImageView img_reg;
     public DatePicker start_date;
     public DatePicker EET_date;
     public RadioButton indoor_rb;
@@ -55,22 +59,19 @@ public class CycleCreateController implements Initializable {
     public RadioButton photo_fem_btn;
     public RadioButton reg_btn;
     public RadioButton photo_fast_fem_btn;
-    public AnchorPane scene_anchor;
-    public Label error_lbl;
     public GridPane grid_pane;
-    private static final File TEMP_PHOTO_DIR = new File("Photos/__temp_cycle__");
-    public ImageView photo_view;
-    public AnchorPane soil_anchor;
-    public BorderPane parent_border_pane;
+    public ColumnConstraints photo_grid_pane;
     public Button add_soil_info_btn;
     public AnchorPane light_grow_scene;
     public ChoiceBox component_choice_box;
-    public Label soil_components_lbl;
     public TextField component_litres_fld;
-    public Button add_component_btn;
-    public Label components_set_lbl;
+    public ImageView img_reg;
     public ImageView img_view;
-    public AnchorPane image_preview_anchor;
+    public BorderPane parent_border_pane;
+    public AnchorPane soil_anchor;
+    public AnchorPane scene_anchor;
+    public AnchorPane photo_anchor;
+    public AnchorPane central_anchor;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -153,10 +154,13 @@ public class CycleCreateController implements Initializable {
         if (selectedFile != null) {
             try {
                 if (!TEMP_PHOTO_DIR.exists()) {
-                    TEMP_PHOTO_DIR.mkdirs();
+                    TEMP_PHOTO_DIR.mkdirs();// Result of 'File.mkdirs()' is ignored
                 }
+                clearTempFolder();
+
                 File destinationFile = new File(TEMP_PHOTO_DIR, selectedFile.getName());
                 Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
                 loadImagesFromTemp(); // previewRefresh
             }catch (IOException e) {
                 e.printStackTrace();
@@ -164,13 +168,6 @@ public class CycleCreateController implements Initializable {
         }
     }
 
-    private void onDeleteAllPhoto() {
-        if (TEMP_PHOTO_DIR.exists()) {
-            for (File file : TEMP_PHOTO_DIR.listFiles()) {
-                file.delete();
-            }
-        }
-    }
 
     private void deletePreviewPhoto() {
         File[] files = TEMP_PHOTO_DIR.listFiles((dir, name) ->
@@ -197,8 +194,8 @@ public class CycleCreateController implements Initializable {
 
     private void clearTempFolder() {
         if (TEMP_PHOTO_DIR.exists()) {
-            for (File file : TEMP_PHOTO_DIR.listFiles()) {
-                file.delete();
+            for (File file : TEMP_PHOTO_DIR.listFiles()) { // Dereference of 'TEMP_PHOTO_DIR.listFiles()' may produce 'NullPointerException'
+                file.delete(); // Result of 'File.delete()' is ignored
             }
             loadImagesFromTemp();
         }
@@ -212,7 +209,7 @@ public class CycleCreateController implements Initializable {
                     //controller.setStartDateFromCycle(LocalDateTime.now());
                 });
         if (root != null) {
-            light_grow_scene.getChildren().setAll(root);
+            scene_anchor.getChildren().setAll(root);
         }
     }
 
@@ -233,7 +230,7 @@ public class CycleCreateController implements Initializable {
                 }
         );
         if (root != null) {
-            light_grow_scene.getChildren().setAll(root);
+            scene_anchor.getChildren().setAll(root);
         }
     }
 

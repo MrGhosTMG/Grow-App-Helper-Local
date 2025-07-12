@@ -88,3 +88,9 @@ d
 4src/main/java/org/jdta/growapp/DAO/GrowStageDAO.java,8\1\81b23361a61f5e6e095a377655555d0e9672122b
 ˆ
 Xsrc/main/java/org/jdta/growapp/Controllers/ToolsControlls/GrowStageCreateController.java,6\9\694834f674af7ec3e8cc7073a5ad1dd648b70a4f
+
+Osrc/main/java/org/jdta/growapp/Controllers/ToolsControlls/GaleryController.java,9\b\9b117a52a2684eabb4a1adbd8cd2daeadf83b0f8
+€
+Psrc/main/java/org/jdta/growapp/Controllers/ToolsControlls/GalleryController.java,d\1\d1ce73e9fe98100f03d296d4b50cff28436bc266
+p
+@src/main/java/org/jdta/growapp/Utils/DeleteDialogController.java,e\1\e1760cb194ec18a56bcedc447e9e80c658aa1c4a

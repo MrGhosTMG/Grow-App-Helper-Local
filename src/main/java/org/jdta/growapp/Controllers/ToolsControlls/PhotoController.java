@@ -57,7 +57,7 @@ public class PhotoController implements Initializable {
 
     // получаем список задач
     private Task<List<File>> getListTask() {
-        Task<List<File>> loadTask = new Task<>() { // getLoadTask();
+        return new Task<>() { // getLoadTask();
             @Override
             protected List<File> call() {
                 File photoDir = checkCreatePhotosDir();
@@ -66,7 +66,6 @@ public class PhotoController implements Initializable {
                 return imageFiles;
             }
         };
-        return loadTask;
     }
 
     // загрузка изображений from -  \src\main\resources\Photos
@@ -85,9 +84,11 @@ public class PhotoController implements Initializable {
             for (File imgFile : images) {
                 Image image = new Image((imgFile.toURI().toString()));
                 ImageView imageView = new ImageView(image);
+                imageView.setPreserveRatio(true);
                 imageView.setFitWidth(150);
                 imageView.setFitHeight(135);
-                imageView.setPreserveRatio(true);
+                imageView.setSmooth(true);
+                imageView.setCache(true);
 
                 grid_pane.add(imageView, column, row);
                 column++;

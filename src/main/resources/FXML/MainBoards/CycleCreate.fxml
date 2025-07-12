@@ -23,7 +23,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<BorderPane fx:id="parent_border_pane" prefHeight="520.0" prefWidth="420.0" styleClass="main_scene" stylesheets="@../../CSSstyles/Cycle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.CycleCreateController">
+<BorderPane fx:id="parent_border_pane" prefHeight="520.0" prefWidth="420.0" styleClass="main_scene"
+            stylesheets="@../../CSSstyles/Cycle.css" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.CycleCreateController">
    <top>
           <Label fx:id="cycle_reg_lbl" text="New cycle registration" BorderPane.alignment="CENTER">
          <graphic>
@@ -35,25 +37,27 @@
    </top>
    <right>
           <VBox prefHeight="520.0" prefWidth="100.0" styleClass="main_scene" BorderPane.alignment="CENTER">
-              <Button fx:id="back_btn" layoutX="35.0" layoutY="239.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="85.0" text="Back to User" textAlignment="CENTER" wrapText="true">
+                 <Button fx:id="add_img_btn" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Add photo">
+                     <graphic>
+                         <FontAwesomeIconView glyphName="IMAGE" styleClass="FontAwesomeIconView" />
+                     </graphic>
+                     <VBox.margin>
+                         <Insets left="4.0" top="4.0" />
+                     </VBox.margin>
+                 </Button>
+              <Button fx:id="delete_img_btn" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Delete photo">
                   <VBox.margin>
-                      <Insets left="8.0" top="6.0" />
+                      <Insets left="4.0" top="8.0" />
                   </VBox.margin>
-                  <graphic>
-                      <FontAwesomeIconView glyphName="UNDO" styleClass="alt_FontAwesomeIconView" />
-                  </graphic>
               </Button>
-              <Button fx:id="import_btn" mnemonicParsing="false" prefHeight="45.0" prefWidth="85.0" text="Import Cycle" textAlignment="CENTER" wrapText="true">
+              <Button fx:id="web_cat_btn" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="85.0" text="Web catalog">
                   <VBox.margin>
-                      <Insets left="8.0" top="6.0" />
+                      <Insets left="6.0" top="10.0" />
                   </VBox.margin>
-                  <graphic>
-                      <FontAwesomeIconView glyphName="DOWNLOAD" styleClass="FontAwesomeIconView" wrappingWidth="11.142857551574707" />
-                  </graphic>
               </Button>
               <Button fx:id="add_note_btn" mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" text="Add notes">
                   <VBox.margin>
-                      <Insets left="8.0" top="10.0" />
+                      <Insets left="8.0" top="16.0" />
                   </VBox.margin>
                   <graphic>
                       <FontAwesomeIconView glyphName="FILE" styleClass="FontAwesomeIconView" />
@@ -61,7 +65,7 @@
               </Button>
               <Button fx:id="light_stage_btn" mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" text="Light stage">
                   <VBox.margin>
-                      <Insets left="8.0" top="12.0" />
+                      <Insets left="8.0" top="16.0" />
                   </VBox.margin>
               </Button>
                  <Button fx:id="stage_btn" mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" text="Grow stage">
@@ -69,174 +73,200 @@
                          <Insets left="8.0" top="6.0" />
                      </VBox.margin>
                  </Button>
-                 <Button fx:id="add_img_btn" mnemonicParsing="false" prefHeight="30.0" prefWidth="92.0" text="Add photo">
-                     <graphic>
-                         <FontAwesomeIconView glyphName="IMAGE" styleClass="FontAwesomeIconView" />
-                     </graphic>
-                     <VBox.margin>
-                         <Insets left="4.0" top="35.0" />
-                     </VBox.margin>
-                 </Button>
-              <Button fx:id="delete_img_btn" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Delete photo">
+              <Button fx:id="import_btn" mnemonicParsing="false" prefHeight="45.0" prefWidth="85.0" text="Import Cycle" textAlignment="CENTER" wrapText="true">
                   <VBox.margin>
-                      <Insets left="4.0" top="10.0" />
+                      <Insets left="8.0" top="16.0" />
                   </VBox.margin>
+                  <graphic>
+                      <FontAwesomeIconView glyphName="DOWNLOAD" styleClass="FontAwesomeIconView" wrappingWidth="11.142857551574707" />
+                  </graphic>
               </Button>
-              <Button fx:id="web_cat_btn" disable="true" mnemonicParsing="false" prefHeight="45.0" prefWidth="85.0" text="Web catalog">
+              <Button fx:id="back_btn" layoutX="35.0" layoutY="239.0" mnemonicParsing="false" prefHeight="45.0"
+                      prefWidth="85.0" text="Back to User" textAlignment="CENTER" wrapText="true">
                   <VBox.margin>
-                      <Insets left="6.0" top="20.0" />
+                      <Insets left="8.0" top="20.0" />
                   </VBox.margin>
+                  <graphic>
+                      <FontAwesomeIconView glyphName="UNDO" styleClass="alt_FontAwesomeIconView" />
+                  </graphic>
               </Button>
-                 <Button fx:id="add_soil_info_btn" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Add Soil info">
-                     <VBox.margin>
-                         <Insets left="1.0" top="13.0" />
-                     </VBox.margin>
-                 </Button>
+           <Button fx:id="log_out_btn" mnemonicParsing="false" text="Logout">
+               <graphic>
+                   <FontAwesomeIconView fill="#f50909" glyphName="EXTERNAL_LINK" />
+               </graphic>
+            <VBox.margin>
+               <Insets left="16.0" top="20.0" />
+            </VBox.margin>
+           </Button>
+           <Button fx:id="exit_btn" mnemonicParsing="false" text="Exit">
+               <graphic>
+                   <FontAwesomeIconView fill="#da0909" glyphName="CLOSE" />
+               </graphic>
+            <VBox.margin>
+               <Insets left="25.0" top="8.0" />
+            </VBox.margin>
+           </Button>
           </VBox>
    </right>
    <center>
-       <AnchorPane prefHeight="462.0" prefWidth="245.0" BorderPane.alignment="CENTER">
+       <AnchorPane fx:id="central_anchor" prefHeight="462.0" prefWidth="245.0" BorderPane.alignment="CENTER">
            <HBox prefHeight="114.0" prefWidth="156.0">
-               <VBox prefHeight="114.0" prefWidth="166.0">
-                   <TextField fx:id="txt_sort_fld" prefHeight="30.0" prefWidth="200.0" promptText="Enter sort / cycle name" styleClass="input_field">
+               <VBox prefHeight="114.0" prefWidth="150.0">
+                   <TextField fx:id="txt_sort_fld" prefHeight="23.0" prefWidth="150.0" promptText="Enter sort / cycle name" styleClass="input_field">
                        <VBox.margin>
-                           <Insets left="5.0" />
+                           <Insets left="2.0" />
                        </VBox.margin>
                    </TextField>
-                   <DatePicker fx:id="start_date" promptText="Start date" styleClass="date-picker">
+                   <DatePicker fx:id="start_date" prefHeight="26.0" prefWidth="150.0" promptText="Start date" styleClass="date-picker">
                        <VBox.margin>
-                           <Insets left="5.0" top="4.0" />
+                           <Insets left="2.0" top="4.0" />
                        </VBox.margin>
+                  <padding>
+                     <Insets left="25.0" right="25.0" />
+                  </padding>
                    </DatePicker>
-                   <DatePicker fx:id="EET_date" layoutX="10.0" layoutY="40.0" promptText="EET Date">
+                   <DatePicker fx:id="EET_date" layoutX="10.0" layoutY="40.0" prefHeight="26.0" prefWidth="150.0" promptText="EET Date">
                        <VBox.margin>
-                           <Insets left="5.0" top="4.0" />
+                           <Insets left="2.0" top="4.0" />
                        </VBox.margin>
+                  <padding>
+                     <Insets left="25.0" right="25.0" />
+                  </padding>
                    </DatePicker>
                    <Button fx:id="set_date_btn" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" text="SET Start / EET Dates" wrapText="true">
                        <VBox.margin>
-                           <Insets left="4.0" top="6.0" />
+                           <Insets left="2.0" top="6.0" />
                        </VBox.margin>
                    </Button>
                </VBox>
            </HBox>
-           <VBox layoutX="186.0" prefHeight="148.0" prefWidth="132.0">
+           <VBox layoutX="3.0" layoutY="216.0" prefHeight="238.0" prefWidth="154.0">
                <Label fx:id="pot_capa_lbl" prefHeight="16.0" prefWidth="82.0" text="Pot capacity ">
                    <VBox.margin>
-                       <Insets left="25.0" top="4.0" />
+                       <Insets left="20.0" />
                    </VBox.margin>
                </Label>
-               <CheckBox fx:id="check_pot_1" mnemonicParsing="false" prefHeight="17.0" prefWidth="109.0" text="&lt;= 10 Litres">
+               <CheckBox fx:id="check_pot_1" mnemonicParsing="false" prefHeight="19.0" prefWidth="93.0" text="&lt;= 10 Litres">
                    <VBox.margin>
-                       <Insets left="4.0" top="2.0" />
+                       <Insets left="4.0" top="3.0" />
                    </VBox.margin>
                </CheckBox>
                <CheckBox fx:id="check_pot_2" mnemonicParsing="false" prefHeight="17.0" prefWidth="109.0" text="From 16 to 20 L">
                    <VBox.margin>
-                       <Insets left="4.0" top="4.0" />
+                       <Insets left="4.0" top="3.0" />
                    </VBox.margin>
                </CheckBox>
                <CheckBox fx:id="check_pot_3" mnemonicParsing="false" prefHeight="17.0" prefWidth="109.0" text="24 L (for auto)">
                    <VBox.margin>
-                       <Insets left="4.0" top="4.0" />
+                       <Insets left="4.0" top="3.0" />
                    </VBox.margin>
                </CheckBox>
                <CheckBox fx:id="check_pot_4" mnemonicParsing="false" text="Your pot Litres">
                    <VBox.margin>
-                       <Insets left="4.0" top="4.0" />
+                       <Insets left="4.0" top="3.0" />
                    </VBox.margin>
                </CheckBox>
-               <TextField fx:id="text_pot_fld" maxHeight="25.0" maxWidth="95.0" prefHeight="25.0" prefWidth="92.0" promptText="Capacity in litres" styleClass="input_field">
+               <HBox>
                    <VBox.margin>
-                       <Insets left="4.0" top="4.0" />
+                       <Insets left="1.0" top="4.0" />
                    </VBox.margin>
-               </TextField>
+                   <TextField fx:id="text_pot_fld" maxHeight="25.0" maxWidth="107.0" prefHeight="23.0" prefWidth="107.0" promptText="Capacity in litres" styleClass="input_field" />
+               </HBox>
+               <AnchorPane fx:id="soil_anchor" prefHeight="95.0" prefWidth="154.0">
+                   <ChoiceBox fx:id="component_choice_box" layoutX="1.0" layoutY="42.0" prefHeight="25.0" prefWidth="145.0" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="40.0" />
+                   <Label fx:id="soil_components_lbl" layoutX="4.0" prefHeight="34.0" prefWidth="150.0" text="Pick soil composition set % of Pot capacity %" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0" />
+                   <TextField fx:id="component_litres_fld" layoutX="4.0" layoutY="69.0" prefHeight="25.0" prefWidth="44.0" promptText="Litres" styleClass="input_field" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="73.0" />
+                   <Button fx:id="add_component_btn" layoutX="54.0" layoutY="69.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Apply % in Pot" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="72.0" />
+               </AnchorPane>
            </VBox>
-           <RadioButton fx:id="indoor_rb" layoutX="5.0" layoutY="121.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="64.0" text="Indoor" AnchorPane.topAnchor="119.0" />
-           <RadioButton fx:id="outdoor_rb" layoutX="78.0" layoutY="121.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="73.0" text="Outdoor" AnchorPane.topAnchor="119.0" />
-           <RadioButton fx:id="auto_fem_btn" layoutX="186.0" layoutY="148.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="113.0" text="Auto Femenised" AnchorPane.topAnchor="144.0" />
-           <RadioButton fx:id="photo_fem_btn" layoutX="186.0" layoutY="168.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="110.0" text="Photo Feminised" AnchorPane.topAnchor="165.0" />
-           <RadioButton fx:id="reg_btn" layoutX="186.0" layoutY="210.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="110.0" text="Regular" AnchorPane.topAnchor="203.0" />
-           <Line endX="4.0" endY="221.5" layoutX="170.0" layoutY="5.0" startX="4.0" startY="-5.0" />
-           <TextArea fx:id="text_area_fld" layoutX="4.0" layoutY="141.0" prefHeight="81.0" prefWidth="166.0" promptText="text notes" scrollTop="4.0" styleClass="list_cell" wrapText="true" AnchorPane.bottomAnchor="238.0" AnchorPane.topAnchor="139.0">
+           <Line endX="4.0" endY="444.0" layoutX="152.0" layoutY="12.0" startX="4.0" startY="-5.0" />
+           <TextArea fx:id="text_area_fld" layoutX="176.0" layoutY="141.0" prefHeight="60.0" prefWidth="130.0" promptText="text notes" scrollTop="4.0" styleClass="list_cell" wrapText="true" AnchorPane.topAnchor="139.0">
                <opaqueInsets>
                    <Insets />
                </opaqueInsets>
            </TextArea>
-           <RadioButton fx:id="photo_fast_fem_btn" layoutX="186.0" layoutY="185.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="110.0" text="Photo Fast Fem" AnchorPane.topAnchor="184.0" />
-           <AnchorPane fx:id="scene_anchor" layoutX="3.0" layoutY="223.0" prefHeight="230.0" prefWidth="310.0" stylesheets="@../../CSSstyles/GridPanne.css.css">
-               <AnchorPane fx:id="light_grow_scene" prefHeight="230.0" prefWidth="160.0" />
-               <AnchorPane fx:id="soil_anchor" layoutX="160.0" layoutY="135.0" prefHeight="95.0" prefWidth="154.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="135.0">
-                   <ChoiceBox fx:id="component_choice_box" layoutX="6.0" layoutY="23.0" prefHeight="25.0" prefWidth="145.0" AnchorPane.topAnchor="20.0" />
-                   <Label fx:id="soil_components_lbl" layoutX="25.0" layoutY="6.0" text="Pick soil composition" AnchorPane.topAnchor="2.0" />
-                   <TextField fx:id="component_litres_fld" layoutX="3.0" layoutY="48.0" prefHeight="25.0" prefWidth="44.0" promptText="Litres" styleClass="input_field" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="48.0" />
-                   <Button fx:id="add_component_btn" layoutX="65.0" layoutY="42.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" AnchorPane.topAnchor="48.0">
-                       <graphic>
-                           <ImageView fitHeight="17.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                               <Image url="@../../Images/pot_soil.png" />
-                           </ImageView>
-                       </graphic>
-                   </Button>
-                   <Label fx:id="components_set_lbl" layoutX="5.0" layoutY="75.0" prefHeight="19.0" prefWidth="146.0" text="\%Components set in soil%">
-                       <opaqueInsets>
-                           <Insets />
-                       </opaqueInsets>
-                   </Label>
-               <FontAwesomeIconView fill="#06dd0d" glyphName="ARROW_RIGHT" layoutX="73.0" layoutY="65.0" />
-               </AnchorPane>
-               <GridPane fx:id="grid_pane" layoutX="162.0" prefHeight="135.0" prefWidth="150.0" styleClass="image-view" stylesheets="@../../CSSstyles/GridPanne.css.css" AnchorPane.leftAnchor="162.0" AnchorPane.rightAnchor="2.0">
+           <AnchorPane fx:id="scene_anchor" layoutX="156.0" layoutY="224.0" prefHeight="230.0" prefWidth="160.0" stylesheets="@../../CSSstyles/GridPanne.css.css" />
+           <VBox layoutX="1.0" layoutY="116.0" prefHeight="100.0" prefWidth="150.0">
+               <HBox>
+                   <VBox.margin>
+                       <Insets left="4.0" />
+                   </VBox.margin>
+                   <RadioButton fx:id="indoor_rb" mnemonicParsing="false" prefHeight="17.0" prefWidth="70.0" text="Indoor" />
+                   <RadioButton fx:id="outdoor_rb" mnemonicParsing="false" prefHeight="17.0" prefWidth="80.0" text="Outdoor" />
+               </HBox>
+               <RadioButton fx:id="photo_fem_btn" mnemonicParsing="false" prefHeight="17.0" prefWidth="110.0" text="Photo Feminised">
+                   <VBox.margin>
+                       <Insets left="4.0" top="3.0" />
+                   </VBox.margin>
+             </RadioButton>
+               <RadioButton fx:id="photo_fast_fem_btn" mnemonicParsing="false" prefHeight="17.0" prefWidth="110.0" text="Photo Fast Fem">
+                   <VBox.margin>
+                       <Insets left="4.0" top="3.0" />
+                   </VBox.margin>
+             </RadioButton>
+               <RadioButton fx:id="reg_btn" mnemonicParsing="false" prefHeight="17.0" prefWidth="110.0" text="Regular">
+                   <VBox.margin>
+                       <Insets left="4.0" top="3.0" />
+                   </VBox.margin>
+             </RadioButton>
+               <RadioButton fx:id="auto_fem_btn" mnemonicParsing="false" prefHeight="17.0" prefWidth="113.0" text="Auto Femenised">
+                   <VBox.margin>
+                       <Insets left="4.0" top="3.0" />
+                   </VBox.margin>
+             </RadioButton>
+           </VBox>
+         <Label layoutX="218.0" layoutY="208.0" text="Stages" AnchorPane.topAnchor="202.0" />
+         <FontAwesomeIconView glyphName="LONG_ARROW_RIGHT" layoutX="267.0" layoutY="204.0" wrappingWidth="47.2857141494751" AnchorPane.topAnchor="205.0" />
+         <Line endX="58.0" layoutX="257.0" layoutY="225.0" startX="-100.0" AnchorPane.topAnchor="220.0" />
+         <Line endX="58.0" layoutX="259.0" layoutY="458.0" startX="-102.0" AnchorPane.topAnchor="456.5" />
+           <AnchorPane fx:id="photo_anchor" layoutX="157.0" prefHeight="144.0" prefWidth="159.0"
+                       AnchorPane.leftAnchor="157.0" AnchorPane.rightAnchor="2.0">
+               <GridPane fx:id="grid_pane" layoutX="9.0" layoutY="-4.0" prefHeight="150.0" prefWidth="150.0"
+                         styleClass="image-view" stylesheets="@../../CSSstyles/GridPanne.css.css">
                    <columnConstraints>
-                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       <ColumnConstraints fx:id="photo_grid_pane" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                    </columnConstraints>
                    <rowConstraints>
-                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                    </rowConstraints>
-                   <AnchorPane fx:id="image_preview_anchor">
-                       <ImageView fx:id="img_view" fitHeight="135.0" fitWidth="150.0" layoutX="8.5" layoutY="8.5"
-                                  pickOnBounds="true" preserveRatio="true">
-                           <cursor>
-                               <Cursor fx:constant="OPEN_HAND"/>
-                           </cursor>
-                           <viewport>
-                               <Rectangle2D height="135.0" width="150.0"/>
-                           </viewport>
-                       </ImageView>
-                   </AnchorPane>
+                   <ImageView fx:id="img_view" fitHeight="135.0" fitWidth="150.0" pickOnBounds="true"
+                              preserveRatio="true">
+                       <cursor>
+                           <Cursor fx:constant="OPEN_HAND"/>
+                       </cursor>
+                       <viewport>
+                           <Rectangle2D height="155.0" width="185.0"/>
+                       </viewport>
+                   </ImageView>
                </GridPane>
            </AnchorPane>
        </AnchorPane>
    </center>
    <bottom>
        <HBox prefHeight="40.0" prefWidth="420.0" BorderPane.alignment="CENTER">
+           <HBox prefHeight="40.0" prefWidth="160.0">
+               <HBox.margin>
+                   <Insets />
+               </HBox.margin>
+               <Button fx:id="add_soil_info_btn" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="Add Soil info">
+                   <HBox.margin>
+                       <Insets left="30.0" />
+                   </HBox.margin>
+               </Button>
+           </HBox>
            <Button fx:id="save_btn" mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" text="Save and Start">
                <graphic>
                    <FontAwesomeIconView glyphName="CHECK" />
                </graphic>
             <HBox.margin>
-                <Insets left="8.0" top="2.0" />
+                <Insets top="5.0" />
             </HBox.margin>
            </Button>
-           <Label fx:id="error_lbl" prefHeight="35.0" prefWidth="150.0" wrapText="true">
-              <HBox.margin>
-                  <Insets left="4.0" />
-              </HBox.margin>
+           <Label fx:id="error_lbl" prefHeight="36.0" prefWidth="140.0" wrapText="true">
+            <HBox.margin>
+               <Insets left="2.0" top="2.0" />
+            </HBox.margin>
            </Label>
-           <Button fx:id="log_out_btn" mnemonicParsing="false" text="Logout">
-               <graphic>
-                   <FontAwesomeIconView fill="#f50909" glyphName="EXTERNAL_LINK" />
-               </graphic>
-         <HBox.margin>
-             <Insets left="8.0" top="6.0" />
-         </HBox.margin>
-           </Button>
-           <Button fx:id="exit_btn" mnemonicParsing="false" text="Exit">
-               <graphic>
-                   <FontAwesomeIconView fill="#da0909" glyphName="CLOSE" />
-               </graphic>
-         <HBox.margin>
-             <Insets left="10.0" top="6.0" />
-         </HBox.margin>
-           </Button>
        </HBox>
    </bottom>
 </BorderPane>

@@ -4,7 +4,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="parent_anchor" prefHeight="355.0" prefWidth="220.0" styleClass="main_scene" stylesheets="@../../CSSstyles/Error.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Utils.ErrorDialogController">
+<AnchorPane fx:id="parent_anchor" prefHeight="355.0" prefWidth="220.0" styleClass="main_scene"
+            stylesheets="@../../CSSstyles/Error.css" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Utils.ErrorDialogController">
    <Label fx:id="title_lbl" prefHeight="40.0" prefWidth="220.0" styleClass="Label_title" wrapText="true" />
    <Label fx:id="error_lbl" layoutX="5.0" layoutY="57.0" prefHeight="239.0" prefWidth="210.0" styleClass="Label" stylesheets="@../../CSSstyles/Error.css" wrapText="true" />
    <Button fx:id="ok_btn" layoutX="52.0" layoutY="307.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Ok                    🥚" />

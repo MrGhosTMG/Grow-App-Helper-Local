@@ -69,6 +69,26 @@ public class DialogUtils {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    public static void delete(String title, String message) {
+        try {
+            FXMLLoader loader = new FXMLLoader(DialogUtils.class.getResource("/FXML/Utils/Delete.fxml"));
+            AnchorPane root = loader.load();
+
+            DeleteDialogController controller = loader.getController();
+            controller.setMessage(message);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Warning");
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.centerOnScreen();
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void warning(String title, String message) {
         try {

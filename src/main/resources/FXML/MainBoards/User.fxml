@@ -37,25 +37,25 @@
                      <FontAwesomeIconView fill="#2e28e1" glyphName="PHOTO" />
                   </graphic>
                </Button>
+               <Button fx:id="del_all_photo_btn" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="Delete All Photos" wrapText="true">
+                  <VBox.margin>
+                     <Insets left="4.0" top="4.0" />
+                  </VBox.margin>
+                  <graphic>
+                     <FontAwesomeIconView fill="#e10b0b" glyphName="REMOVE" />
+                  </graphic>
+               </Button>
                <Button fx:id="history_btn" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="History">
                   <graphic>
                      <FontAwesomeIconView fill="#e81212" glyphName="BOOK" />
                   </graphic>
                   <VBox.margin>
-                     <Insets left="4.0" top="4.0" />
+                     <Insets left="4.0" top="14.0" />
                   </VBox.margin>
                </Button>
                <Button fx:id="nutr_btn" mnemonicParsing="false" prefHeight="45.0" prefWidth="80.0" text="Nutrients">
-                  <graphic>
-                     <FontAwesomeIconView fill="#a012b9" glyphName="LIST" />
-                  </graphic>
                   <VBox.margin>
                      <Insets left="4.0" top="4.0" />
-                  </VBox.margin>
-               </Button>
-               <Button fx:id="shop_btn" disable="true" mnemonicParsing="false" prefHeight="45.0" prefWidth="80.0" text="SHOP WEB">
-                  <VBox.margin>
-                     <Insets left="4.0" top="14.0" />
                   </VBox.margin>
                </Button>
                <Button fx:id="change_user_btn" mnemonicParsing="false" text="Logout">
@@ -78,16 +78,12 @@
          </left>
          <center>
             <AnchorPane fx:id="down_border_pane_top" prefHeight="520.0" prefWidth="420.0" BorderPane.alignment="CENTER">
-               <TextArea  fx:id="info_text_fld" editable="false" layoutX="4.0" layoutY="5.0" prefHeight="322.0" prefWidth="310.0"
-                         text="Growers assistance App&#10; Moist, Training, Cycle control with&#10; alarms notes and&#10;Photo/History controlling"  AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="2.0"
-                         AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="3.0">
+               <TextArea fx:id="info_text_fld" editable="false" layoutX="4.0" layoutY="5.0" prefHeight="322.0" prefWidth="310.0" text="Growers assistance App&#10; Moist, Training, Cycle control with&#10; alarms notes and&#10;Photo/History controlling" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="3.0">
                   <padding>
-                     <Insets bottom="4.0" left="4.0" right="4.0" top="4.0"/>
+                     <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                   </padding>
                </TextArea>
-               <ScrollBar fx:id="scrl_bar" layoutX="294.0" layoutY="3.0" orientation="VERTICAL" prefHeight="315.0"
-                          AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="298.0" AnchorPane.rightAnchor="3.0"
-                          AnchorPane.topAnchor="8.0"/>
+               <ScrollBar fx:id="scrl_bar" layoutX="294.0" layoutY="3.0" orientation="VERTICAL" prefHeight="315.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="298.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="8.0" />
             </AnchorPane>
          </center>
       </BorderPane>
@@ -109,9 +105,10 @@
          <FontAwesomeIconView fill="#30a850" glyphName="ARROW_RIGHT" size="14" styleClass="FontAwesomeIconView" />
       </graphic>
    </Button>
-   <Button fx:id="add_new_cycle_btn" layoutX="108.0" layoutY="150.0" mnemonicParsing="false" prefWidth="85.0" text="Add cycle" AnchorPane.bottomAnchor="348.0" AnchorPane.leftAnchor="108.0">
+   <Button fx:id="add_new_cycle_btn" layoutX="108.0" layoutY="73.0" mnemonicParsing="false" prefWidth="85.0" text="Add cycle" AnchorPane.bottomAnchor="422.0" AnchorPane.leftAnchor="108.0">
       <graphic>
          <FontAwesomeIconView fill="#30a850" glyphName="PLUS" size="14" text="" />
       </graphic>
    </Button>
+   <Button fx:id="shop_btn" disable="true" layoutX="111.0" layoutY="118.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="80.0" text="SHOP WEB" />
 </AnchorPane>
