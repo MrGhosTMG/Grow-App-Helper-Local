@@ -2,6 +2,7 @@ package org.jdta.growapp.Utils;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -16,12 +17,14 @@ public class DeleteDialogController implements Initializable {
     public Button del_btn;
     public Button cancel_btn;
     public ImageView del_img;
+    public CheckBox dont_ask_check;
     private Runnable onDeleteConfirmed;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         del_btn.setOnAction(actionEvent -> {
             if (onDeleteConfirmed != null) onDeleteConfirmed.run();
+            PreferencesUtils.setKeySkipDeleteConfirm(dont_ask_check.isSelected());
             getStage().close();
         });
         cancel_btn.setOnAction(actionEvent ->  getStage().close());
@@ -35,5 +38,8 @@ public class DeleteDialogController implements Initializable {
     }
     public void setOnDeleteConfirmed(Runnable action) {
         this.onDeleteConfirmed = action;
+    }
+    public boolean skipConfirmation() {
+        return dont_ask_check.isSelected();
     }
 }

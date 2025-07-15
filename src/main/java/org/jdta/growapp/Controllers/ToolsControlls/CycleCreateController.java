@@ -13,6 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.jdta.growapp.DTO.Cycle;
 import org.jdta.growapp.Models.Model;
+import org.jdta.growapp.Service.CycleCreateService;
 import org.jdta.growapp.Utils.DialogUtils;
 import org.jdta.growapp.Utils.StageActions;
 import org.jdta.growapp.Utils.FXMLUtils;
@@ -27,6 +28,8 @@ import java.util.ResourceBundle;
 
 public class CycleCreateController implements Initializable {
     private static final File TEMP_PHOTO_DIR = new File("Photos/__temp_cycle__");
+    private final CycleCreateService cycleService = new CycleCreateService();
+
     public TextArea text_area_fld;
     public TextField txt_sort_fld;
     public TextField text_pot_fld;
@@ -62,7 +65,6 @@ public class CycleCreateController implements Initializable {
     public GridPane grid_pane;
     public ColumnConstraints photo_grid_pane;
     public Button add_soil_info_btn;
-    public AnchorPane light_grow_scene;
     public ChoiceBox component_choice_box;
     public TextField component_litres_fld;
     public ImageView img_reg;
@@ -102,22 +104,45 @@ public class CycleCreateController implements Initializable {
 
 
     private void onSaveAndStartCycle() {
-        if (!areDatesValid()) return;
 
-        if (!isSortTypeSelected()) {
+        String name = cycleService.pickSortCycleName(txt_sort_fld.getText(), cycle_reg_lbl);
+        if (name == null) {
+            DialogUtils.warning("Missing field", "Sort/Cycle name is empty");
+            return;
+        }
+
+        if (!cycleService.areDatesValid(start_date.getValue(), EET_date.getValue(), soil_components_lbl)) {
+            DialogUtils.warning("Invalid Dates", "Enter Dates correctly");
+            return;
+        }
+
+        if (!cycleService.isInOutdoorSelected(indoor_rb, outdoor_rb, soil_components_lbl ,check_pot_1, check_pot_2, check_pot_3)) {
+            DialogUtils.warning("Missed selection", "Must select Indoor or Outdoor");
+            return;
+        }
+
+        if (!cycleService.isSortTypeSelected()) {
             DialogUtils.warning("Missing Sort", "Please select sort type (Auto, Photo...)");
             return;
         }
 
+        if (cycleService.parsePotCapacity(text_pot_fld.getText()) == 0.0) {
+            DialogUtils.warning("Pot is empty ?", "Enter Pot capacity");
+            return;
+        }
+
+
+
+
         try {
             Cycle cycle = new Cycle();
             cycle.setUserId(Model.getInstance().getCurrentUser().getId());
-            cycle.setName(txt_sort_fld.getText().trim());
+            cycle.setName(name.trim());
             cycle.setIndoorOutdoor(indoor_rb.isSelected() ? "Indoor" : "Outdoor");
             cycle.setSortType(getSelectedSortType()); // метод ниже
             cycle.setStartDateTime(start_date.getValue().atStartOfDay());
             cycle.setEtaDateTime(EET_date.getValue().atStartOfDay());
-            cycle.setPotCapacity(parsePotCapacity()); // метод ниже
+            cycle.setPotCapacity(cycleService.parsePotCapacity(text_pot_fld.getText())); // метод ниже
             cycle.setNotes(text_area_fld.getText().trim());
             cycle.setLightDayHours(20);  // пока жёстко, позже возьми из LightStageController
             cycle.setLightNightHours(4); // тоже
@@ -143,6 +168,8 @@ public class CycleCreateController implements Initializable {
             e.printStackTrace();
         }
     }
+
+
 
 
     private void onAddPhoto() {
@@ -239,11 +266,7 @@ public class CycleCreateController implements Initializable {
         return FXMLUtils.stageFrom(exit_btn); // можно использовать любой доступный Node
     }
 
-    private void onSelectedCycle() {
-        Stage stage = FXMLUtils.getCurrentStage();
-        Model.getInstance().getView().showSelectedCycleWindow();
-        Model.getInstance().getView().closeStage(stage);
-    }
+
 
     private void loadImagesFromTemp() {
         File[] imageFiles = TEMP_PHOTO_DIR.listFiles(((dir, name) ->
@@ -272,6 +295,12 @@ public class CycleCreateController implements Initializable {
         }
     }
 
+    private void onSelectedCycle() {
+        Stage stage = FXMLUtils.getCurrentStage();
+        Model.getInstance().getView().showSelectedCycleWindow();
+        Model.getInstance().getView().closeStage(stage);
+    }
+
     private String getSelectedSortType () {
         if (auto_fem_btn.isSelected()) return "Auto";
         if (photo_fem_btn.isSelected()) return "Photo";
@@ -279,7 +308,33 @@ public class CycleCreateController implements Initializable {
         if (reg_btn.isSelected()) return "Regular";
         return "Unknown";
     }
+/*
+new methods need to be relocated & fixed
+    private boolean isInOutdoorSelected() {
 
+        boolean in = indoor_rb.isSelected();
+        boolean out = outdoor_rb.isSelected();
+
+        if (in) {
+            outdoor_rb.setDisable(true);
+            //to do
+
+            return true;
+        }
+        if (out) {
+            indoor_rb.setDisable(true);
+            //to do
+            check_pot_1.setDisable(true);
+            check_pot_2.setDisable(true);
+            check_pot_3.setDisable(true);
+            return true;
+        }
+        else {
+            System.out.println("Some error in IN/Out selecting");
+        }
+        DialogUtils.warning("Missed selection", "Must select Indoor or Outdoor");
+        return false;
+    }
     private double parsePotCapacity() {
         try {
             return Double.parseDouble(text_pot_fld.getText());
@@ -287,8 +342,6 @@ public class CycleCreateController implements Initializable {
             return 0.0;
         }
     }
-
-
     private boolean areDatesValid() { // пока не применил
         if (start_date.getValue() == null || EET_date.getValue() == null) {
             DialogUtils.warning("Missing Dates", "Please select both start and estimated end date.");
@@ -302,11 +355,6 @@ public class CycleCreateController implements Initializable {
 
         return true;
     }
-
-    private boolean isSortTypeSelected() {
-        return auto_fem_btn.isSelected() || photo_fem_btn.isSelected()
-                || photo_fast_fem_btn.isSelected() || reg_btn.isSelected();
-    }
-
+*/
 
 }

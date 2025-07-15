@@ -98,4 +98,11 @@ public class Model {
     public void setCurrentCycle(Cycle currentCycle) {
         this.currentCycle = currentCycle;
     }
+
+    // Mock Cycle loading
+    public void mockCycleIfNone() {
+        if (currentCycle == null && !finishedCycles.isEmpty()) {
+            setCurrentCycle(finishedCycles.get(0));
+        }
+    }
 }

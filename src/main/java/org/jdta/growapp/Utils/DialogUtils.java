@@ -3,6 +3,8 @@ package org.jdta.growapp.Utils;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -69,17 +71,19 @@ public class DialogUtils {
         alert.setContentText(message);
         alert.showAndWait();
     }
-    public static void delete(String title, String message) {
+    public static void delete(String title, String message, Runnable onDeleteConfirm) {
         try {
             FXMLLoader loader = new FXMLLoader(DialogUtils.class.getResource("/FXML/Utils/Delete.fxml"));
             AnchorPane root = loader.load();
 
             DeleteDialogController controller = loader.getController();
             controller.setMessage(message);
+            controller.setOnDeleteConfirmed(onDeleteConfirm);
+
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Warning");
+            stage.setTitle(title);
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.centerOnScreen();
@@ -184,4 +188,14 @@ public class DialogUtils {
         clearMsg.play();
     }
 
+    public static void showDialogStage(Node root, String title, Stage stageOwner) {
+        Stage dialog = new Stage();
+        dialog.initOwner(stageOwner);
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.setTitle(title);
+        Scene scene = new Scene((Parent) root);
+        dialog.setScene(scene);
+        dialog.setResizable(false);
+        dialog.showAndWait();
+    }
 }

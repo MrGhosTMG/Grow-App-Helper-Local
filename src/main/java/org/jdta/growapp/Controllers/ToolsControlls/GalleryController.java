@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -12,10 +13,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.jdta.growapp.DTO.Cycle;
 import org.jdta.growapp.DTO.Photo;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.DeleteDialogController;
 import org.jdta.growapp.Utils.FXMLUtils;
+import org.jdta.growapp.Utils.PreferencesUtils;
+import org.jdta.growapp.Utils.StageActions;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,8 +32,8 @@ import java.util.ResourceBundle;
 
 public class GalleryController implements Initializable {
 
-    private static final File PHOTO_DIR = new File("Photos/cycle_photos/Cycle_" +
-            Model.getInstance().getCurrentCycle().getId());
+    public ScrollPane scrl_pane;
+    private File photoDir;
     private File selectedImageFile;
     private ImageView selectedImageView;
 
@@ -43,11 +47,15 @@ public class GalleryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadImagesFromDisk();
+        initPhotoDir();
+        loadImagesFromDisc();
         add_photo_btn.setOnAction(actionEvent -> onAddPhoto());
         delete_photo_btn.setOnAction(actionEvent -> deletePhoto());
         del_all.setOnAction(actionEvent -> onDeleteAllPhoto());
     }
+
+
+
     private File checkCreatePhotosDir() {
         Photo photo = new Photo();
         String path = "cycle" + photo.getCycleId();
@@ -90,47 +98,8 @@ public class GalleryController implements Initializable {
         }
     }
 
-    // загрузка изображений from -  \src\main\resources\Photos
-    private void loadImagesFromDisk() {
-
-        loader_spinner.setVisible(true); // show spiner over scrll_pane
-
-        Task<List<File>> loadTask = getListTask();
-        loadTask.setOnSucceeded(event -> {
-            List<File> images = loadTask.getValue();
-            grid_pane.getChildren().clear();
-
-            int column = 0;
-            int row = 0;
-
-            for (File imgFile : images) {
-                Image image = new Image((imgFile.toURI().toString()));
-                ImageView imageView = new ImageView(image);
-                clickInit(imageView);
-                imageView.setPreserveRatio(true);
-                imageView.setFitWidth(150);
-                imageView.setFitHeight(135);
-                imageView.setSmooth(true);
-                imageView.setCache(true);
-
-                grid_pane.add(imageView, column, row);
-                column++;
-                if (column == 2) {
-                    column = 0;
-                    row++;
-                }
-            }
-            loader_spinner.setVisible(false); // hide spinner
-        });
-
-        loadTask.setOnFailed(e -> {
-            loader_spinner.setVisible(false); // hide spinner even if error
-            System.out.println("Image load time ERROR: " + loadTask.getException());
-        });
-        new Thread(loadTask).start();// start in main Thread
-    }
-
     private void onAddPhoto() {
+        loadImagesFromDisc();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Browse photo");
         fileChooser.getExtensionFilters().addAll(
@@ -138,12 +107,12 @@ public class GalleryController implements Initializable {
         File selectedFile = fileChooser.showOpenDialog(getStage());
         if (selectedFile != null) {
             try {
-                if (!PHOTO_DIR.exists()) {
-                    PHOTO_DIR.mkdirs();
+                if (!photoDir.exists()) {
+                    photoDir.mkdirs();
                 }
-                File destinationFile = new File(PHOTO_DIR, selectedFile.getName());
+                File destinationFile = new File(photoDir, selectedFile.getName());
                 Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                loadImagesFromTemp(); // previewRefresh
+                loadImagesFromDisc(); // previewRefresh
             }catch (IOException e) {
                 e.printStackTrace();
             }
@@ -151,17 +120,64 @@ public class GalleryController implements Initializable {
     }
 
     private void onDeleteAllPhoto() {
-        if (PHOTO_DIR.exists()) {
-            for (File file : PHOTO_DIR.listFiles()) {
-                file.delete();
-            }
+        if (!photoDir.exists()) return;
+        if (PreferencesUtils.isSkipDeleteConfirm()) {
+            deleteAllImages();
+            return;
         }
+        Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/utils/Delete.fxml",
+                (DeleteDialogController controller) -> {
+                    controller.setMessage("Sure delete all? ");
+                    controller.setOnDeleteConfirmed(() -> {
+                        deleteAllImages();
+                        if (controller.skipConfirmation()) {
+                            PreferencesUtils.setKeySkipDeleteConfirm(true);
+                        }
+                    });
+                });
+        StageActions.showAnyDialogWithConfirm(root, "Delete Confirmation", getStage());
+    }
+
+    private void deleteAllImages() {
+        loader_spinner.setVisible(true);
+        //loadImagesFromDisc();
+        Task<Void> delTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                File[] files = photoDir.listFiles();
+                if (files != null) {
+                    for (File file : files) {
+                        file.delete();
+                    }
+                }
+                return null;
+            }
+        };
+        delTask.setOnSucceeded(e -> {
+            loader_spinner.setVisible(false);
+            loadImagesFromDisc();
+        });
+        delTask.setOnFailed(e -> {
+            loader_spinner.setVisible(false);
+            System.out.println("Delete failed: " + delTask.getException());
+        });
+        new Thread(delTask).start();
     }
 
     private void deletePhoto() {
+        // If Don't ask selected Remove without confirmation
         if (selectedImageFile != null && selectedImageFile.exists()) {
+            if (PreferencesUtils.isSkipDeleteConfirm()) {
+                selectedImageFile.delete();
+                selectedImageFile = null;
+                selectedImageView = null;
+                loadImagesFromDisc();
+                PreferencesUtils.cleanAllPunfp();
+                return;
+            }
+
             // Show confirm dialog
-            Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/utils/DeleteDialog.fxml",
+            Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/utils/Delete.fxml",
                     (DeleteDialogController controller) -> {
                         controller.setMessage("Delete this epic photo?");
                         controller.setOnDeleteConfirmed(() -> {
@@ -170,52 +186,92 @@ public class GalleryController implements Initializable {
                                 System.out.println("Deleted: " + selectedImageFile.getName());
                                 selectedImageFile = null;
                                 selectedImageView = null;
-                                loadImagesFromDisk(); // refresh
+                                loadImagesFromDisc(); // refresh
                             } else {
                                 System.out.println("Failed to delete: " + selectedImageFile.getName());
                             }
                         });
                     });
-            FXMLUtils.showDialogStage(root, "Confirm Delete", getStage()); // no showDialogStage()
+            StageActions.showAnyDialogWithConfirm(root, "Confirm Delete", getStage());
         } else {
             System.out.println("No image selected");
         }
     }
-    private void clearTempFolder() {
-        if (PHOTO_DIR.exists()) {
-            for (File file : PHOTO_DIR.listFiles()) {
-                file.delete();
-            }
-            loadImagesFromTemp();
-        }
-    }
-    private void loadImagesFromTemp() {
-        File[] imageFiles = PHOTO_DIR.listFiles(((dir, name) ->
-                name.toLowerCase().endsWith(".png") ||
-                        name.toLowerCase().endsWith(".jpg") ||
-                        name.toLowerCase().endsWith(".jpeg")));
+
+    // загрузка изображений
+    private void loadImagesFromDisc() {
+        loader_spinner.setVisible(true);
         grid_pane.getChildren().clear();
 
-        if (imageFiles == null) return;
-        int column = 0;
-        int row = 0;
+        Task<List<ImageView>> loadTask = new Task<>() {
+            @Override
+            protected List<ImageView> call() {
+                List<ImageView> imageViews = new ArrayList<>();
+                File[] imageFiles = photoDir.listFiles((dir, name) ->
+                        name.toLowerCase().endsWith(".png") ||
+                                name.toLowerCase().endsWith(".jpg") ||
+                                name.toLowerCase().endsWith(".jpeg"));
 
-        for (File img : imageFiles) {
-            Image image = new Image(img.toURI().toString());
-            ImageView imageView = new ImageView(image);
-            clickInit(imageView);
-            imageView.setFitWidth(150);
-            imageView.setFitHeight(135);
-            imageView.setPreserveRatio(true);
+                if (imageFiles != null) {
+                    for (File img : imageFiles) {
+                        Image image = new Image(img.toURI().toString());
+                        ImageView imageView = new ImageView(image);
+                        clickInit(imageView);
 
-            grid_pane.add(imageView, column, row);
-            column++;
-            if (column == 2) {
-                column = 0;
-                row ++;
+                        imageView.setFitWidth(120);
+                        imageView.setFitHeight(120);
+                        imageView.setPreserveRatio(true);
+                        imageView.setCache(true);
+
+                        // нельзя в фоне делать setOnMouseClicked — позже в UI потоке
+                        imageView.setUserData(img); // временно
+                        imageViews.add(imageView);
+                    }
+                }
+                return imageViews;
             }
-        }
+        };
+
+        // результат — в FX Application Thread
+        loadTask.setOnSucceeded(e -> {
+            List<ImageView> imageViews = loadTask.getValue();
+
+            int column = 0;
+            int row = 0;
+
+            for (ImageView imageView : imageViews) {
+                File imgFile = (File) imageView.getUserData(); // вернуть из userData
+                imageView.setOnMouseClicked(ev -> {
+                    selectedImageFile = imgFile;
+                    System.out.println("File to delete: " + selectedImageFile.getName());
+                    imageView.setStyle("-fx-effect: dropshadow(three-pass-box, red, 10, 0, 0, 0);");
+
+                    if (selectedImageView != null && selectedImageView != imageView) {
+                        selectedImageView.setStyle(""); // сброс старого выделения
+                    }
+                    selectedImageView = imageView;
+                });
+
+                grid_pane.add(imageView, column, row);
+                column++;
+                if (column == 2) {
+                    column = 0;
+                    row++;
+                }
+            }
+
+            loader_spinner.setVisible(false);
+        });
+
+        loadTask.setOnFailed(e -> {
+            loader_spinner.setVisible(false);
+            System.out.println("Ошибка загрузки: " + loadTask.getException());
+        });
+
+        new Thread(loadTask).start();
     }
+
+
     private Stage getStage() {
         return FXMLUtils.stageFrom(add_photo_btn); // можно использовать любой доступный Node
     }
@@ -233,6 +289,15 @@ public class GalleryController implements Initializable {
             //selectedImageFile = selectedImageFile;
             imageView.setStyle("-fx-effect: dropshadow(gaussian, red, 10, 0.5, 0, 0);");
         });
+    }
+    // static photo directory path initialize method
+    private void initPhotoDir() {
+        Cycle current = Model.getInstance().getCurrentCycle();
+        if (current == null) {
+            System.out.println("Cycle not selected!");
+            photoDir = new File("Photos/cycle_photos/_unknown");
+        }
+        photoDir = new File("Photos/cycle_photos/Cycle_" + current.getId());
     }
 }
 

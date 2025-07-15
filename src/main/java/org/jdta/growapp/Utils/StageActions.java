@@ -1,5 +1,8 @@
 package org.jdta.growapp.Utils;
 
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -10,23 +13,13 @@ public class StageActions {
 
 
     public static void onEasterEgg(Stage stage) {
-/*
-        DialogUtils.confirm(stage,
-                "This one gave its best. Start fresh?",
-                ()-> {
-            System.out.println("🌱 RESTARTING... LOG STILL RUNNING...");
-            System.out.println("Bye bye 🥚 Wishing you always Good Mood.. !!! ;-) 420 Thx to Gендальф© ");
-            Model.getInstance().getView().showUserWindow();
-            stage.close();
-        });
-*/
+
         DialogUtils.error("This one gave its best. Start fresh?", "Oops,.. Something went wrong.. " +
                 "Cleaning All data... Deleting User... Removing Application...");
         System.out.println("🌱 RESTARTING... LOG STILL RUNNING...");
         System.out.println("Bye bye 🥚 Wishing you always Good Mood.. !!! ;-) 420 Thx to Gендальф© ");
         stage.close();
     }
-
 
     public static void onLogout(Stage stage) {
         DialogUtils.confirm(stage," Logout ? Come back soon :)", () -> {
@@ -83,5 +76,18 @@ public class StageActions {
             DialogUtils.setErrorMessage(errorLabel, "Must be a valid number");
             return true;
         }
+    }
+
+    //                             fxml dialog file    (getStage()) for example
+    public static void showModalDialog(Node dialog, Stage stageOwner) {
+        Stage dialogInit = new Stage();
+        dialogInit.initOwner(stageOwner);
+        Scene scene = new Scene((Parent) dialog);
+        dialogInit.setScene(scene);
+        dialogInit.showAndWait();
+    }
+
+    public static void showAnyDialogWithConfirm(Node dialog, String msg, Stage stageOwner) {
+        DialogUtils.showDialogStage(dialog, msg, stageOwner);
     }
 }

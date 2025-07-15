@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.jdta.growapp.Controllers.ToolsControlls.*;
 import org.jdta.growapp.Models.Model;
+import org.jdta.growapp.Utils.DialogUtils;
 import org.jdta.growapp.Utils.StageActions;
 import org.jdta.growapp.Utils.FXMLUtils;
 
@@ -22,7 +23,6 @@ import java.util.logging.Logger;
 public class CycleLoadController  implements Initializable {
 
 
-    public Label cycle_name_lbl;
     public Button apply_btn;
     public Button train_btn;
     public Button moist_btn;
@@ -60,18 +60,20 @@ public class CycleLoadController  implements Initializable {
         stage_btn.setOnAction(actionEvent -> onGrowStageEdit());
         back_toUser_btn.setOnAction(actionEvent -> StageActions.backToUser(getStage()));
         gallery_btn.setOnAction(actionEvent -> onGallery());
-        // NEW — если режим просмотра завершённого цикла:
-        if (Model.getInstance().isFinishedCycle()) {
-            disableAllButtonsExceptInfo();
-            showFinishedInfo();
-            // сбросим флаг на будущее
-            Model.getInstance().setFinishedCycle(false);
-        }
+
+        finishedCycleView();
     }
+
+
 
     // On actions section
 
     private void onGallery() {
+        Model.getInstance().mockCycleIfNone();
+        if (Model.getInstance().getCurrentCycle() == null) {
+            DialogUtils.warning("Cycle not found", "Please select cycle first !");
+            return;
+        }
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/userBoard/Gallery.fxml"));
                 Node photoPane = loader.load();
@@ -188,5 +190,14 @@ public class CycleLoadController  implements Initializable {
     }
     private Stage getStage() {
         return FXMLUtils.stageFrom(exit_btn); // можно использовать любой доступный Node
+    }
+    // If current view is on finished cycle
+    private void finishedCycleView() {
+        if (Model.getInstance().isFinishedCycle()) {
+            disableAllButtonsExceptInfo();
+            showFinishedInfo();
+            // reset flag for next
+            Model.getInstance().setFinishedCycle(false);
+        }
     }
 }

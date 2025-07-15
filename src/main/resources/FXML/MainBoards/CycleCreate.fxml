@@ -23,11 +23,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<BorderPane fx:id="parent_border_pane" prefHeight="520.0" prefWidth="420.0" styleClass="main_scene"
-            stylesheets="@../../CSSstyles/Cycle.css" xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.CycleCreateController">
+<BorderPane fx:id="parent_border_pane" prefHeight="520.0" prefWidth="420.0" styleClass="main_scene" stylesheets="@../../CSSstyles/Cycle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.CycleCreateController">
    <top>
-          <Label fx:id="cycle_reg_lbl" text="New cycle registration" BorderPane.alignment="CENTER">
+          <Label fx:id="cycle_reg_lbl" prefHeight="20.0" prefWidth="290.0" text="New cycle registration" BorderPane.alignment="CENTER">
          <graphic>
              <ImageView fx:id="img_reg" fitHeight="18.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                  <Image url="@../../Images/ic_change.png" />
@@ -81,8 +79,7 @@
                       <FontAwesomeIconView glyphName="DOWNLOAD" styleClass="FontAwesomeIconView" wrappingWidth="11.142857551574707" />
                   </graphic>
               </Button>
-              <Button fx:id="back_btn" layoutX="35.0" layoutY="239.0" mnemonicParsing="false" prefHeight="45.0"
-                      prefWidth="85.0" text="Back to User" textAlignment="CENTER" wrapText="true">
+              <Button fx:id="back_btn" layoutX="35.0" layoutY="239.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="85.0" text="Back to User" textAlignment="CENTER" wrapText="true">
                   <VBox.margin>
                       <Insets left="8.0" top="20.0" />
                   </VBox.margin>
@@ -95,7 +92,7 @@
                    <FontAwesomeIconView fill="#f50909" glyphName="EXTERNAL_LINK" />
                </graphic>
             <VBox.margin>
-               <Insets left="16.0" top="20.0" />
+               <Insets left="18.0" top="20.0" />
             </VBox.margin>
            </Button>
            <Button fx:id="exit_btn" mnemonicParsing="false" text="Exit">
@@ -103,7 +100,7 @@
                    <FontAwesomeIconView fill="#da0909" glyphName="CLOSE" />
                </graphic>
             <VBox.margin>
-               <Insets left="25.0" top="8.0" />
+               <Insets left="28.0" top="8.0" />
             </VBox.margin>
            </Button>
           </VBox>
@@ -215,27 +212,24 @@
                    </VBox.margin>
              </RadioButton>
            </VBox>
-         <Label layoutX="218.0" layoutY="208.0" text="Stages" AnchorPane.topAnchor="202.0" />
+         <Label layoutX="165.0" layoutY="208.0" prefHeight="17.0" prefWidth="143.0" text="Stages" AnchorPane.topAnchor="202.0" />
          <FontAwesomeIconView glyphName="LONG_ARROW_RIGHT" layoutX="267.0" layoutY="204.0" wrappingWidth="47.2857141494751" AnchorPane.topAnchor="205.0" />
          <Line endX="58.0" layoutX="257.0" layoutY="225.0" startX="-100.0" AnchorPane.topAnchor="220.0" />
          <Line endX="58.0" layoutX="259.0" layoutY="458.0" startX="-102.0" AnchorPane.topAnchor="456.5" />
-           <AnchorPane fx:id="photo_anchor" layoutX="157.0" prefHeight="144.0" prefWidth="159.0"
-                       AnchorPane.leftAnchor="157.0" AnchorPane.rightAnchor="2.0">
-               <GridPane fx:id="grid_pane" layoutX="9.0" layoutY="-4.0" prefHeight="150.0" prefWidth="150.0"
-                         styleClass="image-view" stylesheets="@../../CSSstyles/GridPanne.css.css">
+           <AnchorPane fx:id="photo_anchor" layoutX="157.0" prefHeight="144.0" prefWidth="159.0" AnchorPane.leftAnchor="157.0" AnchorPane.rightAnchor="2.0">
+               <GridPane fx:id="grid_pane" layoutX="9.0" layoutY="-4.0" prefHeight="150.0" prefWidth="150.0" styleClass="image-view" stylesheets="@../../CSSstyles/GridPanne.css.css">
                    <columnConstraints>
-                       <ColumnConstraints fx:id="photo_grid_pane" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                       <ColumnConstraints fx:id="photo_grid_pane" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                    </columnConstraints>
                    <rowConstraints>
-                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                    </rowConstraints>
-                   <ImageView fx:id="img_view" fitHeight="135.0" fitWidth="150.0" pickOnBounds="true"
-                              preserveRatio="true">
+                   <ImageView fx:id="img_view" fitHeight="135.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                        <cursor>
-                           <Cursor fx:constant="OPEN_HAND"/>
+                           <Cursor fx:constant="OPEN_HAND" />
                        </cursor>
                        <viewport>
-                           <Rectangle2D height="155.0" width="185.0"/>
+                           <Rectangle2D height="155.0" width="185.0" />
                        </viewport>
                    </ImageView>
                </GridPane>
