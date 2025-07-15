@@ -15,7 +15,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="parent_Anchor_pane" prefHeight="355.0" prefWidth="220.0" styleClass="light_container" stylesheets="@../../CSSstyles/LighTimeStage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.LightTimeStageController">
+<AnchorPane fx:id="parent_Anchor_pane" prefHeight="355.0" prefWidth="220.0" styleClass="light_container"
+            stylesheets="@../../CSSstyles/LighTimeStage.css" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.jdta.growapp.Controllers.ToolsControlls.LightTimeStageController">
     <Label fx:id="hours_lbl" layoutX="2.0" layoutY="4.0" prefHeight="20.0" prefWidth="218.0" text="Select Light range On / Off Hours " AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="4.0">
         <graphic>
             <ImageView fitHeight="28.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">

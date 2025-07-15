@@ -1,0 +1,68 @@
+.photo_container {
+-fx-background-color: #4fcfe0;
+-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0), 12, 0.3, 0, 4);
+    -fx-background-radius: 10;
+}
+/* Стиль трека (полосы, по которой движется ползунок) */
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
+    -fx-background-color: #6078c7; /* Цвет трека */
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+}
+
+/* Стиль ползунка (thumb) */
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #26d316; /* Цвет ползунка */
+    -fx-background-radius: 5px; /* Закругление углов */
+    -fx-border-radius: 5px;
+}
+
+/* Стиль при наведении на ползунок */
+.scroll-bar .thumb:hover {
+    -fx-background-color: #1021be; /* Цвет при наведении */
+}
+
+/* Стиль при нажатии на ползунок */
+.scroll-bar .thumb:pressed {
+    -fx-background-color: #310d69; /* Цвет при нажатии */
+}
+
+/* Кнопки увеличения/уменьшения (стрелки) */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+/* Стрелки внутри кнопок */
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+
+.main_container {
+    -fx-border-color: #4fcfe0;
+    -fx-background-color: #6078c7;
+}
+Button {
+   -fx-cursor: hand; 
+    -fx-background-color: #1d3550;
+    -fx-text-fill: #cebacb;
+
+}
+
+Button:hover {
+    -fx-background-color: #09ebf3;
+    -fx-border-color: #0414ee;
+}
+
+.button:pressed {
+    -fx-background-color: #030c13;
+    -fx-border-color: #ee0404;
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
+    -fx-text-fill: #0fa7ee;
+}

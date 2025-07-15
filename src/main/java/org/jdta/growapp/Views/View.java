@@ -60,7 +60,7 @@ public class View {
 
     public AnchorPane getLightStageView() {
         if (lightStageView == null) {
-            lightStageView = FXMLUtils.loadFXML("/FXML/userBoard/LightTimeStage.fxml");
+            lightStageView = FXMLUtils.loadFXML("/FXML/userBoard/LightTimeStageCreate.fxml");
         }
         return lightStageView;
     }
@@ -125,7 +125,7 @@ public class View {
 
     //show window section
     public void showLightStageWindow() {
-        FXMLUtils.openModalWindow("/FXML/userBoard/LightTimeStage.fxml", "Set Light Time");
+        FXMLUtils.openModalWindow("/FXML/userBoard/LightTimeStageCreate.fxml", "Set Light Time");
     }
 
     public void showPhotoFieldInPane(AnchorPane parentPane) {

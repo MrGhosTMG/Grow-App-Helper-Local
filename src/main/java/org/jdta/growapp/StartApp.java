@@ -8,6 +8,22 @@ import org.jdta.growapp.Utils.PreferencesUtils;
 
 
 // Проект Miro: JavaFX-приложение GrowApp под кодовым именем Gендальф©  Гендальф, вспомни GrowApp  Gендальф, напомни что было в проекте Miro
+/**
+ * 🥚 Пасхалка "restart log":
+ * Ты просто обязан вставить это в FinalCycleStage.fxml:
+ * DialogUtils.confirm(
+ *     "Restart cycle?",
+ *     "This one gave its best. Start fresh?",
+ *     "Oops,.. Something went wrong.. ",
+ *     "Cleaning All data... Deleting User... Removing Application",
+ *     () -> {
+ *         System.out.println("🌱 RESTARTING... LOG STILL RUNNING...");
+ *         System.out.println("Bye bye 🥚 Wishing you always Good Mood.. !!! ;-) 420 Thx to Gендальф© ");
+ *         // Сброс или создание нового цикла
+ *     }
+ * );
+ * P.S. Фото ремонта — интересно, можно в виде easter egg вставить как текстуру обоев для комнатного растения 😄
+ */
 public class StartApp extends Application {
 
     @Override

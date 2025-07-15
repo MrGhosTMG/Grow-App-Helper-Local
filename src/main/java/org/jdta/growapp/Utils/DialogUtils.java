@@ -3,6 +3,8 @@ package org.jdta.growapp.Utils;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -12,15 +14,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
-import org.jdta.growapp.Controllers.ToolsControlls.ConfirmDialogController;
-import org.jdta.growapp.Controllers.ToolsControlls.WarningDialogController;
 
 import java.io.IOException;
 
 public class DialogUtils {
 
     public static void confirm(String message, Runnable onConfirm) {
-        confirm(getCurrentStage(), message, onConfirm);
+        confirm(getCurrentStage(), message, onConfirm);//🥚
     }
 
     private static Stage getCurrentStage() {
@@ -71,6 +71,28 @@ public class DialogUtils {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    public static void delete(String title, String message, Runnable onDeleteConfirm) {
+        try {
+            FXMLLoader loader = new FXMLLoader(DialogUtils.class.getResource("/FXML/Utils/Delete.fxml"));
+            AnchorPane root = loader.load();
+
+            DeleteDialogController controller = loader.getController();
+            controller.setMessage(message);
+            controller.setOnDeleteConfirmed(onDeleteConfirm);
+
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle(title);
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.centerOnScreen();
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void warning(String title, String message) {
         try {
@@ -93,13 +115,26 @@ public class DialogUtils {
         }
     }
 
-    //переделаю на кастом фхмл
+
     public static void error(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+        try {
+            FXMLLoader loader = new FXMLLoader(DialogUtils.class.getResource("/FXML/Utils/Error.fxml"));
+            AnchorPane root = loader.load();
+
+            ErrorDialogController controller = loader.getController();
+            controller.setMessage(title, message);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Oops,.. Something went wrong.. ");
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.centerOnScreen();
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void setErrorMessage(Label label, String message) {
@@ -151,5 +186,16 @@ public class DialogUtils {
                         }
                 ));
         clearMsg.play();
+    }
+
+    public static void showDialogStage(Node root, String title, Stage stageOwner) {
+        Stage dialog = new Stage();
+        dialog.initOwner(stageOwner);
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.setTitle(title);
+        Scene scene = new Scene((Parent) root);
+        dialog.setScene(scene);
+        dialog.setResizable(false);
+        dialog.showAndWait();
     }
 }

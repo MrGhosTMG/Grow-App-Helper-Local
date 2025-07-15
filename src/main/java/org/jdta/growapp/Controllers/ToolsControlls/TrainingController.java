@@ -56,11 +56,11 @@ public class TrainingController implements Initializable {
         //binding to R.buttons
         Map<RadioButton, TrainingType> trainingTypeMap = Map.of(
                 LST_rb, TrainingType.LST,
-                DEF_rb, TrainingType.DEF,
-                SCRG_rb, TrainingType.SCRG,
+                DEF_rb, TrainingType.DEFOLIATION,
+                SCRG_rb, TrainingType.SCROG,
                 TOP_rb, TrainingType.TOP,
                 FIM_rb, TrainingType.FIM,
-                ML_rb, TrainingType.ML,
+                ML_rb, TrainingType.MAINLINING,
                 other_rb, TrainingType.OTHER
         );
 
@@ -237,7 +237,7 @@ public class TrainingController implements Initializable {
 
     private void updateUIBasedOnTrainingType(TrainingType type) {
         boolean isOtherStressActive = type == TrainingType.OTHER;
-        boolean isMainLining = type == TrainingType.ML;
+        boolean isMainLining = type == TrainingType.MAINLINING;
 
         // enable / disable other stress
         days_in_fld.setDisable(!isOtherStressActive);

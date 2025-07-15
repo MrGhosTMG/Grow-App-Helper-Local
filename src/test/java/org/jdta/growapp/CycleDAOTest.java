@@ -17,7 +17,7 @@ public class CycleDAOTest {
             Cycle cycle = new Cycle();
             cycle.setUserId(1);
             cycle.setName("Amnesia Auto");
-            cycle.setIndoor(true);
+            cycle.setInOutDoor(true);
             cycle.setPotCapacity(5.5);
             cycle.setStartDateTime(LocalDateTime.now());
             cycle.setEtaDateTime(LocalDateTime.now().plusDays(70));

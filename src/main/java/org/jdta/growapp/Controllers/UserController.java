@@ -1,6 +1,7 @@
 package org.jdta.growapp.Controllers;
 
 
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -8,14 +9,18 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.jdta.growapp.Controllers.ToolsControlls.HistoryController;
 import org.jdta.growapp.Controllers.ToolsControlls.NutrientsController;
+import org.jdta.growapp.Controllers.ToolsControlls.PhotoController;
+import org.jdta.growapp.DTO.Cycle;
 import org.jdta.growapp.Models.Model;
-import org.jdta.growapp.Utils.StageActions;
-import org.jdta.growapp.Utils.FXMLUtils;
+import org.jdta.growapp.Utils.*;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,36 +28,45 @@ import java.util.logging.Logger;
 public class UserController implements Initializable {
 
 
+    private static final File PHOTO_DIR = new File("Photos/cycle_photos");
     public AnchorPane down_border_pane_top;
-    public ImageView image_view_board;
+    public TextArea info_text_fld;
     public Button select_cycle_btn;
     public Button add_new_cycle_btn;
-    public ListView list_view_cycle_info;
     public Button photos_btn;
     public Button history_btn;
     public Button change_user_btn;
     public Button exit_btn;
+    public Button del_all_photo_btn;
     public Button nutr_btn;
     public Button shop_btn;
-    public Label select_lbl;
     public ComboBox select_cycle_combo_box;
     public Label selected_user_name;
+    public Label select_lbl;
     public Label cycle_name_info_lbl;
-    public ScrollPane top_scroll_pane;
+
+
+
+    public Label status_lbl;
+    public ImageView image_view_board;
     public ScrollBar scrl_bar;
-    public TextArea info_text_fld;
+    public ListView list_view_cycle_info;
+    public ProgressIndicator spinner;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         select_cycle_btn.setOnAction(actionEvent -> onSelectedCycle());
-        exit_btn.setOnAction(actionEvent -> StageActions.onExit(stage()));
-        change_user_btn.setOnAction(event -> StageActions.onLogout(stage()));
+        exit_btn.setOnAction(actionEvent -> StageActions.onExit(getStage()));
+        change_user_btn.setOnAction(event -> StageActions.onLogout(getStage()));
         add_new_cycle_btn.setOnAction(actionEvent -> onNewCycle());
         photos_btn.setOnAction(actionEvent -> onPhoto());
         history_btn.setOnAction(actionEvent -> onHistory());
         nutr_btn.setOnAction(actionEvent -> onNutrients());
         addListeners();
+        del_all_photo_btn.setOnAction(actionEvent -> onDeleteAllPhoto());
+
+        initMOCK();
     }
 
 
@@ -90,15 +104,33 @@ public class UserController implements Initializable {
     }
 
     private void onHistory() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/userBoard/History.fxml"));
-        try {
-            down_border_pane_top.getChildren().setAll((Node) loader.load());
-        } catch (IOException e) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
+
+        Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/userBoard/History.fxml",
+                (HistoryController controller) -> {
+                    controller.setCycles(Model.getInstance().getFinishedCycles());
+                });
+
+        if (root != null) {
+            down_border_pane_top.getChildren().setAll(root);
         }
     }
 
+    private void onSelectedCycle() {
+
+        Stage stage = FXMLUtils.stageFrom(exit_btn);
+        Model.getInstance().getView().showSelectedCycleWindow();
+        Model.getInstance().getView().closeStage(stage);
+    }
+
+    private void onNewCycle() {
+
+        Stage stage = FXMLUtils.stageFrom(exit_btn);
+        Model.getInstance().getView().showCycleCreateWindow();
+        Model.getInstance().getView().closeStage(stage);
+    }
+
     private void onPhoto() {
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/userBoard/Photo.fxml"));
             ScrollPane photoPane = loader.load();
@@ -108,18 +140,49 @@ public class UserController implements Initializable {
         }
     }
 
-    private void onSelectedCycle() {
-        Stage stage = FXMLUtils.stageFrom(exit_btn);
-        Model.getInstance().getView().showSelectedCycleWindow();
-        Model.getInstance().getView().closeStage(stage);
+    private void onDeleteAllPhoto() {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/userBoard/Photo.fxml"));
+            ScrollPane photoPane = loader.load();
+            PhotoController controller = loader.getController();
+
+            down_border_pane_top.getChildren().setAll(photoPane); // Обновим UI
+            controller.setParentStage(getStage());
+            javafx.application.Platform.runLater(controller::deleteAllPhotosWithConfirm);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void onNewCycle() {
-        Stage stage = FXMLUtils.stageFrom(exit_btn);
-        Model.getInstance().getView().showCycleCreateWindow();
-        Model.getInstance().getView().closeStage(stage);
-    }
-    public Stage stage() {
+
+    public Stage getStage() {
         return FXMLUtils.stageFrom(exit_btn);
+    }
+
+    private void initMOCK() {
+        // Добавляем
+        if (Model.getInstance().getFinishedCycles().isEmpty()) {
+            //test MOCk
+            Cycle test = new Cycle();
+            test.setName("TestCycle 001");
+            test.setStartDateTime(LocalDateTime.now().minusDays(50));
+            test.setEtaDateTime(LocalDateTime.now());
+            test.setYieldGrams(320);
+            test.setFinished(true);
+            test.setSortType("AK-47");
+            test.setPotCapacity(5.0);
+            test.setIndoorOutdoor("Indoor");
+
+// Доп. стадии
+            test.setVegetationDays(15);
+            test.setFloweringDays(20);
+            test.setPreFloweringDays(5);
+            test.setDryingDays(10);
+            test.setTotalGrowDays(50);
+            Model.getInstance().getFinishedCycles().add(test);
+            //Model.getInstance().getFinishedCycles().clear();
+        }
     }
 }

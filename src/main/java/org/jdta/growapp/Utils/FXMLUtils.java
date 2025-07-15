@@ -132,4 +132,17 @@ public class FXMLUtils {
     public static Stage stageFrom(Node node) {
         return (Stage) node.getScene().getWindow();
     }
+
+    public static void showDialogStage(Node root, String confirmDelete, Stage stage) {
+        if (root == null) return;
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle(confirmDelete);
+        dialogStage.initOwner(stage);
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.setResizable(false);
+
+        Scene scene = new Scene((Parent) root);
+        dialogStage.setScene(scene);
+        dialogStage.showAndWait();
+    }
 }

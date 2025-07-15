@@ -16,4 +16,7 @@ module org.jdta.growapp {
     exports org.jdta.growapp.Views;
     exports org.jdta.growapp.Utils;
     exports org.jdta.growapp.Controllers.ToolsControlls;
+    exports org.jdta.growapp.DTO;
+    exports org.jdta.growapp.DAO;
+    exports org.jdta.growapp.Enums;
 }

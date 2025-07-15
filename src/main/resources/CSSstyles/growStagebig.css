@@ -1,0 +1,144 @@
+Button {
+    -fx-cursor: hand;
+    -fx-background-color: #b9e90a;
+    -fx-border-color: #960202;
+    -fx-border-radius: 4px;
+    -fx-padding: 5px;
+    -fx-text-fill: rgb(23, 7, 247);
+}
+
+
+Button:hover {
+    -fx-background-color: #0010f796;
+    -fx-text-fill: rgb(47, 247, 7);
+    -fx-cursor: HAND;
+}
+
+
+
+.button:pressed {
+    -fx-background-color: #030c13;
+    -fx-border-color: rgb(180, 219, 5);;
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
+    -fx-text-fill: #ee0404;
+}
+
+.date-picker {
+    -fx-border-radius: 4px;
+    -fx-padding: 5px;
+    -fx-font-size: 11px;
+    -fx-background-color: rgb(165, 206, 16);
+    -fx-border-color: #0306cc;
+}
+
+/* Стиль для CheckBox */
+.check-box {
+    
+    -fx-font-family: "Arial";
+    -fx-text-fill: #1622d1;
+}
+
+/* Стиль для "галочки" (флажка) */
+.check-box .box {
+    -fx-background-color: rgb(165, 206, 16);
+    -fx-border-color: #e95858;
+    -fx-border-radius: 3px;
+    -fx-border-width: 2px;
+    -fx-padding: 2px;
+}
+
+/* Стиль для галочки при выборе */
+.check-box:selected .mark {
+    -fx-background-color: #170569; /* Цвет галочки */
+}
+
+/* Стиль при наведении */
+.check-box:hover .box {
+    -fx-border-color: #4CAF50;
+}
+
+
+/* Стиль для самого ChoiceBox */
+.choice-box {
+    -fx-background-color: #2a08ec;
+    -fx-border-color: #e95858;
+    -fx-border-radius: 3px;
+    -fx-padding: 3px;
+}
+
+/* Стиль для выпадающего списка */
+.choice-box .context-menu {
+    -fx-background-color: rgb(204, 233, 75);
+    -fx-border-color: #485fe2;
+}
+
+ /*Стиль для элементов списка */
+.choice-box .menu-item {
+    -fx-padding: 3px 8px;
+}
+    
+/* Стиль для выбранного элемента списка */
+.choice-box .menu-item:selected {
+    -fx-background-color: #e0e0e0;
+}
+
+/* Стиль для текста в ChoiceBox */
+.choice-box .label {
+    -fx-text-fill: #a50707;
+    
+}
+
+/* Стиль для кнопки раскрытия списка */
+.choice-box .arrow {
+    -fx-background-color: #d3e90e;
+}
+
+
+.anchor-pane {
+    -fx-background-color: #097a09;
+    -fx-border-color: #042aa7;
+}
+
+Label {
+    -fx-font-family: "arial";
+    -fx-alignment: center;
+    -fx-text-fill: #fcf6f6;
+    -fx-text-alignment: center;
+    -fx-border-color: rgb(180, 219, 5);
+    -fx-background-color: #1d3550;
+    
+    -fx-border-radius: 1.5px;
+    
+}
+.input_field {
+    -fx-text-fill: #ffffff;
+    -fx-border-color:rgb(180, 219, 5);
+    -fx-background-color: #1d3550;
+    -fx-prompt-text-fill: #7c7272;
+    -fx-font-family: "Arial";
+    
+}
+/* Стиль для RadioButton по умолчанию */
+.radio-button {
+    -fx-font-size: 12px;
+    -fx-font-family: "Arial";
+    -fx-text-fill: #c1e012;
+}
+
+/* Стиль для "точки" внутри RadioButton */
+.radio-button .dot {
+    -fx-mark-highlight-color: #0a53f0; /* Цвет при выборе */
+    -fx-mark-color: #cff10c;           /* Цвет "галочки" */
+    -fx-background-radius: 100%;        /* Круглая форма */
+}
+
+/* Стиль при наведении */
+.radio-button:hover {
+    -fx-text-fill: #000000;
+}
+
+/* Стиль для выбранного RadioButton */
+.radio-button:selected .dot {
+    -fx-background-color: #b40606;
+}

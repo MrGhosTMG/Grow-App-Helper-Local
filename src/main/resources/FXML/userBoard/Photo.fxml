@@ -6,22 +6,15 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<ScrollPane fx:id="scrl_pane" prefHeight="322.0" prefWidth="310.0"
-            fitToWidth="true"
-            fitToHeight="true"
-            xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.jdta.growapp.Controllers.ToolsControlls.PhotoController">
+<ScrollPane fx:id="scrl_pane" fitToHeight="true" fitToWidth="true" prefHeight="322.0" prefWidth="310.0" styleClass="photo_container"
+            stylesheets="@../../CSSstyles/photo.css" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.PhotoController">
 
-    <StackPane>
-        <GridPane fx:id="grid_pane" hgap="10" vgap="10"/>
-        <ProgressIndicator fx:id="loader_spinner"
-                           visible="false"
-                           maxWidth="50"
-                           maxHeight="50"
-                           StackPane.alignment="CENTER">
+    <StackPane styleClass="photo_container">
+        <GridPane fx:id="grid_pane" hgap="10" styleClass="photo_container" stylesheets="@../../CSSstyles/photo.css" vgap="10" />
+        <ProgressIndicator fx:id="spinner" maxHeight="140.0" maxWidth="140.0" prefHeight="140.0" prefWidth="140.0" visible="false" StackPane.alignment="CENTER">
             <StackPane.margin>
-                <Insets top="10"/>
+                <Insets top="10" />
             </StackPane.margin>
         </ProgressIndicator>
     </StackPane>
