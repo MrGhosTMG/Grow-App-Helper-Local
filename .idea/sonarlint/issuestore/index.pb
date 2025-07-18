@@ -96,3 +96,9 @@ g
 7src/main/java/org/jdta/growapp/Enums/ComponentType.java,2\7\2706acebb0eb1ba9143bc8f959a935f48b107225
 n
 >src/main/java/org/jdta/growapp/Service/CycleCreateService.java,b\8\b8aa7b6366069f7ac007739ab718e35917c30e2e
+
+Osrc/main/java/org/jdta/growapp/Controllers/ToolsControlls/AlarmsController.java,6\e\6e2ed1023b2842cc7fe7653c1989a41553d66a34
+]
+-src/main/java/org/jdta/growapp/DTO/Alarm.java,5\a\5a68e38a4fbe1704f5bacd4d08a45fe922e82592
+`
+0src/main/java/org/jdta/growapp/DAO/AlarmDAO.java,7\0\7005afad376d668a2f1d35359ba466bb4b625610

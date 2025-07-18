@@ -60,13 +60,21 @@ public class CycleLoadController  implements Initializable {
         stage_btn.setOnAction(actionEvent -> onGrowStageEdit());
         back_toUser_btn.setOnAction(actionEvent -> StageActions.backToUser(getStage()));
         gallery_btn.setOnAction(actionEvent -> onGallery());
-
+        alarm_btn.setOnAction(actionEvent -> onAlarms());
         finishedCycleView();
     }
 
 
 
+
     // On actions section
+    private void onAlarms() {
+        Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/userBoard/Alarms.fxml",
+                (AlarmsController controller) -> {});
+        if (root != null) {
+            central_view.getChildren().setAll(root);
+        }
+    }
 
     private void onGallery() {
         Model.getInstance().mockCycleIfNone();
@@ -75,7 +83,7 @@ public class CycleLoadController  implements Initializable {
             return;
         }
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/userBoard/Gallery.fxml"));
+                FXMLLoader loader = FXMLUtils.getLoader("/FXML/userBoard/Gallery.fxml");
                 Node photoPane = loader.load();
                 central_view.getChildren().setAll(photoPane); // Заменяем содержимое
             } catch (IOException e) {

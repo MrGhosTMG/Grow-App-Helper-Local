@@ -6,6 +6,7 @@ import org.jdta.growapp.DTO.User;
 
 import java.sql.Connection;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class UserDAOTest {
     public static void main(String[] args) {
@@ -17,7 +18,7 @@ public class UserDAOTest {
             user.setUsername("testuser");
             user.setEmail("test@example.com");
             user.setPassword("123456");
-            user.setCreatedAt(LocalDate.now());
+            user.setCreatedAt(LocalDateTime.from(LocalDate.now()));
 
             userDAO.insert(user);
             System.out.println("User inserted!");

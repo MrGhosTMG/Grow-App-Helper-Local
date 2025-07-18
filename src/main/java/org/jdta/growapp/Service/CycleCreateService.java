@@ -3,6 +3,7 @@ package org.jdta.growapp.Service;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import org.jdta.growapp.Utils.DialogUtils;
 
 import java.time.LocalDate;
@@ -19,37 +20,13 @@ public class CycleCreateService {
         return name.trim();
     }
 
-    public boolean isInOutdoorSelected(RadioButton in, RadioButton out, Label errorLabel, CheckBox... ifOutDisable) {
-
-        if (in.isSelected()) {
-            out.setDisable(true);//нужное правило
-            return true;
-        }
-        if (out.isSelected()) {
-            in.setDisable(true);//нужное правило
-            for (CheckBox checkBox : ifOutDisable) {
-                checkBox.setDisable(true);
-            }
-            return true;
-        }
-        else if (!in.isSelected() && !out.isSelected()) {
-            DialogUtils.setErrorMessage(errorLabel,"Select Indoor or Outdoor");
-            return false;
-        }
-        else {
-            System.out.println("Some error in IN/Out selecting");
-            return false;
-        }
-    }
-
     public boolean areDatesValid(LocalDate start, LocalDate EET, Label errorLabel) {
         if (start == null || EET == null) {
             DialogUtils.setErrorMessage(errorLabel,"Please select both start and estimated end date.");
             return false;
         }
-
-        if (EET.isBefore(start)) {
-            DialogUtils.setErrorMessage(errorLabel,"End date cannot be before start date.");
+        if (!EET.isAfter(start) || !EET.isAfter(LocalDate.now())) {
+            DialogUtils.setErrorMessage(errorLabel,"Estimated End Time is incorrect");
             return false;
         }
         return true;
@@ -62,11 +39,66 @@ public class CycleCreateService {
         return false;
     }
 
-    public double parsePotCapacity(String capacity) {
+    public boolean isInOutdoorSelected(RadioButton in, RadioButton out) {
+        return in.isSelected() || out.isSelected();
+    }
+
+public int potCapacityCheck(CheckBox pot1, CheckBox pot2, CheckBox pot3, CheckBox pot4,
+                            CheckBox hydroCheck, TextField customField, boolean isIndoor, Label errorLabel) {
+
+    if (hydroCheck.isSelected()) {
+        // Only custom capacity allowed
+        return parseCustomPotLitres(customField, errorLabel);
+    }
+
+    if (isIndoor) {
+        if (pot1.isSelected()) return 10;
+        if (pot2.isSelected()) return 18;
+        if (pot3.isSelected()) return 24;
+    }
+
+    if (pot4.isSelected()) {
+        return parseCustomPotLitres(customField, errorLabel);
+    }
+
+    DialogUtils.setErrorMessage(errorLabel, "Select pot size or enter your litres.");
+    return 0;
+}
+
+    private int parseCustomPotLitres(TextField field, Label errorLabel) {
+        String val = field.getText().trim();
+        if (val.isEmpty()) {
+            DialogUtils.setErrorMessage(errorLabel, "Enter custom pot size.");
+            return 0;
+        }
         try {
-            return Double.parseDouble(capacity);
+            int litres = Integer.parseInt(val);
+            if (litres < 1 || litres > 300) {
+                DialogUtils.setErrorMessage(errorLabel, "Pot size must be between 1 and 300 litres.");
+                return 0;
+            }
+            return litres;
+        } catch (NumberFormatException e) {
+            DialogUtils.setErrorMessage(errorLabel, "Invalid number for pot size.");
+            return 0;
+        }
+    }
+
+    public boolean componentCapacityCheck(String inputLitres, double totalLitres, int maxLitres, Label errorLabel) {
+        try {
+            double litres = Double.parseDouble(inputLitres.trim());
+            if (litres <=0) {
+                DialogUtils.setErrorMessage(errorLabel, "Amount must be more than 0 litres");
+                return false;
+            }
+            if (totalLitres + litres > maxLitres) {
+                DialogUtils.setErrorMessage(errorLabel, "Total pot capacity (" + maxLitres + " Litres");
+                return false;
+            }
+            return true;
         }catch (NumberFormatException e) {
-            return 0.0;
+            DialogUtils.warning("Component data is empty", "Invalid number format");
+            return false;
         }
     }
 }

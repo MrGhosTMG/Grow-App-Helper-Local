@@ -1,0 +1,53 @@
+Button {
+   -fx-cursor: hand; 
+    -fx-background-color: #1d3550;
+    -fx-text-fill: #e413c4;
+
+}
+
+Button:hover {
+    -fx-background-color: #f19407;
+    -fx-border-color: #0414ee;
+}
+
+.button:pressed {
+    -fx-background-color: #350ee4;
+    -fx-border-color: #ee0404;
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
+    -fx-text-fill: #0fa7ee;
+}
+
+.alarms_main {
+    -fx-border-color: #0414ee;
+    -fx-background-color: #f39509ff;
+}
+.date-picker {
+    -fx-border-radius: 4px;
+    -fx-padding: 5px;
+    -fx-font-size: 11px;
+    -fx-background-color:#f5e501;
+    -fx-border-color: #0306cc;
+    -fx-control-inner-background: #994040;
+}
+.text-area {
+    -fx-border-color: #0306cc;
+    -fx-font-family: "arial";
+    -fx-text-fill: #d7e60e;
+    -fx-background-color: f39509ff;
+    -fx-control-inner-background: #994040;
+}
+
+.list-view {
+    -fx-background-color: #f19407;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0), 12, 0.3, 0, 4);
+    -fx-border-color: #0306cc;
+}
+Label {
+    
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-font-family: "arial";
+    -fx-text-fill: #300fee;
+    -fx-border-color: #eeea04;
+}

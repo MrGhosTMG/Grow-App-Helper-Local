@@ -15,7 +15,9 @@ public class CycleDAO {
     }
 
     public int insert(Cycle cycle) throws SQLException {
-        String sql = "INSERT INTO cycles (user_id, cycle_name, indoor_outdoor, sort_type, start_date, estimated_end_date, pot_capacity, notes, light_day_hours, light_night_hours, image_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO cycles (user_id, cycle_name, indoor_outdoor, sort_type, start_date, " +
+                "estimated_end_date, pot_capacity, notes, light_day_hours, light_night_hours, image_path) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, cycle.getUserId());
