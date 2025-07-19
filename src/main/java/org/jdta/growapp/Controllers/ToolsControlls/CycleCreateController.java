@@ -34,7 +34,7 @@ public class CycleCreateController implements Initializable {
     private static final File TEMP_PHOTO_DIR = new File("Photos/__temp_cycle__");
     private final CycleCreateService cycleService = new CycleCreateService();
     private final Map<ComponentType, Double> addedComponents = new HashMap<>();
-
+    private final Cycle tempCycle = new Cycle();
     private boolean isLightSet = false;
     private boolean isGrowSet = false;
     private int potCapacity = 0;
@@ -340,9 +340,9 @@ public class CycleCreateController implements Initializable {
     }
 
     private void updateSoilInfoLabel() {
-        StringBuilder sb = new StringBuilder("Soil Mix:\n");
+        StringBuilder sb = new StringBuilder("Mix:");
         addedComponents.forEach((type, litres) ->
-                sb.append("- ").append(type).append(": ").append(litres).append(" L\n"));
+                sb.append(litres).append("L"));
         sb.append("Total: ").append(addedComponents.values().stream().mapToDouble(Double::doubleValue).sum())
                 .append(" / ").append(potCapacity).append(" L");
         soil_components_lbl.setText(sb.toString());
@@ -366,31 +366,15 @@ public class CycleCreateController implements Initializable {
                 soil_components_lbl.setText("");
                 return; // If empty field
             }
-
-            // Проверяем, что ввод состоит только из цифр
+            // Digits check
             if (!newVal.matches("\\d*")) {
                 capacity.setText(oldVal != null ? oldVal : "");
                 DialogUtils.setErrorMessage(soil_components_lbl, "Enter digits only");
                 return;
             }
-
-            // Check range
-//            if (!newVal.isEmpty()) {
-//                try {
-//                    int litres = Integer.parseInt(newVal);
-//                    if (litres < 1 || litres > ) {
-//                        capacity.setText(oldVal != null ? oldVal : "");
-//                        DialogUtils.setErrorMessage(error_lbl,"Enter from 1 to 30");
-//                    } else {
-//                        error_lbl.setText("");
-//                    }
-//                } catch (NumberFormatException e) {
-//                    capacity.setText(oldVal != null ? oldVal : "");
-//                    DialogUtils.setErrorMessage(error_lbl,"Invalid number");
-//                }
-//            }
         });
     }
+
     //    private void onSelectedCycle() {
 //        Stage stage = FXMLUtils.getCurrentStage();
 //        Model.getInstance().getView().showSelectedCycleWindow();

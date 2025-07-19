@@ -88,11 +88,11 @@ public int potCapacityCheck(CheckBox pot1, CheckBox pot2, CheckBox pot3, CheckBo
         try {
             double litres = Double.parseDouble(inputLitres.trim());
             if (litres <=0) {
-                DialogUtils.setErrorMessage(errorLabel, "Amount must be more than 0 litres");
+                DialogUtils.setErrorMessage(errorLabel, "More than 0 litres");
                 return false;
             }
             if (totalLitres + litres > maxLitres) {
-                DialogUtils.setErrorMessage(errorLabel, "Total pot capacity (" + maxLitres + " Litres");
+                DialogUtils.setErrorMessage(errorLabel, "Max pot is(" + maxLitres + "L)");
                 return false;
             }
             return true;
