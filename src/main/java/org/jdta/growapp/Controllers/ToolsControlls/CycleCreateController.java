@@ -13,6 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.jdta.growapp.DTO.Cycle;
 import org.jdta.growapp.Enums.ComponentType;
+import org.jdta.growapp.Enums.LightStages;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Service.CycleCreateService;
 import org.jdta.growapp.Utils.DialogUtils;
@@ -34,10 +35,11 @@ public class CycleCreateController implements Initializable {
     private static final File TEMP_PHOTO_DIR = new File("Photos/__temp_cycle__");
     private final CycleCreateService cycleService = new CycleCreateService();
     private final Map<ComponentType, Double> addedComponents = new HashMap<>();
-    private final Cycle tempCycle = new Cycle();
+    private Cycle tempCycle = new Cycle();
     private boolean isLightSet = false;
     private boolean isGrowSet = false;
     private int potCapacity = 0;
+    private LightStages selectedLightStage;
 
     public TextArea text_area_fld;
     public TextField txt_sort_fld, text_pot_fld, component_litres_fld;
@@ -155,7 +157,15 @@ public class CycleCreateController implements Initializable {
         light_stage_btn.setOnAction(actionEvent -> onSetLight());// check needed
         stage_btn.setOnAction(actionEvent -> onCreateGrowStage());// check needed
         //save_btn.setOnAction(actionEvent -> onSelectedCycle());// check needed
+        set_date_btn.setOnAction(actionEvent -> validDates());
         save_btn.setOnAction(actionEvent -> onSaveAndStartCycle());// check needed
+    }
+
+    private void validDates() {
+        LocalDate start = start_date.getValue();
+        LocalDate EET = EET_date.getValue();
+        if (!cycleService.areDatesValid(start, EET, error_lbl)) return;
+        System.out.println("Set date btn was pressed");
     }
 
     private void onSaveAndStartCycle() {
@@ -165,7 +175,7 @@ public class CycleCreateController implements Initializable {
 
         LocalDate start = start_date.getValue();
         LocalDate EET = EET_date.getValue();
-        if (!cycleService.areDatesValid(start, EET, error_lbl)) return;
+        validDates();
         LocalDateTime startDate = start.atStartOfDay();
         LocalDateTime EETDate = EET.atStartOfDay();
 
@@ -194,9 +204,9 @@ public class CycleCreateController implements Initializable {
         }
         
         try {
-            Cycle cycle = getCycle(name, startDate, EETDate);
+            tempCycle = getCycle(name, startDate, EETDate);
 
-            int generatedId = Model.getInstance().getCycleDAO().insert(cycle);
+            int generatedId = Model.getInstance().getCycleDAO().insert(tempCycle);
             if (generatedId != -1) {
                 // Переименовать папку:
                 Path tempDir = Paths.get("Photos", "__temp_cycle__");
@@ -226,6 +236,7 @@ public class CycleCreateController implements Initializable {
 
     private Cycle getCycle(String name, LocalDateTime startDate, LocalDateTime EETDate) {
         Cycle cycle = new Cycle();
+        LightStages selectedLight = selectedLightStage != null ? selectedLightStage : LightStages.LIGHT_20_4;
         cycle.setUserId(Model.getInstance().getCurrentUser().getId());
         cycle.setName(name);
         cycle.setIndoorOutdoor(indoor_rb.isSelected() ? "Indoor" : "Outdoor");
@@ -234,11 +245,13 @@ public class CycleCreateController implements Initializable {
         cycle.setEtaDateTime(EETDate);
         cycle.setPotCapacity(potCapacity);
         cycle.setNotes(text_area_fld.getText().trim());
-        cycle.setLightDayHours(20);  // пока жёстко, позже возьми из LightStageController
-        cycle.setLightNightHours(4); // тоже
+        cycle.setLightDayHours(selectedLight.getDayHours());
+        cycle.setLightNightHours(selectedLight.getNightHours());
+        cycle.setLightSetTime(LocalDateTime.now());
 
         // Временное изображение (если добавлялось)
-        cycle.setImagePath("Photos/__temp_cycle__/preview.jpg"); // опционально
+        Path path = Paths.get("Photos", "cycle_photos", "Cycle_1", "preview.jpg");
+        cycle.setImagePath(path.toString()); // опционально
         getStage().close();
         return cycle;
     }
@@ -250,7 +263,8 @@ public class CycleCreateController implements Initializable {
                 (LightTimeStageController controller) -> {
                     controller.setOnSave(() -> {
                         isLightSet = true;
-                        System.out.println("Light stage applied: " + controller.getSelectedHours());
+                        selectedLightStage = controller.getSelectedStage();
+                        System.out.println("Light stage applied: " + selectedLightStage);
                     });
                 }
         );
@@ -258,11 +272,11 @@ public class CycleCreateController implements Initializable {
 
     }
     private void onCreateGrowStage() {
+        tempCycle.setStartDateTime(start_date.getValue().atStartOfDay());
         Node root = FXMLUtils.loadWithControllerCallBackActions(
                 "/FXML/userBoard/GrowStageCreate.fxml",
                 (GrowStageCreateController controller) -> {
-                    //controller.isEditGrowStage(false);
-                    //controller.setStartDateFromCycle(LocalDateTime.now());
+                    controller.setDraftCycle(tempCycle);
                     isGrowSet = true;
                 });
         if (root != null) scene_anchor.getChildren().setAll(root);

@@ -13,27 +13,27 @@ public class AlarmDAO {
 
     public AlarmDAO(Connection con) {
         this.connection = con;
-        createTableIfNotExist();
+        //createTableIfNotExist();
     }
 
-    private void createTableIfNotExist() {
-        String sql = """
-            CREATE TABLE IF NOT EXISTS Alarm (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                cycle_id INTEGER NOT NULL,
-                alarm_type TEXT NOT NULL,
-                alarm_date TEXT NOT NULL,
-                note TEXT,
-                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (cycle_id) REFERENCES Cycle(id) ON DELETE CASCADE
-            );
-        """;
-        try (var stmt = connection.createStatement()) {
-            stmt.execute(sql);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    private void createTableIfNotExist() {
+//        String sql = """
+//            CREATE TABLE IF NOT EXISTS Alarm (
+//                id INTEGER PRIMARY KEY AUTOINCREMENT,
+//                cycle_id INTEGER NOT NULL,
+//                alarm_type TEXT NOT NULL,
+//                alarm_date TEXT NOT NULL,
+//                note TEXT,
+//                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+//                FOREIGN KEY (cycle_id) REFERENCES Cycle(id) ON DELETE CASCADE
+//            );
+//        """;
+//        try (var stmt = connection.createStatement()) {
+//            stmt.execute(sql);
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void insert(Alarm alarm) {
         String sql = """

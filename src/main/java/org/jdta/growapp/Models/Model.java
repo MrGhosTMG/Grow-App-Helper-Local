@@ -22,7 +22,7 @@ public class Model {
     private User currentUser;
     private final CycleDAO cycleDAO;
     private boolean isFinishedCycle = false;
-    private Cycle currentCycle;
+    private Cycle selectedCycle;
 
     private Model() {
         this.view = new View();
@@ -30,9 +30,9 @@ public class Model {
         try {
             Connection connection = DBConnection.getConnection(); // ← СНАЧАЛА получаем соединение
 
-            DBConnection.initTables(); // можно инициализировать структуру
+            DBConnection.initTables();
             this.userDAO = new UserDAO(connection);
-            this.cycleDAO = new CycleDAO(connection); // ← теперь всё ок
+            this.cycleDAO = new CycleDAO(connection);
 
         } catch (Exception e) {
             throw new RuntimeException("Failed connect to database", e);
@@ -91,18 +91,18 @@ public class Model {
     public void setFinishedCycle(boolean finishedCycle) {
         isFinishedCycle = finishedCycle;
     }
-    public Cycle getCurrentCycle() {
-        return currentCycle;
+    public Cycle getSelectedCycle() {
+        return selectedCycle;
     }
 
-    public void setCurrentCycle(Cycle currentCycle) {
-        this.currentCycle = currentCycle;
+    public void setSelectedCycle(Cycle selectedCycle) {
+        this.selectedCycle = selectedCycle;
     }
 
     // Mock Cycle loading
     public void mockCycleIfNone() {
-        if (currentCycle == null && !finishedCycles.isEmpty()) {
-            setCurrentCycle(finishedCycles.get(0));
+        if (selectedCycle == null && !finishedCycles.isEmpty()) {
+            setSelectedCycle(finishedCycles.get(0));
         }
     }
 }

@@ -3,6 +3,7 @@ package org.jdta.growapp.Controllers.ToolsControlls;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import org.jdta.growapp.Enums.LightStages;
 import org.jdta.growapp.Utils.DialogUtils;
 import org.jdta.growapp.Utils.StageActions;
 
@@ -23,6 +24,7 @@ public class LightTimeStageController implements Initializable {
     public RadioButton select_4;
     public TextArea text_info_area;
     public Label error_lbl;
+
 
     private Runnable onSaveCallback;
 
@@ -177,6 +179,19 @@ public class LightTimeStageController implements Initializable {
         } catch (NumberFormatException e) {
             return "Invalid format";
         }
+    }
+
+    public LightStages getSelectedStage() {
+        try {
+            int d = Integer.parseInt(day_input_fld.getText().trim());
+            int n = Integer.parseInt(night_input_fld.getText().trim());
+            for (LightStages lightStages : LightStages.values()) {
+                if (lightStages.getDayHours() == d && lightStages.getNightHours() == n) {
+                    return lightStages;
+                }
+            }
+        }catch (NumberFormatException ignored) {}
+        return LightStages.MANUAL;
     }
 
 }

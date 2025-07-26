@@ -2,7 +2,6 @@ package org.jdta.growapp.Controllers.ToolsControlls;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.jdta.growapp.DTO.Cycle;
 import org.jdta.growapp.Models.Model;
@@ -56,7 +55,7 @@ public class HistoryController implements Initializable {
 
     private void openCycleInfo(Cycle cycle) {
         // Сохраняем выбранный цикл в Model
-        Model.getInstance().setCurrentCycle(cycle);
+        Model.getInstance().setSelectedCycle(cycle);
         Model.getInstance().setFinishedCycle(true); // новый флаг
 
         // Показываем CycleLoadController

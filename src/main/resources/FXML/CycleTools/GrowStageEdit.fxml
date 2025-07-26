@@ -35,7 +35,7 @@
          <Cursor fx:constant="HAND" />
       </cursor></CheckBox>
    <TextField fx:id="days_grams_in_fld" layoutX="36.0" layoutY="275.0" prefHeight="25.0" prefWidth="97.0" promptText="days / grams" styleClass="input_field" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="274.0" />
-   <RadioButton fx:id="Drying_rb" layoutX="2.0" layoutY="219.0" mnemonicParsing="false" stylesheets="@../../CSSstyles/growStagebig.css" text="EnterDryingDays" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="222.0">
+   <RadioButton fx:id="drying_rb" layoutX="2.0" layoutY="219.0" mnemonicParsing="false" stylesheets="@../../CSSstyles/growStagebig.css" text="EnterDryingDays" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="222.0">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></RadioButton>

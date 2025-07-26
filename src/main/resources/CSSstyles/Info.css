@@ -19,12 +19,11 @@ Text {
     -fx-background-color:#02b1f7;
 }
 
-Text_additional {
-    -fx-fill: #f50505;
-}
+
 
 Label {
     -fx-text-fill: #f70909;
-    -fx-alignment: center;
+    -fx-text-alignment: center;
+    
 }
 

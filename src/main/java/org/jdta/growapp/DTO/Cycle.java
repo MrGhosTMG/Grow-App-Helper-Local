@@ -1,6 +1,12 @@
 package org.jdta.growapp.DTO;
 
+import org.jdta.growapp.Enums.GrowStages;
+import org.jdta.growapp.Enums.LightStages;
+import org.jdta.growapp.Enums.TrainingType;
+
 import java.time.LocalDateTime;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class Cycle {
 
@@ -16,6 +22,34 @@ public class Cycle {
     private String notes;
     private String sortType;
     private String indoorOutdoor;
+    private GrowStages growStage;
+    private LightStages lightStage;
+    private TrainingType trainingType;
+    private final Map<GrowStages, Integer> stageDurationDays = new EnumMap<>(GrowStages.class);
+
+
+
+    public Map<GrowStages, Integer> getStageDurationDays() {
+        return stageDurationDays;
+    }
+
+    public LocalDateTime getEtaDate() {
+        return etaDate;
+    }
+
+    public void setEtaDate(LocalDateTime etaDate) {
+        this.etaDate = etaDate;
+    }
+
+    public GrowStages getGrowStage() {
+        return growStage;
+    }
+
+    public void setGrowStage(GrowStages growStage) {
+        this.growStage = growStage;
+    }
+
+    private LocalDateTime lightSetTime;
 
     private int yieldGrams;
     private boolean finished;
@@ -179,6 +213,11 @@ public class Cycle {
     }
 
     @Override
+    public String toString() {
+        return name + " (" + sortType + ")";
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -190,5 +229,30 @@ public class Cycle {
     public int hashCode() {
         return Integer.hashCode(id);
     }
+
+    public LocalDateTime getLightSetTime() {
+        return lightSetTime;
+    }
+
+    public void setLightSetTime(LocalDateTime lightSetTime) {
+        this.lightSetTime = lightSetTime;
+    }
+
+    public LightStages getLightStage() {
+        return lightStage;
+    }
+
+    public void setLightStage(LightStages lightStage) {
+        this.lightStage = lightStage;
+    }
+
+    public TrainingType getTrainingType() {
+        return trainingType;
+    }
+
+    public void setTrainingType(TrainingType trainingType) {
+        this.trainingType = trainingType;
+    }
+
 
 }

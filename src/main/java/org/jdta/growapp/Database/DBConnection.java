@@ -50,6 +50,7 @@ public class DBConnection {
             light_day_hours INTEGER,
             light_night_hours INTEGER,
             image_path TEXT,
+            light_set_time TEXT,
             FOREIGN KEY(user_id) REFERENCES users(id)
         );
         CREATE TABLE IF NOT EXISTS notes (
@@ -66,6 +67,15 @@ public class DBConnection {
             timestamp TEXT DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(cycle_id) REFERENCES cycles(id)
         );
+        CREATE TABLE IF NOT EXISTS Alarm (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                cycle_id INTEGER NOT NULL,
+                alarm_type TEXT NOT NULL,
+                alarm_date TEXT NOT NULL,
+                note TEXT,
+                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (cycle_id) REFERENCES cycles(id) ON DELETE CASCADE
+            );
     """;
 
         try {

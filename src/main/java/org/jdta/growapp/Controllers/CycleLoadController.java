@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.jdta.growapp.Controllers.ToolsControlls.*;
+import org.jdta.growapp.DTO.Cycle;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.DialogUtils;
 import org.jdta.growapp.Utils.StageActions;
@@ -45,6 +46,8 @@ public class CycleLoadController  implements Initializable {
     public AnchorPane central_view;
     public Button Tips_btn;
     public Button back_toUser_btn;
+    public ComboBox<Cycle> select_cycle_combo_box;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -78,7 +81,7 @@ public class CycleLoadController  implements Initializable {
 
     private void onGallery() {
         Model.getInstance().mockCycleIfNone();
-        if (Model.getInstance().getCurrentCycle() == null) {
+        if (Model.getInstance().getSelectedCycle() == null) {
             DialogUtils.warning("Cycle not found", "Please select cycle first !");
             return;
         }
@@ -92,9 +95,19 @@ public class CycleLoadController  implements Initializable {
     }
 
 
+
     private void onGrowStageEdit() {
+
+        Cycle selected = Model.getInstance().getSelectedCycle();
+        if (selected == null) {
+            DialogUtils.warning("No cycle ", "Please select cycle");
+            return;
+        }
+
+
         Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/cycleTools/GrowStageEdit.fxml",
-                (GrowStageEditController controller) -> {});
+                (GrowStageEditController controller) ->
+            controller.init(Model.getInstance().getSelectedCycle()));
         if (root != null) {
             central_view.getChildren().setAll(root);
         }
@@ -119,7 +132,14 @@ public class CycleLoadController  implements Initializable {
 
     private void onInfo() {
         Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/userBoard/Info.fxml",
-                (InfoController controller) -> {});
+                (InfoController controller) -> {
+            Cycle selected = Model.getInstance().getSelectedCycle();
+            if (selected != null) {
+                controller.setCycle(selected);
+            }else {
+                System.err.println("Cycle not selected in Model");
+            }
+                });
         if (root != null) {
             central_view.getChildren().setAll(root);
         }
@@ -189,7 +209,7 @@ public class CycleLoadController  implements Initializable {
     private void showFinishedInfo() {
         Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/userBoard/InfoFinishedCycle.fxml",
                 (InfoFinishedCycle controller) -> {
-                    controller.setDataFromCycle(Model.getInstance().getCurrentCycle());
+                    controller.setDataFromCycle(Model.getInstance().getSelectedCycle());
                 });
 
         if (root != null) {
@@ -208,4 +228,5 @@ public class CycleLoadController  implements Initializable {
             Model.getInstance().setFinishedCycle(false);
         }
     }
+
 }

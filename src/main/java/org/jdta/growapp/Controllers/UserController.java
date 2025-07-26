@@ -1,11 +1,11 @@
 package org.jdta.growapp.Controllers;
 
 
-import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -20,7 +20,9 @@ import org.jdta.growapp.Utils.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +35,7 @@ public class UserController implements Initializable {
     public TextArea info_text_fld;
     public Button select_cycle_btn;
     public Button add_new_cycle_btn;
+    public Button del_cycle_btn;
     public Button photos_btn;
     public Button history_btn;
     public Button change_user_btn;
@@ -40,7 +43,7 @@ public class UserController implements Initializable {
     public Button del_all_photo_btn;
     public Button nutr_btn;
     public Button shop_btn;
-    public ComboBox select_cycle_combo_box;
+    public ComboBox<Cycle> select_cycle_combo_box;
     public Label selected_user_name;
     public Label select_lbl;
     public Label cycle_name_info_lbl;
@@ -50,13 +53,13 @@ public class UserController implements Initializable {
     public Label status_lbl;
     public ImageView image_view_board;
     public ScrollBar scrl_bar;
-    public ListView list_view_cycle_info;
+    public ListView<String> list_view_cycle_info;
     public ProgressIndicator spinner;
+
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        select_cycle_btn.setOnAction(actionEvent -> onSelectedCycle());
         exit_btn.setOnAction(actionEvent -> StageActions.onExit(getStage()));
         change_user_btn.setOnAction(event -> StageActions.onLogout(getStage()));
         add_new_cycle_btn.setOnAction(actionEvent -> onNewCycle());
@@ -65,9 +68,14 @@ public class UserController implements Initializable {
         nutr_btn.setOnAction(actionEvent -> onNutrients());
         addListeners();
         del_all_photo_btn.setOnAction(actionEvent -> onDeleteAllPhoto());
-
+        select_cycle_combo_box.setOnAction(actionEvent -> showSelectedCycleInfo());
+        select_cycle_btn.setOnAction(actionEvent -> onSelectedCycle());
+        loadUserCycle();
         initMOCK();
+        del_cycle_btn.setOnAction(actionEvent -> deleteSelectedCycle());
     }
+
+
 
 
     public void addListeners() {
@@ -115,11 +123,75 @@ public class UserController implements Initializable {
         }
     }
 
-    private void onSelectedCycle() {
+    private void loadUserCycle() {
+        int userId = Model.getInstance().getCurrentUser().getId();
+        try {
+            List<Cycle> cycles = Model.getInstance().getCycleDAO().findAllByUserId(userId);
+            select_cycle_combo_box.getItems().setAll(cycles);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-        Stage stage = FXMLUtils.stageFrom(exit_btn);
-        Model.getInstance().getView().showSelectedCycleWindow();
-        Model.getInstance().getView().closeStage(stage);
+    private void deleteSelectedCycle() {
+        Cycle selected = select_cycle_combo_box.getValue();
+        if (selected != null) {
+            try {
+                Model.getInstance().getCycleDAO().deleteById(selected.getId());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
+
+    private void onSelectedCycle() {
+        Cycle selected = select_cycle_combo_box.getValue();
+        if (selected != null) {
+            Model.getInstance().setSelectedCycle(selected);
+            Stage stage = FXMLUtils.stageFrom(select_cycle_btn);
+            Model.getInstance().getView().showSelectedCycleWindow();
+            Model.getInstance().getView().closeStage(stage);
+        }
+//        Stage stage = FXMLUtils.stageFrom(exit_btn);
+//        Model.getInstance().getView().showSelectedCycleWindow();
+//        Model.getInstance().getView().closeStage(stage);
+    }
+
+    private void showSelectedCycleInfo() {
+        Cycle selected = select_cycle_combo_box.getValue();
+        if (selected != null) {
+            displayCycleInfo(selected);
+        }
+    }
+
+    private void displayCycleInfo(Cycle cycle) {
+        list_view_cycle_info.getItems().clear();
+
+        list_view_cycle_info.getItems().addAll(
+                "Name: " + cycle.getName(),
+                "Sort: " + cycle.getSortType(),
+                "Start: " + cycle.getStartDateTime(),
+                "Growing in : " + cycle.getIndoorOutdoor(),
+                "Pot: " + cycle.getPotCapacity() + "L",
+                "Light: " + cycle.getLightDayHours() + " / " + cycle.getLightNightHours() + "h",
+                "Estimated End: " + cycle.getEtaDateTime()
+        );
+
+        // Image preview
+        if (cycle.getImagePath() != null) {
+            try {
+                System.out.println("cycle.getImagePath() = " + cycle.getImagePath());
+                File file = new File(cycle.getImagePath());
+                System.out.println("Absolute path: " + file.getAbsolutePath());
+                System.out.println("Exists? " + file.exists());
+                if (file.exists()) {
+                    image_view_board.setImage(new Image(file.toURI().toString()));
+                }
+            } catch (Exception e) {
+                System.err.println("Ошибка при загрузке preview: " + e.getMessage());
+            }
+        }
     }
 
     private void onNewCycle() {

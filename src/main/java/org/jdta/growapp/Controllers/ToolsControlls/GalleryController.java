@@ -292,7 +292,7 @@ public class GalleryController implements Initializable {
     }
     // static photo directory path initialize method
     private void initPhotoDir() {
-        Cycle current = Model.getInstance().getCurrentCycle();
+        Cycle current = Model.getInstance().getSelectedCycle();
         if (current == null) {
             System.out.println("Cycle not selected!");
             photoDir = new File("Photos/cycle_photos/_unknown");
