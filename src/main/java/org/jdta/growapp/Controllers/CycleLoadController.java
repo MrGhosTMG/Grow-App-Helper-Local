@@ -107,7 +107,7 @@ public class CycleLoadController  implements Initializable {
 
         Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/cycleTools/GrowStageEdit.fxml",
                 (GrowStageEditController controller) ->
-            controller.init(Model.getInstance().getSelectedCycle()));
+            controller.init(selected));
         if (root != null) {
             central_view.getChildren().setAll(root);
         }

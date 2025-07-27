@@ -49,7 +49,7 @@ public class GrowStageEditController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        init(cycle);
+        //init(cycle);
     }
 
     public void init(Cycle cycle) {
@@ -60,19 +60,21 @@ public class GrowStageEditController implements Initializable {
     }
 
     private void setupStageSelection() {
+
         stage_select_choice_box.getItems().addAll(GrowStages.values());
 
         GrowStages selected = stage_select_choice_box.getValue();
-        GrowStages current = Model.getInstance().getSelectedCycle().getGrowStage();
+        GrowStages current = cycle.getGrowStage();
+
         if (current == null) {
             DialogUtils.warning("Current stage", "Please set Grow stage.");
             return;
         }
 
         stage_select_choice_box.setOnAction(event -> {
+            GrowStages nowSelected = stage_select_choice_box.getValue();
 
-
-            if (selected.ordinal() < current.ordinal()) {
+            if (nowSelected.ordinal() < current.ordinal()) {
                 DialogUtils.warning("Error", "Cannot downgrade stage!");
                 stage_select_choice_box.setValue(current);
                 return;
@@ -83,34 +85,40 @@ public class GrowStageEditController implements Initializable {
 
         set_stage.setOnAction(event -> {
 
+            GrowStages nowSelected = stage_select_choice_box.getValue();
 
-            if (selected == null) {
-                DialogUtils.warning("No Stage", "Please select a stage");
+
+            if (nowSelected == null) {
+                DialogUtils.warning("Current stage", "Please set Grow stage.");
                 return;
             }
 
-            if (selected.ordinal() < current.ordinal()) {
+
+            if (nowSelected.ordinal() < current.ordinal()) {
                 DialogUtils.warning("Blocked", "You can't go to earlier stage!");
                 return;
             }
 
-            Model.getInstance().getSelectedCycle().setGrowStage(selected);
+            cycle.setGrowStage(nowSelected);
             try {
-                Model.getInstance().getCycleDAO().update(Model.getInstance().getSelectedCycle());
+                Model.getInstance().getCycleDAO().update(cycle);
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Error with updating cycle Database");
             }
 
-            if (selected == GrowStages.YIELD) {
+            if (nowSelected == GrowStages.YIELD) {
                 showInfoFinishedCycle();
             }
-
             updateInfoLabel();
         });
     }
 
     private void setupYieldAndDryingControls() {
+
+        add_btn.setDisable(true);
+        days_grams_in_fld.setDisable(true);
+
         clean_check.selectedProperty().addListener((obs, oldV, newV) -> {
             if (newV) {
                 stage_select_choice_box.setValue(GrowStages.CLEANING);
@@ -139,8 +147,13 @@ public class GrowStageEditController implements Initializable {
                 yield_rb.setDisable(false);
                 days_grams_in_fld.setPromptText("Drying Days");
                 drying_or_yield_lbl.setText("Days");
+                days_grams_in_fld.setDisable(false);
+                add_btn.setDisable(true);
             } else {
+                drying_or_yield_lbl.setText("");
                 yield_rb.setDisable(true);
+                days_grams_in_fld.setDisable(true);
+                add_btn.setDisable(true);
             }
         });
 
@@ -150,6 +163,12 @@ public class GrowStageEditController implements Initializable {
                 stage_select_choice_box.setValue(GrowStages.YIELD);
                 days_grams_in_fld.setPromptText("Yield (grams)");
                 drying_or_yield_lbl.setText("Grams");
+                days_grams_in_fld.setDisable(false);
+                add_btn.setDisable(false);
+            }else {
+                drying_or_yield_lbl.setText("");
+                add_btn.setDisable(true);
+                days_grams_in_fld.setDisable(true);
             }
         });
 
@@ -180,6 +199,7 @@ public class GrowStageEditController implements Initializable {
             parent_anchor.getChildren().setAll(root);
         }
     }
+
     private void updateStageDurationsUI() {
         var durations = Model.getInstance().getSelectedCycle().getStageDurationDays();
 

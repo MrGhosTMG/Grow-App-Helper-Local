@@ -1,8 +1,8 @@
 package org.jdta.growapp.Enums;
 
 public enum GrowStages {
-    START_PLANTING("Just planted", 2),
-    GERMINATED("Seed germinated",4),
+    START_PLANTING("Seed planted", 0),
+    GERMINATED("Seed germinated",2),
     VEGETATION("On vegetation",30),
     PRE_FLOWERING("Starting flowering",5),
     FLOWERING("Flowering progress" , 40),

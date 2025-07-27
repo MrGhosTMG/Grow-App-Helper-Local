@@ -28,6 +28,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class CycleCreateController implements Initializable {
@@ -35,11 +36,12 @@ public class CycleCreateController implements Initializable {
     private static final File TEMP_PHOTO_DIR = new File("Photos/__temp_cycle__");
     private final CycleCreateService cycleService = new CycleCreateService();
     private final Map<ComponentType, Double> addedComponents = new HashMap<>();
-    private Cycle tempCycle = new Cycle();
+    private Cycle draftCycle = new Cycle();
     private boolean isLightSet = false;
     private boolean isGrowSet = false;
     private int potCapacity = 0;
     private LightStages selectedLightStage;
+    private static long sortTypeAverageDays;
 
     public TextArea text_area_fld;
     public TextField txt_sort_fld, text_pot_fld, component_litres_fld;
@@ -61,6 +63,8 @@ public class CycleCreateController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        add_soil_info_btn.setDisable(true);
+        disableButtons(true);
         setRadioGroup();
         setIndoorOutdoorListeners();
         setOutdoorOrHydroponicDisable();
@@ -159,12 +163,30 @@ public class CycleCreateController implements Initializable {
         //save_btn.setOnAction(actionEvent -> onSelectedCycle());// check needed
         set_date_btn.setOnAction(actionEvent -> validDates());
         save_btn.setOnAction(actionEvent -> onSaveAndStartCycle());// check needed
+        add_soil_info_btn.setOnAction(actionEvent -> unlockStagesButtons());
+    }
+
+    private void unlockStagesButtons() {
+        System.out.println("Add soil info button was pressed");
+        disableButtons(false);
+    }
+
+    private void disableButtons(boolean disable) {
+        add_img_btn.setDisable(disable);
+        add_note_btn.setDisable(disable);
+        light_stage_btn.setDisable(disable);
+        stage_btn.setDisable(disable);
     }
 
     private void validDates() {
         LocalDate start = start_date.getValue();
         LocalDate EET = EET_date.getValue();
-        if (!cycleService.areDatesValid(start, EET, error_lbl)) return;
+        if (!cycleService.areDatesValid(start, EET, error_lbl)) {
+            start_date.setPromptText("enter date");
+            EET_date.setPromptText("enter date");
+            return;
+        }
+        add_soil_info_btn.setDisable(false);
         System.out.println("Set date btn was pressed");
     }
 
@@ -202,13 +224,28 @@ public class CycleCreateController implements Initializable {
             DialogUtils.setErrorMessage(error_lbl, "Set Light and Grow stages");
             return;
         }
-        
-        try {
-            tempCycle = getCycle(name, startDate, EETDate);
 
-            int generatedId = Model.getInstance().getCycleDAO().insert(tempCycle);
+        try {
+            draftCycle.setName(name);
+            draftCycle.setStartDateTime(startDate);
+            draftCycle.setEtaDateTime(EETDate);
+            draftCycle.setIndoorOutdoor(indoor_rb.isSelected() ? "Indoor" : "Outdoor");
+            draftCycle.setSortType(getSelectedSortType());
+            draftCycle.setPotCapacity(potCapacity);
+            draftCycle.setNotes(text_area_fld.getText().trim());
+            draftCycle.setUserId(Model.getInstance().getCurrentUser().getId());
+
+            if (selectedLightStage != null) {
+                draftCycle.setLightDayHours(selectedLightStage.getDayHours());
+                draftCycle.setLightNightHours(selectedLightStage.getNightHours());
+                draftCycle.setLightSetTime(LocalDateTime.now());
+            }
+
+            int generatedId = Model.getInstance().getCycleDAO().insert(draftCycle);
             if (generatedId != -1) {
-                // Переименовать папку:
+                draftCycle.setId(generatedId);
+                Model.getInstance().setSelectedCycle(draftCycle);
+
                 Path tempDir = Paths.get("Photos", "__temp_cycle__");
                 Path newDir = Paths.get("Photos", "Cycle_" + generatedId);
 
@@ -218,43 +255,24 @@ public class CycleCreateController implements Initializable {
                     } else {
                         System.out.println("No photo folder to move.");
                     }
-                }catch (IOException e) {
+                } catch (IOException e) {
                     DialogUtils.warning("Photo error", "Unable to move photo folder.");
                 }
 
-                // Открыть окно CycleLoad или Dashboard:
+                //Успешно — переходим на выбранный цикл
                 Model.getInstance().getView().showSelectedCycleWindow();
                 getStage().close();
             } else {
                 DialogUtils.warning("DB Error", "Failed to save the cycle to DB.");
             }
+
         } catch (Exception e) {
             DialogUtils.error("Exception", "Something went wrong while saving.");
             e.printStackTrace();
         }
+
     }
 
-    private Cycle getCycle(String name, LocalDateTime startDate, LocalDateTime EETDate) {
-        Cycle cycle = new Cycle();
-        LightStages selectedLight = selectedLightStage != null ? selectedLightStage : LightStages.LIGHT_20_4;
-        cycle.setUserId(Model.getInstance().getCurrentUser().getId());
-        cycle.setName(name);
-        cycle.setIndoorOutdoor(indoor_rb.isSelected() ? "Indoor" : "Outdoor");
-        cycle.setSortType(getSelectedSortType());
-        cycle.setStartDateTime(startDate);
-        cycle.setEtaDateTime(EETDate);
-        cycle.setPotCapacity(potCapacity);
-        cycle.setNotes(text_area_fld.getText().trim());
-        cycle.setLightDayHours(selectedLight.getDayHours());
-        cycle.setLightNightHours(selectedLight.getNightHours());
-        cycle.setLightSetTime(LocalDateTime.now());
-
-        // Временное изображение (если добавлялось)
-        Path path = Paths.get("Photos", "cycle_photos", "Cycle_1", "preview.jpg");
-        cycle.setImagePath(path.toString()); // опционально
-        getStage().close();
-        return cycle;
-    }
 
     //on Stages
     private void onSetLight() {
@@ -272,11 +290,11 @@ public class CycleCreateController implements Initializable {
 
     }
     private void onCreateGrowStage() {
-        tempCycle.setStartDateTime(start_date.getValue().atStartOfDay());
+        draftCycle.setStartDateTime(start_date.getValue().atStartOfDay());
         Node root = FXMLUtils.loadWithControllerCallBackActions(
                 "/FXML/userBoard/GrowStageCreate.fxml",
                 (GrowStageCreateController controller) -> {
-                    controller.setDraftCycle(tempCycle);
+                    controller.setDraftCycle(draftCycle);
                     isGrowSet = true;
                 });
         if (root != null) scene_anchor.getChildren().setAll(root);
@@ -363,10 +381,22 @@ public class CycleCreateController implements Initializable {
     }
 
     private String getSelectedSortType () {
-        if (auto_fem_btn.isSelected()) return "Auto";
-        if (photo_fem_btn.isSelected()) return "Photo";
-        if (photo_fast_fem_btn.isSelected()) return "Fast";
-        if (reg_btn.isSelected()) return "Regular";
+        if (auto_fem_btn.isSelected()) {
+            sortTypeAverageDays = 75;
+            return "Auto";
+        }
+        if (photo_fem_btn.isSelected()) {
+            sortTypeAverageDays = 165;
+            return "Photo";
+        }
+        if (photo_fast_fem_btn.isSelected()) {
+            sortTypeAverageDays = 120;
+            return "Fast";
+        }
+        if (reg_btn.isSelected()) {
+            sortTypeAverageDays = 180;
+            return "Regular";
+        }
         return "Unknown";
     }
 

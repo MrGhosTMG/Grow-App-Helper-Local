@@ -35,6 +35,9 @@ public class GrowStageCreateController implements Initializable {
     public void setDraftCycle(Cycle cycle) {
         this.draftCycle = cycle;
     }
+    public Cycle getDraftCycle() {
+        return draftCycle;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -146,7 +149,17 @@ public class GrowStageCreateController implements Initializable {
 
         draftCycle.setGrowStage(stage);
         draftCycle.getStageDurationDays().put(stage, (int) days);
-        DialogUtils.info("Stage Set", "Stage " + stage + " applied with " + days + " days");
+        if (draftCycle.getEtaDateTime() == null && draftCycle.getStartDateTime() != null) {
+            draftCycle.setEtaDateTime(draftCycle.getStartDateTime().plusDays(90));
+        }
+        try {
+
+            Model.getInstance().getCycleDAO().update(draftCycle);
+            DialogUtils.info("Stage Set", "Stage " + stage + " applied with " + days + " days");
+        }catch (SQLException e) {
+            DialogUtils.error("DB Error" , "Failed to update GrowStage");
+            e.printStackTrace();
+        }
     }
 
     private void cycleSelectCheck() {

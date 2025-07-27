@@ -16,12 +16,7 @@
 
 <AnchorPane prefHeight="520.0" prefWidth="420.0" styleClass="main_reg_container" stylesheets="@../../CSSstyles/regStylesheet.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.RegistrationController">
     <Text layoutX="167.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registration" wrappingWidth="86.865234375" AnchorPane.leftAnchor="166.0" AnchorPane.rightAnchor="166.0" AnchorPane.topAnchor="10.0" />
-    <VBox layoutX="29.0" layoutY="47.0" prefHeight="400.0" prefWidth="250.0" styleClass="main_reg_container_field" stylesheets="@../../CSSstyles/regStylesheet.css" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="40.0">
-        <TextField fx:id="e_mail_fld" alignment="CENTER" promptText="e-mail" styleClass="input_field" stylesheets="@../../CSSstyles/regStylesheet.css">
-            <VBox.margin>
-                <Insets top="4.0" />
-            </VBox.margin>
-        </TextField>
+    <VBox layoutX="29.0" layoutY="47.0" prefHeight="470.0" prefWidth="250.0" styleClass="main_reg_container_field" stylesheets="@../../CSSstyles/regStylesheet.css" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="40.0">
         <Label fx:id="mail_lbl" text="e-mail@****.***">
             <VBox.margin>
                 <Insets top="2.0" />
@@ -30,12 +25,25 @@
                 <Insets left="2.0" />
             </padding>
         </Label>
-        <TextField fx:id="user_name_fld" alignment="CENTER" layoutX="10.0" layoutY="10.0" promptText="user name" styleClass="input_field">
+        <TextField fx:id="e_mail_fld" alignment="CENTER" promptText="Enter e-mail" styleClass="input_field" stylesheets="@../../CSSstyles/regStylesheet.css">
+            <VBox.margin>
+                <Insets top="4.0" />
+            </VBox.margin>
+        </TextField>
+        <Label fx:id="user_lbl" layoutX="10.0" layoutY="35.0" text="User name ">
+            <VBox.margin>
+                <Insets top="2.0" />
+            </VBox.margin>
+            <padding>
+                <Insets left="2.0" />
+            </padding>
+        </Label>
+        <TextField fx:id="user_name_fld" alignment="CENTER" layoutX="10.0" layoutY="10.0" promptText="Enter user name" styleClass="input_field">
             <VBox.margin>
                 <Insets top="2.0" />
             </VBox.margin>
         </TextField>
-        <Label fx:id="user_lbl" layoutX="10.0" layoutY="35.0" text="user name with any symbols">
+        <Label fx:id="pass_lbl" layoutX="10.0" layoutY="77.0" prefHeight="45.0" prefWidth="250.0" text="Password min - 8 symbols : P@ssw0rd" wrapText="true">
             <VBox.margin>
                 <Insets top="2.0" />
             </VBox.margin>
@@ -48,10 +56,7 @@
                 <Insets top="2.0" />
             </VBox.margin>
         </PasswordField>
-        <Label fx:id="pass_lbl" layoutX="10.0" layoutY="77.0" text="password min - 8 any symbols ">
-            <VBox.margin>
-                <Insets top="2.0" />
-            </VBox.margin>
+        <Label fx:id="pass_check_lbl" layoutX="10.0" layoutY="133.0" text="password check">
             <padding>
                 <Insets left="2.0" />
             </padding>
@@ -61,31 +66,25 @@
                 <Insets top="2.0" />
             </VBox.margin>
         </PasswordField>
-        <Label fx:id="pass_check_lbl" layoutX="10.0" layoutY="133.0" text="password check">
-            <padding>
-                <Insets left="2.0" />
-            </padding>
-        </Label>
         <CheckBox fx:id="accept_terms_ch_box" mnemonicParsing="false" text="Read and accept terms">
             <VBox.margin>
-                <Insets left="4.0" top="10.0" />
+                <Insets left="4.0" top="25.0" />
             </VBox.margin>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
         </CheckBox>
-        <ScrollPane fx:id="scrl_pane" prefHeight="200.0" prefWidth="200.0">
+        <ScrollPane fx:id="scrl_pane" prefHeight="144.0" prefWidth="250.0">
             <VBox.margin>
-                <Insets top="4.0"/>
+                <Insets top="4.0" />
             </VBox.margin>
             <AnchorPane fx:id="text_anchor_pane" minHeight="0.0" minWidth="0.0" prefHeight="1500.0" prefWidth="250.0">
-                <TextArea fx:id="text_area_terms" editable="false" layoutX="6.0" layoutY="6.0" prefHeight="1500.0"
-                          prefWidth="250.0" AnchorPane.topAnchor="6.0"/>
+                <TextArea fx:id="text_area_terms" editable="false" layoutX="6.0" layoutY="6.0" prefHeight="1500.0" prefWidth="250.0" AnchorPane.topAnchor="6.0" />
             </AnchorPane>
         </ScrollPane>
         <Button fx:id="reg_btn" mnemonicParsing="false" text="register user">
             <VBox.margin>
-                <Insets left="80.0" top="25.0" />
+                <Insets left="80.0" top="4.0" />
             </VBox.margin>
             <graphic>
                 <FontAwesomeIconView glyphName="SAVE" size="15" styleClass="FontAwesomeIconView" />
@@ -103,9 +102,9 @@
                 <Insets left="10.0" />
             </VBox.margin>
         </Button>
-        <Button fx:id="exit_btn" layoutX="20.0" layoutY="10.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Exit">
+        <Button fx:id="exit_btn" layoutX="20.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Exit">
             <VBox.margin>
-                <Insets bottom="4.0" left="10.0" top="210.0" />
+                <Insets bottom="4.0" left="10.0" top="270.0" />
             </VBox.margin>
             <graphic>
                 <FontAwesomeIconView fill="#e80606" glyphName="CLOSE" size="15" styleClass="main_reg_container" />
