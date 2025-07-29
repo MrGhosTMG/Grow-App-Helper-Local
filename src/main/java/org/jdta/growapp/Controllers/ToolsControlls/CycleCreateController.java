@@ -28,6 +28,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -45,11 +46,12 @@ public class CycleCreateController implements Initializable {
 
     public TextArea text_area_fld;
     public TextField txt_sort_fld, text_pot_fld, component_litres_fld;
+    public Label eet_date_lbl;
     public Label pot_capa_lbl, cycle_reg_lbl, soil_components_lbl, error_lbl;
     public Button pot_litres_set_btn, web_cat_btn, add_note_btn, delete_img_btn, import_btn;
     public Button back_btn, log_out_btn, exit_btn, add_img_btn, stage_btn;
     public Button save_btn, light_stage_btn, add_component_btn, set_date_btn, add_soil_info_btn;
-    public DatePicker start_date, EET_date;
+    public DatePicker start_date;
     public CheckBox check_pot_1, check_pot_2, check_pot_3, check_pot_4, hydroponic_check;
     public ChoiceBox<ComponentType> component_choice_box;
     public RadioButton indoor_rb, outdoor_rb, auto_fem_btn ,photo_fem_btn, reg_btn, photo_fast_fem_btn;
@@ -60,6 +62,14 @@ public class CycleCreateController implements Initializable {
     public BorderPane parent_border_pane;
     public AnchorPane soil_anchor, scene_anchor, photo_anchor;
     public AnchorPane central_anchor;
+
+    public static long getSortTypeAverageDays() {
+        return sortTypeAverageDays;
+    }
+
+    public static void setSortTypeAverageDays(long sortTypeAverageDays) {
+        CycleCreateController.sortTypeAverageDays = sortTypeAverageDays;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -167,6 +177,7 @@ public class CycleCreateController implements Initializable {
     }
 
     private void unlockStagesButtons() {
+
         System.out.println("Add soil info button was pressed");
         disableButtons(false);
     }
@@ -180,10 +191,9 @@ public class CycleCreateController implements Initializable {
 
     private void validDates() {
         LocalDate start = start_date.getValue();
-        LocalDate EET = EET_date.getValue();
-        if (!cycleService.areDatesValid(start, EET, error_lbl)) {
+        if (!cycleService.areDatesValid(start, error_lbl)) {
             start_date.setPromptText("enter date");
-            EET_date.setPromptText("enter date");
+
             return;
         }
         add_soil_info_btn.setDisable(false);
@@ -196,10 +206,10 @@ public class CycleCreateController implements Initializable {
         if (name == null) return;
 
         LocalDate start = start_date.getValue();
-        LocalDate EET = EET_date.getValue();
+
         validDates();
         LocalDateTime startDate = start.atStartOfDay();
-        LocalDateTime EETDate = EET.atStartOfDay();
+
 
         if (!cycleService.isInOutdoorSelected(indoor_rb , outdoor_rb)) {
             DialogUtils.setErrorMessage(error_lbl, "Select Indoor or Outdoor");
@@ -228,7 +238,16 @@ public class CycleCreateController implements Initializable {
         try {
             draftCycle.setName(name);
             draftCycle.setStartDateTime(startDate);
-            draftCycle.setEtaDateTime(EETDate);
+
+            long days = getSortTypeAverageDays();
+            LocalDateTime eta = startDate.plusDays(days);
+            /* тут
+             Required type: TemporalAmount
+             Provided: long
+            */
+            eet_date_lbl.setText(eta.format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
+            draftCycle.setEtaDateTime(eta);
+
             draftCycle.setIndoorOutdoor(indoor_rb.isSelected() ? "Indoor" : "Outdoor");
             draftCycle.setSortType(getSelectedSortType());
             draftCycle.setPotCapacity(potCapacity);
@@ -356,12 +375,16 @@ public class CycleCreateController implements Initializable {
     }
 
     private void onComponents() {
-        String litresEntered = component_litres_fld.getText().trim();
+        if (component_choice_box.getValue() == null) {
+            DialogUtils.warning("No component", "Please select soil component");
+            return;
+        }
         ComponentType selectedComponent = component_choice_box.getValue();
         if (selectedComponent == null) {
             DialogUtils.setErrorMessage(soil_components_lbl, "Choose soil component");
             return;
         }
+        String litresEntered = component_litres_fld.getText().trim();
         double totalLitres = addedComponents.values().stream().mapToDouble(Double::doubleValue).sum();
         if (!cycleService.componentCapacityCheck(litresEntered,totalLitres,potCapacity ,soil_components_lbl )) return;
         double litres = Double.parseDouble(litresEntered);
@@ -382,19 +405,19 @@ public class CycleCreateController implements Initializable {
 
     private String getSelectedSortType () {
         if (auto_fem_btn.isSelected()) {
-            sortTypeAverageDays = 75;
+            setSortTypeAverageDays(75);
             return "Auto";
         }
         if (photo_fem_btn.isSelected()) {
-            sortTypeAverageDays = 165;
+            setSortTypeAverageDays(165);
             return "Photo";
         }
         if (photo_fast_fem_btn.isSelected()) {
-            sortTypeAverageDays = 120;
+            setSortTypeAverageDays(120);
             return "Fast";
         }
         if (reg_btn.isSelected()) {
-            sortTypeAverageDays = 180;
+            setSortTypeAverageDays(180);
             return "Regular";
         }
         return "Unknown";

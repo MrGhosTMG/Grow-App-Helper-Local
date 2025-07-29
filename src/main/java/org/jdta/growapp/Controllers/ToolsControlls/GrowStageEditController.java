@@ -14,10 +14,17 @@ import org.jdta.growapp.Utils.FXMLUtils;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class GrowStageEditController implements Initializable {
-    private final ObservableList<GrowStages> pickedStages = FXCollections.observableArrayList();
+    private final ObservableList<GrowStages> pickedStages = FXCollections.observableArrayList();// забыл где-то передать
+
     public AnchorPane parent_anchor;
     public ChoiceBox<GrowStages> stage_select_choice_box;
     public Button set_stage;
@@ -38,79 +45,78 @@ public class GrowStageEditController implements Initializable {
     public Label flow_days_lbl;
 
     private Cycle cycle;
+    private Slider slider;
 
-//    public Cycle getCycle() {
-//        return cycle;
-//    }
-//
-//    public void setCycle(Cycle cycle) {
-//        this.cycle = cycle;
-//    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //init(cycle);
     }
 
-    public void init(Cycle cycle) {
+    public void init(Cycle cycle, Slider slider) {
         this.cycle = cycle;
+        this.slider = slider;
         setupStageSelection();
         setupYieldAndDryingControls();
         updateStageDurationsUI();
     }
 
     private void setupStageSelection() {
+        stage_select_choice_box.getItems().clear();
 
-        stage_select_choice_box.getItems().addAll(GrowStages.values());
-
-        GrowStages selected = stage_select_choice_box.getValue();
-        GrowStages current = cycle.getGrowStage();
-
-        if (current == null) {
+        GrowStages currentStage = cycle.getGrowStage();
+        if (currentStage == null) {
             DialogUtils.warning("Current stage", "Please set Grow stage.");
             return;
         }
 
-        stage_select_choice_box.setOnAction(event -> {
-            GrowStages nowSelected = stage_select_choice_box.getValue();
+        List<GrowStages> allowedStages = Arrays.stream(GrowStages.values()).filter(s -> s.ordinal() >= currentStage.ordinal())
+                        .collect(Collectors.toList());
 
-            if (nowSelected.ordinal() < current.ordinal()) {
-                DialogUtils.warning("Error", "Cannot downgrade stage!");
-                stage_select_choice_box.setValue(current);
-                return;
-            }
-
-            pickedStages.add(selected);
-        });
+        stage_select_choice_box.setItems(FXCollections.observableArrayList(allowedStages));
+        stage_select_choice_box.setValue(currentStage);
 
         set_stage.setOnAction(event -> {
-
             GrowStages nowSelected = stage_select_choice_box.getValue();
-
 
             if (nowSelected == null) {
                 DialogUtils.warning("Current stage", "Please set Grow stage.");
                 return;
             }
 
-
-            if (nowSelected.ordinal() < current.ordinal()) {
+            if (nowSelected.ordinal() < currentStage.ordinal()) {
                 DialogUtils.warning("Blocked", "You can't go to earlier stage!");
                 return;
             }
 
+            LocalDate now = LocalDate.now();
+            Map<GrowStages, Integer> stageDurations = cycle.getStageDurationDays();
+            Map<GrowStages, LocalDate> stageStartDates = cycle.getStageStartDates();
+
+            if (!stageStartDates.containsKey(currentStage)) {
+                stageStartDates.put(currentStage, cycle.getStartDateTime().toLocalDate());
+            }
+
+            LocalDate stageStartDate = stageStartDates.get(currentStage);
+            int daysSpent = (int) ChronoUnit.DAYS.between(stageStartDate, now);
+            stageDurations.put(currentStage, daysSpent);
+
             cycle.setGrowStage(nowSelected);
+            stageStartDates.put(nowSelected, now);
             try {
                 Model.getInstance().getCycleDAO().update(cycle);
+                if (slider != null) slider.setValue(nowSelected.ordinal());
+                updateInfoLabel();
+                DialogUtils.info("Saved", "New grow stage was applied");
             } catch (SQLException e) {
+                DialogUtils.error("Database error", "Failed to apply new grow stage");
                 e.printStackTrace();
-                System.out.println("Error with updating cycle Database");
+                System.out.println("Error with updating in Database grow stage");
             }
 
             if (nowSelected == GrowStages.YIELD) {
                 showInfoFinishedCycle();
             }
-            updateInfoLabel();
         });
     }
 
@@ -186,14 +192,14 @@ public class GrowStageEditController implements Initializable {
     }
 
     private void updateInfoLabel() {
-        GrowStages current = Model.getInstance().getSelectedCycle().getGrowStage();
+        GrowStages current = cycle.getGrowStage();
         current_stage_name_days_lbl.setText("Current: " + current.name());
     }
 
     private void showInfoFinishedCycle() {
         Node root = FXMLUtils.loadWithControllerCallBackActions(
                 "/FXML/userBoard/InfoFinishedCycle.fxml",
-                (InfoFinishedCycle controller) -> controller.setDataFromCycle(Model.getInstance().getSelectedCycle()));
+                (InfoFinishedCycle controller) -> controller.setDataFromCycle(cycle));
 
         if (root != null) {
             parent_anchor.getChildren().setAll(root);
@@ -201,7 +207,7 @@ public class GrowStageEditController implements Initializable {
     }
 
     private void updateStageDurationsUI() {
-        var durations = Model.getInstance().getSelectedCycle().getStageDurationDays();
+        Map<GrowStages, Integer> durations = cycle.getStageDurationDays();
 
         start_stage_days_lbl.setText(durations.getOrDefault(GrowStages.START_PLANTING, 0) + " days");
         germinated_days_lbl.setText(durations.getOrDefault(GrowStages.GERMINATED, 0) + " days");
@@ -209,5 +215,8 @@ public class GrowStageEditController implements Initializable {
         pre_flow_days_lbl.setText(durations.getOrDefault(GrowStages.PRE_FLOWERING, 0) + " days");
         flow_days_lbl.setText(durations.getOrDefault(GrowStages.FLOWERING, 0) + " days");
     }
-
+    private void updateUiFromCycle() {
+        for (GrowStages stages : GrowStages.values()) {
+        }
+    }
 }

@@ -1,25 +1,26 @@
 package org.jdta.growapp.Enums;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public enum GrowStages {
-    START_PLANTING("Seed planted", 0),
-    GERMINATED("Seed germinated",2),
-    VEGETATION("On vegetation",30),
-    PRE_FLOWERING("Starting flowering",5),
-    FLOWERING("Flowering progress" , 40),
-    CLEANING("Flowering ended", 2),
-    HARVEST("Cutting", 1),
-    DRYING("Drying process", 7),
-    YIELD("Dry weight", 0);
+    START_PLANTING("Seed planted"),
+    GERMINATED("Seed germinated"),
+    VEGETATION("On vegetation"),
+    PRE_FLOWERING("Starting flowering"),
+    FLOWERING("Flowering progress" ),
+    CLEANING("Flowering ended"),
+    HARVEST("Cutting"),
+    DRYING("Drying process"),
+    YIELD("Dry weight");
 
     private final String showName;
-    private int daysOfStage;
-    private int defaultDays;
 
-
-    GrowStages(String showName, int defaultDays) {
+    GrowStages(String showName) {
         this.showName = showName;
-        this.defaultDays = defaultDays;
-        this.daysOfStage = defaultDays;
     }
 
     @Override
@@ -27,18 +28,23 @@ public enum GrowStages {
         return showName ;
     }
 
-    public int getDaysOfStage() {// если не к месту можно перенести
-        return daysOfStage;
+    public int calculateDaysSince(LocalDate stageStartDate) {
+        return (int) ChronoUnit.DAYS.between(stageStartDate, LocalDate.now());
     }
 
-    public void setDaysOfStage(int daysOfStage) {// если не к месту можно перенести
-        this.daysOfStage = daysOfStage;
+    public static GrowStages getPreviousStage(GrowStages curr) {
+        int index = curr.ordinal();
+        GrowStages[] stages = values();
+        return (index > 0 ) ? stages[index - 1] : curr;
     }
 
-    public void setWeightOfYIELD(int weight) {// если не к месту можно перенести
+    public static GrowStages getNextStage(GrowStages curr) {
+        int index = curr.ordinal();
+        GrowStages[] stages = values();
+        return (index + 1 < stages.length) ? stages[index + 1] : curr;
     }
 
-    public int getDefaultDays() {
-        return defaultDays;
+    public static List<GrowStages> getAvailableStageAfter(GrowStages curr) {
+        return Arrays.stream(values()).filter(s -> s.ordinal() >= curr.ordinal()).collect(Collectors.toList());
     }
 }

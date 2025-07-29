@@ -4,6 +4,7 @@ import org.jdta.growapp.Enums.GrowStages;
 import org.jdta.growapp.Enums.LightStages;
 import org.jdta.growapp.Enums.TrainingType;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.EnumMap;
 import java.util.Map;
@@ -26,11 +27,16 @@ public class Cycle {
     private LightStages lightStage;
     private TrainingType trainingType;
     private final Map<GrowStages, Integer> stageDurationDays = new EnumMap<>(GrowStages.class);
+    private final Map<GrowStages, LocalDate> stageStartDates = new EnumMap<>(GrowStages.class);
 
 
 
     public Map<GrowStages, Integer> getStageDurationDays() {
         return stageDurationDays;
+    }
+
+    public Map<GrowStages, LocalDate> getStageStartDates() {
+        return stageStartDates;
     }
 
     public LocalDateTime getEtaDate() {
@@ -253,6 +259,7 @@ public class Cycle {
     public void setTrainingType(TrainingType trainingType) {
         this.trainingType = trainingType;
     }
+
 
 
 }

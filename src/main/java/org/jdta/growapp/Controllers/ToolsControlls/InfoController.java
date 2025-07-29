@@ -15,6 +15,8 @@ import org.jdta.growapp.Utils.LightStageUtils;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -54,15 +56,21 @@ public class InfoController implements Initializable {
         light_of_hour.setText("Dark " + cycle.getLightNightHours() + "h");
         //training_lbl.setText(cycle.getTrainingType().name());
 
-        if (cycle.getImagePath() != null) {
-            try {
-                File photoFile = new File(cycle.getImagePath());
-                if (photoFile.exists()) {
-                    image_cycle.setImage(new Image(photoFile.toURI().toString()));
-                }
-            }catch (Exception e) {
-                System.err.println("Image load error " + e.getMessage());
+        try {
+            Path previewPath = Paths.get("Photos", "Cycle_" + cycle.getId(), "preview.JPG");
+            File file = previewPath.toFile();
+            if (file.exists()) {
+                Image image = new Image(file.toURI().toString());
+                image_cycle.setPreserveRatio(false);
+                image_cycle.setFitWidth(image_cycle.getBoundsInParent().getWidth());
+                image_cycle.setFitHeight(image_cycle.getBoundsInParent().getHeight());
+                image_cycle.setImage(image);
+            } else {
+                System.err.println("Файл не существует: " + file.getAbsolutePath());
             }
+        } catch (Exception e) {
+            System.err.println("Ошибка при загрузке preview: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

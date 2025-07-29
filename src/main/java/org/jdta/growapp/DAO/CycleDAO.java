@@ -16,35 +16,6 @@ public class CycleDAO {
     }
 
 
-/*
-    private void createTableIfNotExist() {
-        String sql = """
-                CREATE TABLE IF NOT EXISTS cycles (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    user_id INTEGER NOT NULL,
-                    cycle_name TEXT NOT NULL,
-                    indoor_outdoor TEXT NOT NULL,
-                    sort_type TEXT NOT NULL,
-                    start_date TEXT NOT NULL,
-                    estimated_end_date TEXT NOT NULL,
-                    pot_capacity REAL NOT NULL,
-                    notes TEXT,
-                    light_day_hours INTEGER NOT NULL,
-                    light_night_hours INTEGER NOT NULL,
-                    image_path TEXT,
-                    light_set_time TEXT
-                );
-                """;
-
-        try (Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(">> CREATE TABLE IF NOT EXISTS called for 'cycles'");
-            e.printStackTrace();
-        }
-    }
-*/
-
     public int insert(Cycle cycle) throws SQLException {
         String sql = "INSERT INTO cycles (user_id, cycle_name, indoor_outdoor, sort_type, start_date, " +
                 "estimated_end_date, pot_capacity, notes, light_day_hours, light_night_hours, image_path, light_set_time) " +
@@ -123,7 +94,6 @@ public class CycleDAO {
     }
 
 
-
     public boolean deleteById(int id) throws SQLException {
         String sql = "DELETE FROM cycles WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -132,13 +102,7 @@ public class CycleDAO {
         }
     }
 
-    /*
-отображения всех циклов конкретного пользователя после авторизации;
 
-фильтрации на экране Dashboard;
-
-привязки к пользовательским заметкам, фото и т.д.
-*/
     public List<Cycle> findAllByUserId(int userId) throws SQLException {
         List<Cycle> cycles = new ArrayList<>();
         String sql = "SELECT * FROM cycles WHERE user_id = ?";

@@ -20,6 +20,8 @@ import org.jdta.growapp.Utils.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -54,7 +56,6 @@ public class UserController implements Initializable {
     public ImageView image_view_board;
     public ScrollBar scrl_bar;
     public ListView<String> list_view_cycle_info;
-    public ProgressIndicator spinner;
 
 
 
@@ -179,18 +180,21 @@ public class UserController implements Initializable {
         );
 
         // Image preview
-        if (cycle.getImagePath() != null) {
-            try {
-                System.out.println("cycle.getImagePath() = " + cycle.getImagePath());
-                File file = new File(cycle.getImagePath());
-                System.out.println("Absolute path: " + file.getAbsolutePath());
-                System.out.println("Exists? " + file.exists());
-                if (file.exists()) {
-                    image_view_board.setImage(new Image(file.toURI().toString()));
-                }
-            } catch (Exception e) {
-                System.err.println("Ошибка при загрузке preview: " + e.getMessage());
+        try {
+            Path previewPath = Paths.get("Photos", "Cycle_" + cycle.getId(), "preview.JPG");
+            File file = previewPath.toFile();
+            if (file.exists()) {
+                Image image = new Image(file.toURI().toString());
+                image_view_board.setPreserveRatio(false);
+                image_view_board.setFitWidth(image_view_board.getBoundsInParent().getWidth());
+                image_view_board.setFitHeight(image_view_board.getBoundsInParent().getHeight());
+                image_view_board.setImage(image);
+            } else {
+                System.err.println("Файл не существует: " + file.getAbsolutePath());
             }
+        } catch (Exception e) {
+            System.err.println("Ошибка при загрузке preview: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

@@ -20,13 +20,9 @@ public class CycleCreateService {
         return name.trim();
     }
 
-    public boolean areDatesValid(LocalDate start, LocalDate EET, Label errorLabel) {
-        if (start == null || EET == null) {
+    public boolean areDatesValid(LocalDate start, Label errorLabel) {
+        if (start == null ) {
             DialogUtils.setErrorMessage(errorLabel,"Please select both start and estimated end date.");
-            return false;
-        }
-        if (!EET.isAfter(start) || !EET.isAfter(LocalDate.now())) {
-            DialogUtils.setErrorMessage(errorLabel,"Estimated End Time is incorrect");
             return false;
         }
         return true;

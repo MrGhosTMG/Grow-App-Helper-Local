@@ -90,7 +90,7 @@ public class GrowStageCreateController implements Initializable {
         double progress = (double) (stage.ordinal() + 1) / GrowStages.values().length;
         grow_progress_bar.setProgress(progress);
 
-        days_of_stage_lbl.setText("~" + stage.getDaysOfStage() + " Days");
+        days_of_stage_lbl.setText("~" + stage.calculateDaysSince(draftCycle.getStartDateTime().toLocalDate()) + " Days");
         updateProgressColor(progress);
     }
 
@@ -148,6 +148,9 @@ public class GrowStageCreateController implements Initializable {
         );
 
         draftCycle.setGrowStage(stage);
+        draftCycle.getStageStartDates().put(stage, started_check.isSelected() ?
+                pickedDate : draftCycle.getStartDateTime().toLocalDate());
+
         draftCycle.getStageDurationDays().put(stage, (int) days);
         if (draftCycle.getEtaDateTime() == null && draftCycle.getStartDateTime() != null) {
             draftCycle.setEtaDateTime(draftCycle.getStartDateTime().plusDays(90));
@@ -155,7 +158,8 @@ public class GrowStageCreateController implements Initializable {
         try {
 
             Model.getInstance().getCycleDAO().update(draftCycle);
-            DialogUtils.info("Stage Set", "Stage " + stage + " applied with " + days + " days");
+            DialogUtils.info("Stage Set", "Stage " + stage + " applied with " + days + " days from: " +
+                    (started_check.isSelected() ? pickedDate : draftCycle.getStartDateTime().toLocalDate()));
         }catch (SQLException e) {
             DialogUtils.error("DB Error" , "Failed to update GrowStage");
             e.printStackTrace();
