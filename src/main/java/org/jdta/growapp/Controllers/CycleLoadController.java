@@ -16,6 +16,7 @@ import org.jdta.growapp.Utils.FXMLUtils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,33 +25,20 @@ import java.util.logging.Logger;
 public class CycleLoadController  implements Initializable {
 
 
-    public Button apply_btn;
-    public Button train_btn;
-    public Button moist_btn;
-    public Button stage_btn;
-    public Button light_btn;
-    public Button edit_btn;
-    public Button del_btn;
-    public Button info_btn;
-    public Button alarm_btn;
-    public Button notes_btn;
-    public Button nutr_btn;
-    public Button gallery_btn;
-    public Button log_out_btn;
+    public Button apply_btn, train_btn, moist_btn, stage_btn, light_btn;
+    public Button edit_btn, del_btn, info_btn, alarm_btn,notes_btn;
+    public Button nutr_btn, gallery_btn, log_out_btn, hist_btn, shop_btn;
+    public Button add_new_cycle_btn, exit_btn, tipsBtn, back_toUser_btn;
     public Slider slider;
-    public Button hist_btn;
-    public Button shop_btn;
-    public Button add_new_cycle_btn;
-    public Button exit_btn;
     public ImageView slider_image;
     public AnchorPane central_view;
-    public Button Tips_btn;
-    public Button back_toUser_btn;
     public ComboBox<Cycle> select_cycle_combo_box;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        initCyclesComboBox();
+        apply_btn.setOnAction(actionEvent -> onApplyCycle());
         add_new_cycle_btn.setOnAction(actionEvent -> onNewCycle());
         exit_btn.setOnAction(actionEvent -> StageActions.onExit(stage()));
         nutr_btn.setOnAction(actionEvent -> onNutrients());
@@ -69,8 +57,53 @@ public class CycleLoadController  implements Initializable {
 
 
 
+    private void initCyclesComboBox() {
+        int userId = Model.getInstance().getCurrentUser().getId();
+        try {
+            var cycles = Model.getInstance().getCycleDAO().findAllByUserId(userId);
+            if (cycles != null && !cycles.isEmpty()) {
+                select_cycle_combo_box.getItems().setAll(cycles);
+
+                Cycle selectedCycle = Model.getInstance().getSelectedCycle();
+                if (selectedCycle != null && cycles.contains(selectedCycle)) {
+                    select_cycle_combo_box.setValue(selectedCycle);
+                   if (selectedCycle.getGrowStage() != null) {
+                       slider.setValue(selectedCycle.getGrowStage().ordinal());
+                   }
+                }
+                else {
+                    select_cycle_combo_box.setValue(cycles.get(0));
+                    Model.getInstance().setSelectedCycle(cycles.get(0));
+                    if (cycles.get(0).getGrowStage() != null) {
+                        slider.setValue(selectedCycle.getGrowStage().ordinal());
+                    }
+                    slider.setValue(cycles.get(0).getGrowStage().ordinal());
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("No cycle to set" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 
     // On actions section
+
+    private void onApplyCycle() {
+        Cycle selected = select_cycle_combo_box.getValue();
+        if (selected == null) {
+            DialogUtils.warning("No Cycle", "Select cycle to show");
+            return;
+        }
+        Model.getInstance().setSelectedCycle(selected);
+        if (selected.getGrowStage() != null) {
+            slider.setValue(selected.getGrowStage().ordinal());
+        }
+        slider.setValue(selected.getGrowStage().ordinal());
+        DialogUtils.info("Cycle Applied", "Cycle '" + selected.getName() + "' is shown");
+        central_view.getChildren().clear();
+    }
+
     private void onAlarms() {
         Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/userBoard/Alarms.fxml",
                 (AlarmsController controller) -> {});
@@ -204,7 +237,7 @@ public class CycleLoadController  implements Initializable {
         gallery_btn.setDisable(true);
         hist_btn.setDisable(true);
         shop_btn.setDisable(true);
-        Tips_btn.setDisable(true);
+        tipsBtn.setDisable(true);
     }
     private void showFinishedInfo() {
         Node root = FXMLUtils.loadWithControllerCallBackActions("/FXML/userBoard/InfoFinishedCycle.fxml",

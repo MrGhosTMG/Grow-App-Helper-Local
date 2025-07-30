@@ -63,14 +63,7 @@ public class DialogUtils {
             e.printStackTrace();
         }
     }
-//переделаю на кастом фхмл
-    public static void info(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+
     public static void delete(String title, String message, Runnable onDeleteConfirm) {
         try {
             FXMLLoader loader = new FXMLLoader(DialogUtils.class.getResource("/FXML/Utils/Delete.fxml"));
@@ -92,6 +85,15 @@ public class DialogUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    //переделаю на кастом фхмл
+    public static void info(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     public static void warning(String title, String message) {

@@ -189,25 +189,25 @@ public class CycleCreateController implements Initializable {
         stage_btn.setDisable(disable);
     }
 
-    private void validDates() {
+    private boolean validDates() {
         LocalDate start = start_date.getValue();
         if (!cycleService.areDatesValid(start, error_lbl)) {
             start_date.setPromptText("enter date");
-
-            return;
+            return false;
         }
         add_soil_info_btn.setDisable(false);
         System.out.println("Set date btn was pressed");
+        return true;
     }
 
     private void onSaveAndStartCycle() {
+
+        if (!validDates()) return;
 
         String name = cycleService.pickSortCycleName(txt_sort_fld.getText(), cycle_reg_lbl);
         if (name == null) return;
 
         LocalDate start = start_date.getValue();
-
-        validDates();
         LocalDateTime startDate = start.atStartOfDay();
 
 
@@ -350,9 +350,17 @@ public class CycleCreateController implements Initializable {
 
     //Internal methods
     private void clearTempFolder() {
-        if (TEMP_PHOTO_DIR.exists()) {
-            for (File file : TEMP_PHOTO_DIR.listFiles()) { // Dereference of 'TEMP_PHOTO_DIR.listFiles()' may produce 'NullPointerException'
-                file.delete(); // Result of 'File.delete()' is ignored
+        if (TEMP_PHOTO_DIR.exists() && TEMP_PHOTO_DIR.isDirectory()) {
+            File[] files = TEMP_PHOTO_DIR.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    try {
+                        Files.deleteIfExists(file.toPath());
+                    } catch (IOException e) {
+                        System.out.println("Failed to delete file" + file.getName());
+                        e.printStackTrace();
+                    }
+                }
             }
             loadImagesFromTemp();
         }
@@ -368,7 +376,7 @@ public class CycleCreateController implements Initializable {
             ImageView imageView = new ImageView(new Image(img.toURI().toString()));
             imageView.setFitWidth(150);
             imageView.setFitHeight(135);
-            imageView.setPreserveRatio(true);
+            imageView.setPreserveRatio(false);
             grid_pane.add(imageView, column++, row);
             if (column == 2) {column = 0; row ++; }
         }

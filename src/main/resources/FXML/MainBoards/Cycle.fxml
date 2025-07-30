@@ -184,7 +184,7 @@
          </ImageView>
          <ButtonBar prefHeight="40.0" prefWidth="180.0" styleClass="cycle_sides">
             <buttons>
-               <Button fx:id="Tips_btn" mnemonicParsing="false" text="Tips">
+               <Button fx:id="tipsBtn" mnemonicParsing="false" text="Tips">
                   <graphic>
                      <FontAwesomeIconView glyphName="BOOK" />
                   </graphic>

@@ -50,7 +50,44 @@ public class GrowStageEditController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //init(cycle);
+        initializeCycle();
+    }
+
+    private void initializeCycle() {
+        cycle = Model.getInstance().getSelectedCycle();
+        if (cycle == null) {
+            DialogUtils.warning("No Cycle", "Cycle wasn't introduced");
+            return;
+        }
+        stage_select_choice_box.getItems().addAll(GrowStages.values());
+        stage_select_choice_box.setValue(cycle.getGrowStage());
+        updateUiFromCycle();
+        set_stage.setOnAction(actionEvent -> applyEditStage());
+    }
+
+    private void applyEditStage() {
+        GrowStages newStage = stage_select_choice_box.getValue();
+        GrowStages currentStage = cycle.getGrowStage();
+
+        if (cycle.getStageStartDates() != null) {
+            cycle.getStageStartDates().put(newStage, LocalDate.now());
+        }
+
+        if (cycle.getStageStartDates().containsKey(currentStage)) {
+            LocalDate stageDate = cycle.getStageStartDates().get(currentStage);
+            long days = ChronoUnit.DAYS.between(stageDate, LocalDate.now());
+            cycle.getStageDurationDays().put(currentStage, (int) days);
+        }
+
+        cycle.setGrowStage(newStage);
+        try {
+            Model.getInstance().getCycleDAO().update(cycle);
+        } catch (SQLException e) {
+            System.err.println("Cycle wasn't updated" + e.getMessage());
+            e.printStackTrace();
+        }
+        updateUiFromCycle();
+        DialogUtils.info("Updated", "Stage was successfully updated.");
     }
 
     public void init(Cycle cycle, Slider slider) {
@@ -216,7 +253,25 @@ public class GrowStageEditController implements Initializable {
         flow_days_lbl.setText(durations.getOrDefault(GrowStages.FLOWERING, 0) + " days");
     }
     private void updateUiFromCycle() {
-        for (GrowStages stages : GrowStages.values()) {
+        if (cycle == null || cycle.getStageStartDates() == null) return;
+
+        for (GrowStages stage : GrowStages.values()) {
+            if (cycle.getStageStartDates().containsKey(stage)) {
+                LocalDate date = cycle.getStageStartDates().get(stage);
+                int days = (int) ChronoUnit.DAYS.between(date, LocalDate.now());
+                cycle.getStageDurationDays().put(stage,days);
+                switch (stage) {
+                    case START_PLANTING -> start_stage_days_lbl.setText("Planted - " + days + "days");
+                    case GERMINATED -> germinated_days_lbl.setText("First Leafs - " + days + "days");
+                    case VEGETATION -> vegetation_days_lbl.setText("Vegetation - " + days + "days");
+                    case PRE_FLOWERING -> pre_flow_days_lbl.setText("Starting Flow - " + days + "days");
+                    case FLOWERING -> flow_days_lbl.setText("Flowering - " + days + "days");
+                    case CLEANING -> set_edit_error_lbl.setText("Cleaning stage - " + days + "days");
+                    case HARVEST -> set_edit_error_lbl.setText("Plant cut - " + days + "days");
+                    case DRYING -> set_edit_error_lbl.setText("Drying process - " + days + "days");
+                    default -> {}
+                }
+            }
         }
     }
 }
