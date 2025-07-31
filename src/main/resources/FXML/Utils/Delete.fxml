@@ -8,7 +8,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="del_anchor" prefHeight="140.0" prefWidth="180.0" styleClass="main_scene" stylesheets="@../../CSSstyles/Delete.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Utils.DeleteDialogController">
+<AnchorPane fx:id="del_anchor" prefHeight="140.0" prefWidth="180.0" styleClass="main_scene"
+            stylesheets="@../../CSSstyles/Delete.css" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Utils.DeleteDialogController">
     <Label fx:id="sure_lbl" layoutX="4.0" layoutY="6.0" prefHeight="39.0" prefWidth="170.0" styleClass="Label" stylesheets="@../../CSSstyles/Delete.css" text="Sure you want Delete this Photo from Cycle history?" wrapText="true" />
     <Button fx:id="del_btn" layoutX="6.0" layoutY="101.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="Delete">
         <graphic>

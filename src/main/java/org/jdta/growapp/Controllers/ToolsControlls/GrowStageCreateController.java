@@ -15,12 +15,19 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class GrowStageCreateController implements Initializable {
     private final ObservableList<GrowStages> pickedStages = FXCollections.observableArrayList();
     private Cycle draftCycle;
 
+    public Spinner<GrowStages> past_stages_spinner;
+    public Button set_days_btn;
+    public TextField days_in;
+    public Label stage_lbl;
     public AnchorPane parent_GR_create_anchor;
     public Label new_started_lbl;
     public Label days_of_stage_lbl;
@@ -57,6 +64,9 @@ public class GrowStageCreateController implements Initializable {
                 stage_picker.setValue(GrowStages.START_PLANTING);
                 updateProgressAndLabel(GrowStages.START_PLANTING);
                 DialogUtils.setErrorMessage(new_started_lbl, "Start from new");
+                past_stages_spinner.setDisable(true);
+                days_in.setDisable(true);
+                set_days_btn.setDisable(true);
             }
         });
 
@@ -69,6 +79,10 @@ public class GrowStageCreateController implements Initializable {
                 stage_picker.setValue(GrowStages.VEGETATION);
                 updateProgressAndLabel(GrowStages.VEGETATION);
                 DialogUtils.setErrorMessage(new_started_lbl, "Was started");
+                past_stages_spinner.setDisable(false);
+                days_in.setDisable(false);
+                set_days_btn.setDisable(false);
+                setupPastStageEditor();
             }
         });
 
@@ -80,6 +94,7 @@ public class GrowStageCreateController implements Initializable {
             GrowStages picked = stage_picker.getValue();
             if (picked != null) {
                 updateProgressAndLabel(picked);
+                if (started_check.isSelected()) setupPastStageEditor();
             }
         });
     }
@@ -174,6 +189,35 @@ public class GrowStageCreateController implements Initializable {
         }
     }
 
+    private void setupPastStageEditor() {
+        GrowStages current = stage_picker.getValue();
+        if (current == null) return;
+
+        // List stages till selected
+        List<GrowStages> editableStages = Arrays.stream(GrowStages.values()).filter(s -> s.ordinal() <= current.ordinal())
+                .collect(Collectors.toList());
+                SpinnerValueFactory<GrowStages> factory = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(editableStages));
+                past_stages_spinner.setValueFactory(factory);
+
+                past_stages_spinner.valueProperty().addListener((obs, oldV, newV)-> {
+                    //GrowStages selectedStage = editableStages.get(newV);
+                    stage_lbl.setText("Set days" + newV.name());
+                    days_in.setText(String.valueOf(draftCycle.getStageDurationDays().getOrDefault(newV, 0)));
+                });
+
+                set_days_btn.setOnAction(actionEvent -> {
+                    try {
+                        int days = Integer.parseInt(days_in.getText().trim());
+                        GrowStages selectedStage = past_stages_spinner.getValue();
+                        draftCycle.getStageDurationDays().put(selectedStage, days);
+                        DialogUtils.info("Updated", "Stage " + selectedStage + " set to " + days + "days");
+                    }catch (NumberFormatException e) {
+                        DialogUtils.warning("Invalid input", " Please enter valid number");
+                    }
+                });
+                past_stages_spinner.getValueFactory().setValue(editableStages.get(0));
+                stage_lbl.setText("Days for " + editableStages.get(0).name());
+    }
 }
 
 

@@ -9,7 +9,7 @@
 }
 
 .slider .track {
-    -fx-background-color: #ff9900;
+    -fx-background-color: #eede06;
     -fx-background-radius: 5px;
     -fx-pref-height: 6px;
 }
@@ -20,10 +20,14 @@
 }
 
 .slider .thumb {
-    -fx-background-color: #4CAF50;
+    -fx-cursor: default;
+    -fx-shape: "M 0,0 L 10,10 L 20,0 Z";
+    -fx-background-color: #e70b0b;
     -fx-background-radius: 50%;
     -fx-pref-width: 20px;
-    -fx-pref-height: 20px;
+    -fx-pref-height: 10px;
+    -fx-background-insets: 0;
+    -fx-translate-y: 5px;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);
 }
 

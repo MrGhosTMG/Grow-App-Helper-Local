@@ -7,40 +7,41 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="parent_GR_create_anchor" prefHeight="230.0" prefWidth="160.0" styleClass="anchor-pane"
-            stylesheets="@../../CSSstyles/createGrowStage.css" xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.GrowStageCreateController">
-   <Label fx:id="new_started_lbl" layoutX="9.0" layoutY="5.0" prefHeight="17.0" prefWidth="132.0" styleClass="Label" text="Select Grow Stage" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="4.0" />
-   <Label fx:id="days_of_stage_lbl" layoutX="108.0" layoutY="52.0" styleClass="Label" text="__0 Days" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="52.0" />
-   <CheckBox fx:id="new_check" layoutX="14.0" layoutY="35.0" mnemonicParsing="false" text="Start new" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="25.0">
+<AnchorPane fx:id="parent_GR_create_anchor" prefHeight="230.0" prefWidth="160.0" styleClass="anchor-pane" stylesheets="@../../CSSstyles/createGrowStage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.GrowStageCreateController">
+   <Label fx:id="new_started_lbl" layoutX="4.0" layoutY="4.0" prefHeight="17.0" prefWidth="105.0" styleClass="Label" text="Select Grow Stage" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="2.0" />
+   <Label fx:id="days_of_stage_lbl" layoutX="22.0" layoutY="62.0" prefHeight="17.0" prefWidth="60.0" styleClass="Label" text="__0 Days" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="61.0" />
+   <CheckBox fx:id="new_check" layoutX="44.0" layoutY="20.0" mnemonicParsing="false" text="New" AnchorPane.leftAnchor="108.0" AnchorPane.topAnchor="2.0">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </CheckBox>
-   <CheckBox fx:id="started_check" layoutX="8.0" layoutY="52.0" mnemonicParsing="false" text="Alrady started" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="50.0">
+   <CheckBox fx:id="started_check" layoutX="5.0" layoutY="21.0" mnemonicParsing="false" text="Old" AnchorPane.leftAnchor="108.0" AnchorPane.topAnchor="30.0">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </CheckBox>
-   <ChoiceBox fx:id="stage_picker" layoutX="5.0" layoutY="126.0" prefHeight="33.0" prefWidth="120.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="125.0">
+   <ChoiceBox fx:id="stage_picker" layoutX="3.0" layoutY="101.0" prefHeight="33.0" prefWidth="105.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="80.0">
       <cursor>
          <Cursor fx:constant="OPEN_HAND" />
       </cursor>
    </ChoiceBox>
-   <DatePicker fx:id="start_date_picker" layoutX="12.0" layoutY="85.0" prefHeight="25.0" prefWidth="105.0" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="83.0">
+   <DatePicker fx:id="start_date_picker" layoutX="3.0" layoutY="56.0" prefHeight="25.0" prefWidth="105.0" promptText="Started at" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="22.0">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </DatePicker>
-   <Button fx:id="apply_btn" layoutX="54.0" layoutY="172.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="56.0" text="Aplly" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="51.0" />
-   <ProgressBar fx:id="grow_progress_bar" layoutX="4.0" layoutY="208.0" prefHeight="16.0" prefWidth="156.0" progress="0.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0">
+   <Button fx:id="apply_btn" layoutX="79.0" layoutY="198.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="75.0" text="Aplly Stage" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="195.0" />
+   <ProgressBar fx:id="grow_progress_bar" layoutX="7.0" layoutY="175.0" prefHeight="16.0" prefWidth="144.0" progress="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="174.0">
       <cursor>
          <Cursor fx:constant="CLOSED_HAND" />
       </cursor>
    </ProgressBar>
-   <Text layoutX="45.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start at" AnchorPane.leftAnchor="42.0" />
-   <Button fx:id="add_btn" layoutX="128.0" layoutY="127.0" mnemonicParsing="false" text="Add" AnchorPane.rightAnchor="2.0" />
+   <Spinner fx:id="past_stages_spinner" layoutX="5.0" layoutY="121.0" prefHeight="25.0" prefWidth="156.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="120.0" />
+   <Button fx:id="set_days_btn" layoutX="109.0" layoutY="83.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="43.0" text="+Days" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="82.0" />
+   <TextField fx:id="days_in" layoutX="110.0" layoutY="56.0" prefHeight="25.0" prefWidth="43.0" promptText="d" text="days" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="53.0" />
+   <Label fx:id="stage_lbl" layoutX="5.0" layoutY="148.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="147.0" />
 </AnchorPane>

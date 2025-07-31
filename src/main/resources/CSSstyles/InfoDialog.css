@@ -1,0 +1,34 @@
+
+.info_main{
+    -fx-background-color: #0ce4d9;
+    -fx-border-color: #2704ec;
+}
+
+Label {
+    -fx-text-fill: #db101a;
+    -fx-border-color:#0497ec ;
+    -fx-alignment: center;
+    -fx-padding:3;
+    -fx-font-family: "arial";
+}
+
+.button:hover {
+-fx-background-color:#0c90dd;
+-fx-text-fill: #e70edc;
+-fx-scale-x: 0.97;
+-fx-scale-y: 0.97;
+-fx-border-color: #044eee;
+}
+
+Button {
+-fx-background-color:#e0e40f;
+-fx-text-fill: #143ab8;
+-fx-cursor: hand;
+}
+.button:pressed {
+    -fx-background-color: #1a0be0;
+    -fx-border-color: #ee0404;
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
+    -fx-text-fill: #ee0404;
+}

@@ -87,13 +87,25 @@ public class DialogUtils {
         }
     }
 
-    //переделаю на кастом фхмл
     public static void info(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+        try {
+            FXMLLoader loader = new FXMLLoader(DialogUtils.class.getResource("/FXML/Utils/InfoDialog.fxml"));
+            AnchorPane root = loader.load();
+
+            InfoDialogController controller = loader.getController();
+            controller.setMessage(title, message);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Information");
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.centerOnScreen();
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void warning(String title, String message) {

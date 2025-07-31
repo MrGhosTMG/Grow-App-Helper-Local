@@ -168,7 +168,17 @@
    </left>
    <bottom>
       <VBox prefHeight="100.0" styleClass="cycle_sides" stylesheets="@../../CSSstyles/CycleUp.css" BorderPane.alignment="CENTER">
-         <Slider fx:id="slider" majorTickUnit="23.0" minorTickCount="1" prefHeight="18.0" prefWidth="412.0" showTickMarks="true" snapToTicks="true" styleClass="cycle_border_pane">
+         <Slider fx:id="slider"
+                 min="1"
+                 max="8"
+                 majorTickUnit="1"
+                 minorTickCount="0"
+                 prefHeight="18.0"
+                 prefWidth="412.0"
+                 showTickLabels="true"
+                 showTickMarks="true"
+                 snapToTicks="true"
+                 styleClass="cycle_border_pane">
             <VBox.margin>
                <Insets left="4.0" right="4.0" top="4.0" />
             </VBox.margin>

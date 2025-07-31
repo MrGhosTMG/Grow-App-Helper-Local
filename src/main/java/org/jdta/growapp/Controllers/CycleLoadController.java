@@ -53,8 +53,8 @@ public class CycleLoadController  implements Initializable {
         gallery_btn.setOnAction(actionEvent -> onGallery());
         alarm_btn.setOnAction(actionEvent -> onAlarms());
         finishedCycleView();
+        slider.setMouseTransparent(true);  // Блокирует UI-взаимодействие
     }
-
 
 
     private void initCyclesComboBox() {
@@ -85,7 +85,6 @@ public class CycleLoadController  implements Initializable {
             e.printStackTrace();
         }
     }
-
 
     // On actions section
 
@@ -126,8 +125,6 @@ public class CycleLoadController  implements Initializable {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
             }
     }
-
-
 
     private void onGrowStageEdit() {
 
@@ -198,8 +195,6 @@ public class CycleLoadController  implements Initializable {
             central_view.getChildren().setAll(root);
         }
     }
-
-
 
     protected void onNutrients() {
 
