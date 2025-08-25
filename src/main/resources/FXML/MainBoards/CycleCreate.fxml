@@ -23,7 +23,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<BorderPane fx:id="parent_border_pane" prefHeight="520.0" prefWidth="420.0" styleClass="main_scene" stylesheets="@../../CSSstyles/Cycle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.CycleCreateController">
+<BorderPane fx:id="cycle_create_anchor" prefHeight="520.0" prefWidth="420.0" styleClass="main_scene" stylesheets="@../../CSSstyles/Cycle.css"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.jdta.growapp.Controllers.ToolsControlls.CycleCreateController">
    <top>
           <Label fx:id="cycle_reg_lbl" prefHeight="20.0" prefWidth="290.0" text="New cycle registration" BorderPane.alignment="CENTER">
          <graphic>

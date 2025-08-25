@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -42,6 +43,16 @@
       </ImageView>
    </VBox>
    <VBox layoutX="120.0" layoutY="56.0" prefHeight="133.0" prefWidth="100.0" styleClass="date_field">
+      <Label fx:id="seed_door_info_lbl" prefHeight="17.0" prefWidth="98.0" text="Seed type info">
+         <VBox.margin>
+            <Insets left="1.0" />
+         </VBox.margin>
+      </Label>
+      <Label fx:id="light_stage" prefHeight="45.0" prefWidth="98.0" text="Light stage " wrapText="true">
+         <VBox.margin>
+            <Insets left="1.0" />
+         </VBox.margin>
+      </Label>
       <Label fx:id="light_on_hour" prefHeight="25.0" prefWidth="98.0" text="Day ? hours">
          <VBox.margin>
             <Insets left="1.0" top="1.0" />
@@ -52,52 +63,53 @@
             <Insets left="1.0" top="2.0" />
          </VBox.margin>
       </Label>
-      <Label fx:id="light_stage" prefHeight="80.0" prefWidth="98.0" text="Light stage " wrapText="true">
-         <VBox.margin>
+      <Label fx:id="total_grow_days_lbl" prefHeight="17.0" prefWidth="99.0" text="Total -  days">
+         <padding>
             <Insets left="1.0" />
-         </VBox.margin>
+         </padding>
       </Label>
    </VBox>
    <VBox layoutX="120.0" layoutY="189.0" prefHeight="164.0" prefWidth="100.0" styleClass="info_main_container" AnchorPane.topAnchor="190.0">
       <Label fx:id="training_lbl" prefHeight="55.0" prefWidth="98.0" text="Type of training / No used trainings" wrapText="true">
          <VBox.margin>
-            <Insets left="2.0" top="2.0" />
-         </VBox.margin>
-      </Label>
-      <Label fx:id="clean_lbl" prefHeight="36.0" prefWidth="116.0" text="Cleaning added ? info" wrapText="true">
-         <VBox.margin>
-            <Insets left="2.0" top="4.0" />
+            <Insets left="2.0" />
          </VBox.margin>
       </Label>
       <Label fx:id="training_remind_lbl" prefHeight="35.0" prefWidth="97.0" text="Training Reminder" wrapText="true">
          <VBox.margin>
-            <Insets left="1.0" top="4.0" />
+            <Insets left="1.0" top="1.0" />
          </VBox.margin>
       </Label>
+      <TextArea fx:id="notes_area" editable="false" prefHeight="70.0" prefWidth="98.0" promptText="Last notes" wrapText="true">
+         <VBox.margin>
+            <Insets left="1.0" right="1.0" top="2.0" />
+         </VBox.margin>
+      </TextArea>
    </VBox>
    <VBox layoutY="190.0" prefHeight="164.0" prefWidth="120.0" styleClass="grow_stage">
-      <Label fx:id="moist_date" prefHeight="25.0" prefWidth="116.0" text="Date of watering">
+      <Label fx:id="moist_date" prefHeight="25.0" prefWidth="116.0" text="Date of last watering">
          <VBox.margin>
             <Insets left="2.0" />
          </VBox.margin>
       </Label>
-      <Label fx:id="moist_remind_lbl" prefHeight="55.0" prefWidth="120.0" text="Planned watering date" wrapText="true">
+      <Label fx:id="nutr_lbl" prefHeight="45.0" prefWidth="116.0" text="Nutrient added ? (name)" underline="true" wrapText="true">
+         <VBox.margin>
+            <Insets left="2.0" top="4.0" />
+         </VBox.margin>
+      </Label>
+      <Label fx:id="moist_remind_lbl" prefHeight="25.0" prefWidth="120.0" text="Planned watering date" wrapText="true">
          <VBox.margin>
             <Insets />
          </VBox.margin>
       </Label>
-      <Label fx:id="nutr_lbl" prefHeight="80.0" prefWidth="116.0" text="Nutrient added ? (name)" underline="true" wrapText="true">
+      <Label fx:id="potinfo_soilmix" prefHeight="40.0" prefWidth="120.0" text="Soil mix used in pot" />
+      <Label fx:id="clean_lbl" prefHeight="25.0" prefWidth="116.0" text="Cleaning added ? info" wrapText="true">
          <VBox.margin>
             <Insets left="2.0" top="4.0" />
          </VBox.margin>
       </Label>
    </VBox>
-   <Label fx:id="total_grow_days_lbl" layoutX="120.0" layoutY="37.0" prefHeight="17.0" prefWidth="97.0" text="Total -  days" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="37.0">
-      <padding>
-         <Insets left="1.0" />
-      </padding>
-   </Label>
-   <Label fx:id="grow_stage_and_days_lbl" layoutY="37.0" prefHeight="17.0" prefWidth="120.0" text="Grow stage" wrapText="true" AnchorPane.topAnchor="37.0">
+   <Label fx:id="grow_stage_and_days_lbl" layoutY="37.0" prefHeight="17.0" prefWidth="220.0" text="Grow stage" wrapText="true" AnchorPane.topAnchor="37.0">
       <padding>
          <Insets left="1.0" />
       </padding>

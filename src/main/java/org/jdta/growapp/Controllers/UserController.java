@@ -1,6 +1,7 @@
 package org.jdta.growapp.Controllers;
 
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -56,7 +57,7 @@ public class UserController implements Initializable {
     public ImageView image_view_board;
     public ScrollBar scrl_bar;
     public ListView<String> list_view_cycle_info;
-
+    public AnchorPane user_anchor;
 
 
     @Override
@@ -74,10 +75,22 @@ public class UserController implements Initializable {
         loadUserCycle();
         initMOCK();
         del_cycle_btn.setOnAction(actionEvent -> deleteSelectedCycle());
+        initializeWindowPosition();
     }
 
-
-
+    private void initializeWindowPosition() {
+        Platform.runLater(() -> {
+            Stage stage = (Stage) user_anchor.getScene().getWindow();
+            double[] pos = PreferencesUtils.getWindowPosition(this.getClass().getSimpleName());
+            if (pos != null) {
+                stage.setX(pos[0]);
+                stage.setY(pos[1]);
+            }
+            stage.setOnCloseRequest(e -> {
+                PreferencesUtils.saveWindowPosition(this.getClass().getSimpleName(), stage.getX(), stage.getY());
+            });
+        });
+    }
 
     public void addListeners() {
         Model.getInstance().getView().getUserSelectedButton().addListener((observableValue, oldVal, newVal) -> {

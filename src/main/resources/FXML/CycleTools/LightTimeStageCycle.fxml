@@ -15,11 +15,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="parent_Anchor_pane" prefHeight="355.0" prefWidth="220.0" styleClass="light_container"
-            stylesheets="@../../CSSstyles/LighTimeStage.css" xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.jdta.growapp.Controllers.ToolsControlls.LightTimeStageController">
-    <Label fx:id="hours_lbl" layoutX="2.0" layoutY="4.0" prefHeight="20.0" prefWidth="218.0" text="Select Light range On / Off Hours " AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="4.0">
+<AnchorPane fx:id="parent_Anchor_pane" prefHeight="355.0" prefWidth="220.0" styleClass="light_container" stylesheets="@../../CSSstyles/LighTimeStage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.ToolsControlls.LightTimeStageController">
+    <Label fx:id="hours_lbl" layoutX="2.0" layoutY="4.0" prefHeight="20.0" prefWidth="218.0" text="Select Light range On / Off Hours " AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="2.0">
         <graphic>
             <ImageView fitHeight="28.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                 <Image url="@../../Images/small/ic_clock.png" />
@@ -29,27 +26,20 @@
          <Insets left="4.0" />
       </padding>
     </Label>
-    <VBox layoutY="150.0" prefHeight="156.0" prefWidth="220.0">
-        <VBox prefHeight="122.0" prefWidth="214.0">
-            <VBox.margin>
-                <Insets bottom="1.0" left="1.0" right="1.0" />
-            </VBox.margin>
-            <TextArea fx:id="text_info_area" editable="false" prefHeight="120.0" prefWidth="204.0" promptText="tips" styleClass="Textarea" stylesheets="@../../CSSstyles/LighTimeStage.css" text="For auto-fem pick 20/4 or 18/6  For FEM &amp; REG seeds 12/12 is good for Flowering stage and also can be set if needed fast FINISH(REDUCES YELD) for any type of seeds" wrapText="true">
-                <VBox.margin>
-                    <Insets top="2.0" />
-                </VBox.margin>
-            </TextArea>
-        </VBox>
-       <Button fx:id="set_btn" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" stylesheets="@../../CSSstyles/LighTimeStage.css" text="Set time range">
-           <graphic>
-               <ImageView fitHeight="18.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                   <Image url="@../../Images/small/ganjtheme_btn_check_on_focused_holo_light.png" />
-               </ImageView>
-           </graphic>
+    <VBox layoutY="169.0" prefHeight="130.0" prefWidth="221.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <Label fx:id="error_lbl" prefHeight="37.0" prefWidth="219.0" textAlignment="CENTER" underline="true" wrapText="true">
+             <font>
+                 <Font name="Roboto Bold Italic" size="12.0" />
+             </font>
          <VBox.margin>
-            <Insets left="52.0" top="4.0" />
+            <Insets left="1.0" right="1.0" />
          </VBox.margin>
-       </Button>
+         </Label>
+         <TextArea fx:id="text_info_area" editable="false" prefHeight="93.0" prefWidth="216.0" promptText="tips" styleClass="Textarea" stylesheets="@../../CSSstyles/LighTimeStage.css" text="For auto-fem pick 20/4 or 18/6  For FEM &amp; REG seeds 12/12 is good for Flowering stage and also can be set if needed fast FINISH(REDUCES YELD) for any type of seeds" wrapText="true">
+             <VBox.margin>
+                 <Insets left="2.0" right="2.0" top="2.0" />
+             </VBox.margin>
+         </TextArea>
     </VBox>
     <RadioButton fx:id="select_1" layoutX="15.0" layoutY="21.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" styleClass="TextField" stylesheets="@../../CSSstyles/LighTimeStage.css" text=" 24 / 0 " AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="22.0">
         <padding>
@@ -81,12 +71,7 @@
       <padding>
          <Insets left="35.0" />
       </padding></CheckBox>
-      <Label fx:id="error_lbl" layoutX="8.0" layoutY="307.0" prefHeight="41.0" prefWidth="206.0" textAlignment="CENTER" underline="true" wrapText="true">
-          <font>
-              <Font name="Roboto Bold Italic" size="12.0" />
-          </font>
-      </Label>
-     <HBox layoutX="17.0" layoutY="115.0" prefHeight="30.0" prefWidth="180.0" stylesheets="@../../CSSstyles/LighTimeStage.css">
+     <HBox layoutX="17.0" layoutY="127.0" prefHeight="30.0" prefWidth="185.0" stylesheets="@../../CSSstyles/LighTimeStage.css" AnchorPane.topAnchor="127.0">
          <TextField fx:id="day_input_fld" prefHeight="25.0" prefWidth="85.0" promptText="Day time" styleClass="Textarea" stylesheets="@../../CSSstyles/LighTimeStage.css">
              <HBox.margin>
                  <Insets left="10.0" top="4.0" />
@@ -106,4 +91,11 @@
          <Insets top="6.0" />
       </padding>
      </HBox>
+    <Button fx:id="set_btn" layoutX="50.0" layoutY="311.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" stylesheets="@../../CSSstyles/LighTimeStage.css" text="Set time range" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="320.0">
+        <graphic>
+            <ImageView fitHeight="18.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../../Images/small/ganjtheme_btn_check_on_focused_holo_light.png" />
+            </ImageView>
+        </graphic>
+    </Button>
 </AnchorPane>

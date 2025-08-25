@@ -42,4 +42,20 @@ public class PreferencesUtils {
     public static String getSavedUsername() {
         return prefs.get("saved_username", "");
     }
+
+    public static void saveWindowPosition(String windowPosition, double x, double y) {
+        prefs.putDouble(windowPosition + "_x", x);
+        prefs.putDouble(windowPosition + "_y", y);
+    }
+
+    public static double[] getWindowPosition(String windowPosition) {
+        double x = prefs.getDouble(windowPosition + "_x", -1);
+        double y = prefs.getDouble(windowPosition + "_y", -1);
+        return (x != -1 && y != -1) ? new double[]{x, y} : null;
+    }
+
+    public static void clearWindowPosition(String windowPosition) {
+        prefs.remove(windowPosition + "_x");
+        prefs.remove(windowPosition + "_y");
+    }
 }

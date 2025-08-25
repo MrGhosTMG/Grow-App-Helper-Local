@@ -1,22 +1,27 @@
 package org.jdta.growapp.Controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.jdta.growapp.Controllers.ToolsControlls.*;
 import org.jdta.growapp.DTO.Cycle;
+import org.jdta.growapp.DTO.StageTransition;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.DialogUtils;
+import org.jdta.growapp.Utils.PreferencesUtils;
 import org.jdta.growapp.Utils.StageActions;
 import org.jdta.growapp.Utils.FXMLUtils;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +38,7 @@ public class CycleLoadController  implements Initializable {
     public ImageView slider_image;
     public AnchorPane central_view;
     public ComboBox<Cycle> select_cycle_combo_box;
+    public BorderPane cycle_load_anchor;
 
 
     @Override
@@ -54,8 +60,22 @@ public class CycleLoadController  implements Initializable {
         alarm_btn.setOnAction(actionEvent -> onAlarms());
         finishedCycleView();
         slider.setMouseTransparent(true);  // Блокирует UI-взаимодействие
+        initializeWindowPosition();
     }
 
+    private void initializeWindowPosition() {
+        Platform.runLater(() -> {
+            Stage stage = (Stage) cycle_load_anchor.getScene().getWindow();
+            double[] pos = PreferencesUtils.getWindowPosition(this.getClass().getSimpleName());
+            if (pos != null) {
+                stage.setX(pos[0]);
+                stage.setY(pos[1]);
+            }
+            stage.setOnCloseRequest(e -> {
+                PreferencesUtils.saveWindowPosition(this.getClass().getSimpleName(), stage.getX(), stage.getY());
+            });
+        });
+    }
 
     private void initCyclesComboBox() {
         int userId = Model.getInstance().getCurrentUser().getId();
@@ -101,6 +121,7 @@ public class CycleLoadController  implements Initializable {
         slider.setValue(selected.getGrowStage().ordinal());
         DialogUtils.info("Cycle Applied", "Cycle '" + selected.getName() + "' is shown");
         central_view.getChildren().clear();
+        onInfo();
     }
 
     private void onAlarms() {
@@ -258,3 +279,4 @@ public class CycleLoadController  implements Initializable {
     }
 
 }
+

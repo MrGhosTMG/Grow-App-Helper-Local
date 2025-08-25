@@ -1,5 +1,6 @@
 package org.jdta.growapp.Controllers.ToolsControlls;
 
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -17,6 +18,7 @@ import org.jdta.growapp.Enums.LightStages;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Service.CycleCreateService;
 import org.jdta.growapp.Utils.DialogUtils;
+import org.jdta.growapp.Utils.PreferencesUtils;
 import org.jdta.growapp.Utils.StageActions;
 import org.jdta.growapp.Utils.FXMLUtils;
 import java.io.File;
@@ -59,7 +61,7 @@ public class CycleCreateController implements Initializable {
     public ImageView img_reg;
     public ImageView img_view;
     public GridPane grid_pane;
-    public BorderPane parent_border_pane;
+    public BorderPane cycle_create_anchor;
     public AnchorPane soil_anchor, scene_anchor, photo_anchor;
     public AnchorPane central_anchor;
 
@@ -85,7 +87,23 @@ public class CycleCreateController implements Initializable {
         clearTempFolder();
         filterInputField(text_pot_fld);
         filterInputField(component_litres_fld);
+        initializeWindowPosition();
     }
+
+    private void initializeWindowPosition() {
+        Platform.runLater(() -> {
+            Stage stage = (Stage) cycle_create_anchor.getScene().getWindow();
+            double[] pos = PreferencesUtils.getWindowPosition(this.getClass().getSimpleName());
+            if (pos != null) {
+                stage.setX(pos[0]);
+                stage.setY(pos[1]);
+            }
+            stage.setOnCloseRequest(e -> {
+                PreferencesUtils.saveWindowPosition(this.getClass().getSimpleName(), stage.getX(), stage.getY());
+            });
+        });
+    }
+
 
     private void setOutdoorOrHydroponicDisable() {
         outdoor_rb.setOnAction(actionEvent -> {
@@ -240,11 +258,7 @@ public class CycleCreateController implements Initializable {
             draftCycle.setStartDateTime(startDate);
 
             long days = getSortTypeAverageDays();
-            LocalDateTime eta = startDate.plusDays(days);
-            /* тут
-             Required type: TemporalAmount
-             Provided: long
-            */
+            LocalDateTime eta = startDate.plus(days, ChronoUnit.DAYS);
             eet_date_lbl.setText(eta.format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
             draftCycle.setEtaDateTime(eta);
 
@@ -445,7 +459,6 @@ public class CycleCreateController implements Initializable {
             if (!newVal.matches("\\d*")) {
                 capacity.setText(oldVal != null ? oldVal : "");
                 DialogUtils.setErrorMessage(soil_components_lbl, "Enter digits only");
-                return;
             }
         });
     }

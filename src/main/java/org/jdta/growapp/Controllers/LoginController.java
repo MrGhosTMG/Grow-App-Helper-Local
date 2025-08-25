@@ -1,7 +1,9 @@
 package org.jdta.growapp.Controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.jdta.growapp.DTO.User;
 import org.jdta.growapp.Models.Model;
@@ -26,6 +28,7 @@ public class LoginController implements Initializable {
     public Label err_lbl;
     public Button reg_btn;
     public Button exit_btn;
+    public AnchorPane login_anchor;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -39,6 +42,21 @@ public class LoginController implements Initializable {
             user_log_fld.setText(savedUsername);
             stay_in_check.setSelected(true);
         }
+        initializeWindowPosition();
+    }
+
+    private void initializeWindowPosition() {
+        Platform.runLater(() -> {
+            Stage stage = (Stage) login_anchor.getScene().getWindow();
+            double[] pos = PreferencesUtils.getWindowPosition(this.getClass().getSimpleName());
+            if (pos != null) {
+                stage.setX(pos[0]);
+                stage.setY(pos[1]);
+            }
+            stage.setOnCloseRequest(e -> {
+                PreferencesUtils.saveWindowPosition(this.getClass().getSimpleName(), stage.getX(), stage.getY());
+            });
+        });
     }
 
     private void onLogin() {

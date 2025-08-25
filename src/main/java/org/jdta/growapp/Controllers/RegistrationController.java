@@ -1,5 +1,6 @@
 package org.jdta.growapp.Controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -7,6 +8,7 @@ import javafx.stage.Stage;
 import org.jdta.growapp.DTO.User;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Service.UserService;
+import org.jdta.growapp.Utils.PreferencesUtils;
 import org.jdta.growapp.Utils.StageActions;
 import org.jdta.growapp.Utils.DialogUtils;
 import org.jdta.growapp.Utils.FXMLUtils;
@@ -36,14 +38,29 @@ public class RegistrationController implements Initializable {
     public ScrollPane scrl_pane;
     public AnchorPane text_anchor_pane;
     public TextArea text_area_terms;
+    public AnchorPane reg_anchor;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         login_btn.setOnAction(actionEvent -> onLogin());
         exit_btn.setOnAction(actionEvent -> StageActions.onExit(getStage()));
         reg_btn.setOnAction(actionEvent -> onRegister());
+        initializeWindowPosition();
     }
 
+    private void initializeWindowPosition() {
+        Platform.runLater(() -> {
+            Stage stage = (Stage) reg_anchor.getScene().getWindow();
+            double[] pos = PreferencesUtils.getWindowPosition(this.getClass().getSimpleName());
+            if (pos != null) {
+                stage.setX(pos[0]);
+                stage.setY(pos[1]);
+            }
+            stage.setOnCloseRequest(e -> {
+                PreferencesUtils.saveWindowPosition(this.getClass().getSimpleName(), stage.getX(), stage.getY());
+            });
+        });
+    }
     private Stage getStage() {
         return FXMLUtils.stageFrom(exit_btn); // можно использовать любой доступный Node
     }

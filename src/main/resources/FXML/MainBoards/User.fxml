@@ -15,8 +15,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="520.0" prefWidth="420.0" styleClass="user_container" stylesheets="@../../CSSstyles/user.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.UserController">
+<AnchorPane fx:id="user_anchor" prefHeight="520.0" prefWidth="420.0" styleClass="user_container"
+            stylesheets="@../../CSSstyles/user.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.jdta.growapp.Controllers.UserController">
    <Label fx:id="select_lbl" layoutX="2.0" layoutY="6.0" prefHeight="19.0" prefWidth="129.0" stylesheets="@../../CSSstyles/user.css" text="Select your cycle" AnchorPane.topAnchor="2.0" />
    <Label fx:id="cycle_name_info_lbl" layoutX="314.0" layoutY="6.0" styleClass="Label" stylesheets="@../../CSSstyles/user.css" text="Cycle Info" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="2.0" />
    <Line endX="250.0" endY="5.292893409729004" layoutX="165.0" layoutY="164.0" startX="-160.0" startY="5.292893409729004" AnchorPane.topAnchor="177.0" />
@@ -104,11 +107,12 @@
          <FontAwesomeIconView fill="#30a850" glyphName="PLUS" size="14" text="" />
       </graphic>
    </Button>
-   <ImageView fx:id="image_view_board" fitHeight="125.0" fitWidth="125.0" layoutX="2.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="50.0" />
+   <ImageView fx:id="image_view_board" fitHeight="125.0" fitWidth="125.0" layoutX="4.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" styleClass="Image-view" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="291.0" AnchorPane.topAnchor="50.0" />
    <Button fx:id="del_cycle_btn" layoutX="131.0" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Delete" AnchorPane.leftAnchor="131.0" AnchorPane.topAnchor="85.0">
       <graphic>
          <FontAwesomeIconView fill="#eb1d07" glyphName="PLUS" rotate="45.0" />
       </graphic>
    </Button>
    <Button fx:id="del_all_photo_btn" layoutX="131.0" layoutY="133.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="80.0" text="Delete All Photos" wrapText="true" AnchorPane.topAnchor="130.0" />
+   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="125.0" layoutX="4.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="126.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="290.0" AnchorPane.topAnchor="50.0" />
 </AnchorPane>

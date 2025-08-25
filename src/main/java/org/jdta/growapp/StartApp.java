@@ -28,6 +28,16 @@ public class StartApp extends Application {
 
     @Override
     public void start(Stage stage) {
+
+        double[] position = PreferencesUtils.getWindowPosition("MainWindow");
+        if (position != null) {
+            stage.setX(position[0]);
+            stage.setY(position[1]);
+        }
+        stage.setOnCloseRequest( e -> {
+            PreferencesUtils.saveWindowPosition("MainWindow", stage.getX(), stage.getY());
+        });
+
         int savedUserId = PreferencesUtils.getSavedUserId();
 
         if (savedUserId != -1) {

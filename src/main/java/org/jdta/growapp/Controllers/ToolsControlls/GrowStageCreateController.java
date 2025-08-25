@@ -5,7 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import org.jdta.growapp.DAO.StageTransitionDAO;
 import org.jdta.growapp.DTO.Cycle;
+import org.jdta.growapp.DTO.StageTransition;
+import org.jdta.growapp.Database.DBConnection;
 import org.jdta.growapp.Enums.GrowStages;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.DialogUtils;
@@ -17,6 +20,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -37,10 +41,10 @@ public class GrowStageCreateController implements Initializable {
     public DatePicker start_date_picker;
     public Button apply_btn;
     public ProgressBar grow_progress_bar;
-    public Button add_btn;
 
     public void setDraftCycle(Cycle cycle) {
         this.draftCycle = cycle;
+        updateUiFromCycle();
     }
     public Cycle getDraftCycle() {
         return draftCycle;
@@ -134,6 +138,25 @@ public class GrowStageCreateController implements Initializable {
         grow_progress_bar.setStyle("-fx-accent: " + color + ";");
     }
 
+    private void updateUiFromCycle() {
+        if (draftCycle == null) return;
+
+        draftCycle.getStageStartDates().clear();
+        draftCycle.getStageDurationDays().clear();
+
+        List<StageTransition> transitions = Model.getInstance().getStageTransitionDAO().findAllByCycleId(draftCycle.getId());
+        for (StageTransition stageTransition : transitions) {
+            draftCycle.getStageStartDates().put(stageTransition.getGrowStages(), stageTransition.getStartDate());
+            draftCycle.getStageDurationDays().put(stageTransition.getGrowStages(), stageTransition.getDurationsDays());
+        }
+        GrowStages currentStage = draftCycle.getGrowStage();
+        if (currentStage != null) {
+            stage_picker.setValue(currentStage);
+            updateProgressAndLabel(currentStage);
+        }
+        setupPastStageEditor();
+    }
+
     private void applyStage() {
         cycleSelectCheck();
         GrowStages stage = stage_picker.getValue();
@@ -173,6 +196,20 @@ public class GrowStageCreateController implements Initializable {
         try {
 
             Model.getInstance().getCycleDAO().update(draftCycle);
+
+            if (draftCycle.getId() == 0) {
+                Model.getInstance().getCycleDAO().insert(draftCycle);
+            }
+            saveStageTransitions(draftCycle);
+
+            Model.getInstance().loadCycleTransitions(draftCycle);
+
+//            StageTransition transition = new StageTransition(
+//                    draftCycle.getId(), stage, started_check.isSelected() ? pickedDate : draftCycle.getStartDateTime().toLocalDate(), (int) days);
+//
+//            Model.getInstance().getStageTransitionDAO().insert(transition);
+//            Model.getInstance().loadCycleTransitions(draftCycle);
+
             DialogUtils.info("Stage Set", "Stage " + stage + " applied with " + days + " days from: " +
                     (started_check.isSelected() ? pickedDate : draftCycle.getStartDateTime().toLocalDate()));
         }catch (SQLException e) {
@@ -185,7 +222,6 @@ public class GrowStageCreateController implements Initializable {
         if (draftCycle == null) {
             DialogUtils.warning("No cycle", "Please make sure cycle is set");
             apply_btn.setDisable(true);
-            return;
         }
     }
 
@@ -217,6 +253,36 @@ public class GrowStageCreateController implements Initializable {
                 });
                 past_stages_spinner.getValueFactory().setValue(editableStages.get(0));
                 stage_lbl.setText("Days for " + editableStages.get(0).name());
+    }
+
+    private void saveStageTransitions(Cycle cycle) {
+
+        try {
+            StageTransitionDAO dao = new StageTransitionDAO(DBConnection.getConnection());
+
+            dao.deleteByCycleId(cycle.getId());
+            System.out.println("Saving transitions:");
+            for (Map.Entry<GrowStages, Integer> entry : cycle.getStageDurationDays().entrySet()) {
+                GrowStages stage = entry.getKey();
+                Integer duration = entry.getValue();
+                LocalDate startDate = cycle.getStageStartDates().get(stage);
+                System.out.println("Stage: " + stage + ", start: " + startDate + ", duration: " + duration);
+
+                if (startDate != null && duration!= null) {
+                    StageTransition transition = new StageTransition();
+                    transition.setCycleId(cycle.getId());
+                    transition.setGrowStages(stage);
+                    transition.setStartDate(startDate);
+                    transition.setDurationsDays(duration);
+                    dao.insert(transition);
+                    System.out.println("⏺ Saving stage transitions for cycle ID = " + cycle.getId());
+                }else {
+                    System.out.println("❌ Skipping stage: " + stage + " (startDate or duration is null)");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

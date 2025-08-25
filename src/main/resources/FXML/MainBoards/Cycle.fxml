@@ -15,7 +15,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="420.0" styleClass="cycle_border_pane" stylesheets="@../../CSSstyles/CycleUp.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.CycleLoadController">
+<BorderPane fx:id="cycle_load_anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="520.0" prefWidth="420.0" styleClass="cycle_border_pane" stylesheets="@../../CSSstyles/CycleUp.css"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jdta.growapp.Controllers.CycleLoadController">
    <top>
       <HBox prefHeight="49.0" prefWidth="420.0" styleClass="cycle_sides" BorderPane.alignment="CENTER">
          <ComboBox fx:id="select_cycle_combo_box" prefWidth="150.0">
@@ -168,17 +170,7 @@
    </left>
    <bottom>
       <VBox prefHeight="100.0" styleClass="cycle_sides" stylesheets="@../../CSSstyles/CycleUp.css" BorderPane.alignment="CENTER">
-         <Slider fx:id="slider"
-                 min="1"
-                 max="8"
-                 majorTickUnit="1"
-                 minorTickCount="0"
-                 prefHeight="18.0"
-                 prefWidth="412.0"
-                 showTickLabels="true"
-                 showTickMarks="true"
-                 snapToTicks="true"
-                 styleClass="cycle_border_pane">
+         <Slider fx:id="slider" majorTickUnit="1" max="8" min="1" minorTickCount="0" prefHeight="18.0" prefWidth="412.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="cycle_border_pane">
             <VBox.margin>
                <Insets left="4.0" right="4.0" top="4.0" />
             </VBox.margin>

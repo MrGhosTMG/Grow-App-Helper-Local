@@ -41,7 +41,7 @@ public class FXMLUtils {
     }
 
     // Открытие нового окна
-    public static void openModalWindow(String fxmlPath, String title) {
+    public static Stage openModalWindow(String fxmlPath, String title) {
 
         try {
             FXMLLoader loader = new FXMLLoader(FXMLUtils.class.getResource(fxmlPath));
@@ -52,10 +52,22 @@ public class FXMLUtils {
             stage.setTitle(title);
             stage.setResizable(false);
             stage.initModality(Modality.APPLICATION_MODAL);
+
+            double[] position = PreferencesUtils.getWindowPosition(title);
+            if (position != null) {
+                stage.setX(position[0]);
+                stage.setY(position[1]);
+            }
+            stage.setOnCloseRequest(e -> {
+                   PreferencesUtils.saveWindowPosition(title, stage.getX(), stage.getY());
+            });
+
             stage.show();
+            return stage;
 
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
     }
 

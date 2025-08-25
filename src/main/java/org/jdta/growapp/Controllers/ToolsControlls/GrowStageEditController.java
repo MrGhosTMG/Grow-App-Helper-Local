@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import org.jdta.growapp.DTO.Cycle;
+import org.jdta.growapp.DTO.StageTransition;
 import org.jdta.growapp.Enums.GrowStages;
 import org.jdta.growapp.Models.Model;
 import org.jdta.growapp.Utils.DialogUtils;
@@ -61,6 +62,7 @@ public class GrowStageEditController implements Initializable {
         }
         stage_select_choice_box.getItems().addAll(GrowStages.values());
         stage_select_choice_box.setValue(cycle.getGrowStage());
+        Model.getInstance().loadCycleTransitions(cycle);
         updateUiFromCycle();
         set_stage.setOnAction(actionEvent -> applyEditStage());
     }
@@ -93,9 +95,11 @@ public class GrowStageEditController implements Initializable {
     public void init(Cycle cycle, Slider slider) {
         this.cycle = cycle;
         this.slider = slider;
+        Model.getInstance().loadCycleTransitions(cycle);
         setupStageSelection();
         setupYieldAndDryingControls();
-        updateStageDurationsUI();
+        //updateStageDurationsUI();
+        updateUiFromCycle();
     }
 
     private void setupStageSelection() {
@@ -138,7 +142,46 @@ public class GrowStageEditController implements Initializable {
             int daysSpent = (int) ChronoUnit.DAYS.between(stageStartDate, now);
             stageDurations.put(currentStage, daysSpent);
 
+            if (!Model.getInstance().getStageTransitionDAO()
+                    .findAllByCycleId(cycle.getId()).stream()
+                    .anyMatch(t -> t.getGrowStages() == currentStage)) {
+
+                StageTransition prev = new StageTransition();
+                prev.setCycleId(cycle.getId());
+                prev.setGrowStages(currentStage);
+                prev.setStartDate(stageStartDate);
+                prev.setDurationsDays(daysSpent);
+
+                try {
+                    Model.getInstance().getStageTransitionDAO().insert(prev);
+
+                    System.out.println("Previous StageTransition saved: " + currentStage);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
             cycle.setGrowStage(nowSelected);
+
+            StageTransition transition = new StageTransition();
+            transition.setCycleId(cycle.getId());
+            transition.setGrowStages(nowSelected);
+            transition.setStartDate(now);
+            transition.setDurationsDays(0);
+
+            try {
+                System.out.println("Cycle ID for transition insert = " + cycle.getId());
+                Model.getInstance().getStageTransitionDAO().insert(transition);
+                System.out.println("StageTransitions saved - " + nowSelected);
+
+                Model.getInstance().loadCycleTransitions(cycle);
+                //updateStageDurationsUI();
+                updateUiFromCycle();
+            }catch (SQLException e) {
+                e.printStackTrace();
+                DialogUtils.error("DB Error", "Failed to save stage transition");
+            }
+
             stageStartDates.put(nowSelected, now);
             try {
                 Model.getInstance().getCycleDAO().update(cycle);
@@ -243,35 +286,44 @@ public class GrowStageEditController implements Initializable {
         }
     }
 
-    private void updateStageDurationsUI() {
-        Map<GrowStages, Integer> durations = cycle.getStageDurationDays();
-
-        start_stage_days_lbl.setText(durations.getOrDefault(GrowStages.START_PLANTING, 0) + " days");
-        germinated_days_lbl.setText(durations.getOrDefault(GrowStages.GERMINATED, 0) + " days");
-        vegetation_days_lbl.setText(durations.getOrDefault(GrowStages.VEGETATION, 0) + " days");
-        pre_flow_days_lbl.setText(durations.getOrDefault(GrowStages.PRE_FLOWERING, 0) + " days");
-        flow_days_lbl.setText(durations.getOrDefault(GrowStages.FLOWERING, 0) + " days");
-    }
+//    private void updateStageDurationsUI() {
+//        Map<GrowStages, Integer> durations = cycle.getStageDurationDays();
+//
+//        start_stage_days_lbl.setText(durations.getOrDefault(GrowStages.START_PLANTING, 0) + " days");
+//        germinated_days_lbl.setText(durations.getOrDefault(GrowStages.GERMINATED, 0) + " days");
+//        vegetation_days_lbl.setText(durations.getOrDefault(GrowStages.VEGETATION, 0) + " days");
+//        pre_flow_days_lbl.setText(durations.getOrDefault(GrowStages.PRE_FLOWERING, 0) + " days");
+//        flow_days_lbl.setText(durations.getOrDefault(GrowStages.FLOWERING, 0) + " days");
+//    }
     private void updateUiFromCycle() {
         if (cycle == null || cycle.getStageStartDates() == null) return;
 
         for (GrowStages stage : GrowStages.values()) {
+            System.out.println("=== stageStartDates:");
+            cycle.getStageStartDates().forEach((k,v) -> System.out.println(k + " -> " + v));
+            System.out.println("=== stageDurationDays:");
+            cycle.getStageDurationDays().forEach((k,v) -> System.out.println(k + " -> " + v));
+
             if (cycle.getStageStartDates().containsKey(stage)) {
                 LocalDate date = cycle.getStageStartDates().get(stage);
                 int days = (int) ChronoUnit.DAYS.between(date, LocalDate.now());
                 cycle.getStageDurationDays().put(stage,days);
+
                 switch (stage) {
-                    case START_PLANTING -> start_stage_days_lbl.setText("Planted - " + days + "days");
-                    case GERMINATED -> germinated_days_lbl.setText("First Leafs - " + days + "days");
-                    case VEGETATION -> vegetation_days_lbl.setText("Vegetation - " + days + "days");
-                    case PRE_FLOWERING -> pre_flow_days_lbl.setText("Starting Flow - " + days + "days");
-                    case FLOWERING -> flow_days_lbl.setText("Flowering - " + days + "days");
-                    case CLEANING -> set_edit_error_lbl.setText("Cleaning stage - " + days + "days");
-                    case HARVEST -> set_edit_error_lbl.setText("Plant cut - " + days + "days");
-                    case DRYING -> set_edit_error_lbl.setText("Drying process - " + days + "days");
+                    case START_PLANTING -> start_stage_days_lbl.setText("Planted - " + days + " days");
+                    case GERMINATED -> germinated_days_lbl.setText("First Leafs - " + days + " days");
+                    case VEGETATION -> vegetation_days_lbl.setText("Vegetation - " + days + " days");
+                    case PRE_FLOWERING -> pre_flow_days_lbl.setText("Starting Flow - " + days + " days");
+                    case FLOWERING -> flow_days_lbl.setText("Flowering - " + days + " days");
+                    case CLEANING -> set_edit_error_lbl.setText("Cleaning stage - " + days + " days");
+                    case HARVEST -> set_edit_error_lbl.setText("Plant cut - " + days + " days");
+                    case DRYING -> set_edit_error_lbl.setText("Drying process - " + days + " days");
                     default -> {}
                 }
             }
         }
+        long total = ChronoUnit.DAYS.between(cycle.getStartDateTime().toLocalDate(), LocalDate.now());
+        total_days_lbl.setText("Total grow " + total + " days");
+        //updateStageDurationsUI();
     }
 }

@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +19,8 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 public class InfoController implements Initializable {
@@ -37,6 +40,9 @@ public class InfoController implements Initializable {
     public Label training_remind_lbl;
     public Label grow_stage_and_days_lbl;
     public Label total_grow_days_lbl;
+    public Label potinfo_soilmix;
+    public TextArea notes_area;
+    public Label seed_door_info_lbl;
     private Cycle cycle;
 
     private Timeline updateLightTimeline;
@@ -50,7 +56,10 @@ public class InfoController implements Initializable {
         sort_name.setText(cycle.getName());
         start_date_lbl.setText(cycle.getStartDateTime().toString());
         ETA_date_lbl.setText(cycle.getEtaDateTime().toString());
-        //grow_stage_and_days_lbl.setText(cycle.getGrowStage().name());
+        grow_stage_and_days_lbl.setText(cycle.getGrowStage().name() + " - " +
+                cycle.getStageDurationDays().getOrDefault(cycle.getGrowStage(), 0) + "days");
+        long totalDays = ChronoUnit.DAYS.between(cycle.getStartDateTime().toLocalDate(), LocalDate.now());
+        total_grow_days_lbl.setText(totalDays + " total grow days");
         light_stage.setText(LightStageUtils.getLightStatusLabel(cycle));
         light_on_hour.setText("Light " + cycle.getLightDayHours() + "h");
         light_of_hour.setText("Dark " + cycle.getLightNightHours() + "h");
@@ -76,6 +85,7 @@ public class InfoController implements Initializable {
 
     public void setCycle(Cycle selected) {
         this.cycle = selected;
+        Model.getInstance().loadCycleTransitions(cycle);
         loadInfoLabels();
         updateLightPhase();
         updateLightStatus();
